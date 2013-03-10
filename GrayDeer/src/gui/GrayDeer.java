@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package graydeer;
+package gui;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -25,7 +25,7 @@ public class GrayDeer {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // TODO code application logic here
         
         
@@ -76,5 +76,5 @@ public class GrayDeer {
 
         frame.setResizable(false);
         frame.setVisible(true);
-    }
+    }*/
 }
