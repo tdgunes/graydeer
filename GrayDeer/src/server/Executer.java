@@ -21,14 +21,15 @@ import java.util.Scanner;
  */
 public class Executer {
     
-    // I got this from  http://stackoverflow.com/questions/3643939/java-process-with-input-output-stream
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException, InterruptedException{
         String line;
         Scanner scan = new Scanner(System.in);
         //bin/bash was here
-        ProcessBuilder builder = new ProcessBuilder("python","homework.py");
         
+        // java -cp ./ Echo
+        //ProcessBuilder builder = new ProcessBuilder("java","-cp","./","Echo");
+        ProcessBuilder builder = new ProcessBuilder("python","homework.py");
         builder.redirectErrorStream(true);
 
         Process process = builder.start();
@@ -39,27 +40,37 @@ public class Executer {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 
-
-        while (scan.hasNext()) {
-            String input = scan.nextLine();
+        int x = 0;
+        String[] inputs = new String[3];
+        inputs[0]="10";
+        inputs[1]="b";
+        inputs[2]="c";
+        
+        while (x<3) {
+            String input = inputs[x];
             if (input.trim().equals("exit")) {
                 // Putting 'exit' amongst the echo --EOF--s below doesn't work.
-                writer.write("exit\n");
+              //  writer.write("exit\n");
             } else {
                 //these are for bash execution /bin/bash
-                writer.write("((" + input + ") && echo --EOF--) || echo --EOF--\n");
+              //  writer.write("((" + input + ") && echo --EOF--) || echo --EOF--\n");
+                writer.write(input+"\n");
+              //  writer.write(input);
             }
             writer.flush();
-
-            line = reader.readLine();
-            while (line != null && !line.trim().equals("--EOF--")) {
-                System.out.println("Stdout: " + line);
-                line = reader.readLine();
-            }
-            if (line == null) {
-                break;
-            }
+            //writer.wait();
+          
+          
+            x++;
         }
+        
+          line = reader.readLine();
+            //process.waitFor();
+          while (line != null && !line.trim().equals("--EOF--")) {
+                System.out.println(line);
+                line = reader.readLine();
+          }
+   
     }
     
   
