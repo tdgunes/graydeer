@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -21,15 +21,21 @@ import java.util.Scanner;
  */
 public class Executer {
     
+    private String[] argsForProcess;
+
     
-    public static void main(String[] args) throws IOException, InterruptedException{
+    public Executer(String command, ArrayList<String> argsProcess){
+        argsProcess.add(0, command);
+        this.argsForProcess= argsProcess.toArray(new String[argsProcess.size()]);
+
+    }
+    
+    public String execute(ArrayList<String> inputs) throws IOException,InterruptedException{
         String line;
         Scanner scan = new Scanner(System.in);
-        //bin/bash was here
-        
-        // java -cp ./ Echo
-        //ProcessBuilder builder = new ProcessBuilder("java","-cp","./","Echo");
-        ProcessBuilder builder = new ProcessBuilder("python","homework.py");
+        String str = "";
+     
+        ProcessBuilder builder = new ProcessBuilder(this.argsForProcess);
         builder.redirectErrorStream(true);
 
         Process process = builder.start();
@@ -39,40 +45,22 @@ public class Executer {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
-
-        int x = 0;
-        String[] inputs = new String[3];
-        inputs[0]="10";
-        inputs[1]="b";
-        inputs[2]="c";
         
-        while (x<3) {
-            String input = inputs[x];
-            if (input.trim().equals("exit")) {
-                // Putting 'exit' amongst the echo --EOF--s below doesn't work.
-              //  writer.write("exit\n");
-            } else {
-                //these are for bash execution /bin/bash
-              //  writer.write("((" + input + ") && echo --EOF--) || echo --EOF--\n");
-                writer.write(input+"\n");
-              //  writer.write(input);
-            }
+        
+        for (String string : inputs) {
+            writer.write(string + "\n"); 
             writer.flush();
-            //writer.wait();
-          
-          
-            x++;
         }
-        
-          line = reader.readLine();
-            //process.waitFor();
-          while (line != null && !line.trim().equals("--EOF--")) {
-                System.out.println(line);
-                line = reader.readLine();
-          }
-   
+
+        line = reader.readLine();
+        while (line != null && !line.trim().equals("--EOF--")) {
+            str += line + "\n";
+            line = reader.readLine();
+        }
+
+        return str;
     }
-    
+
   
     
 }
