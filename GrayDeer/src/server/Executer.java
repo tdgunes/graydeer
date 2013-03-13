@@ -29,6 +29,12 @@ public class Executer {
         this.argsForProcess= argsProcess.toArray(new String[argsProcess.size()]);
 
     }
+    public void executeWithoutInputs() throws IOException, InterruptedException {
+        ProcessBuilder builder = new ProcessBuilder(this.argsForProcess);
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+
+    }
     
     public String execute(ArrayList<String> inputs) throws IOException,InterruptedException{
         String line;
