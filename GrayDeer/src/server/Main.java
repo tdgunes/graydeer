@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Main {
         
-    public static void main(String[] args) throws IOException, InterruptedException {
+   public static void main(String[] args) throws IOException, InterruptedException {
         //Testing Classes
         
         ArrayList<String> arguments = new ArrayList<String>();
