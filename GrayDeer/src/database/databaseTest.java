@@ -1,6 +1,9 @@
 package database;
 
-/* Can Eren Sezener S003777 Department of Computer Science */
+/* 
+ * This file is for test purposes.
+ * Please ignore.
+ */
 
 import java.sql.Connection;
 import java.sql.DriverManager;

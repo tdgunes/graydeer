@@ -58,6 +58,7 @@ public class BuildFarm {
     //gathering the outputs and adding them to Student Array
     public void harvestTheFarm() {
         
+    	
         ArrayList<String> classFiles = this.getFilesWithExtension(this.buildDir,"class");
         
         for (String classFile : classFiles) {
@@ -70,9 +71,10 @@ public class BuildFarm {
             Executer executer = new Executer("java",args);
             
             try{
-                
+//            	InformationParser parser = new InformationParser();
                 String output = executer.execute(args); //FIXME inputs must be corrected
-                Student student = new Student("Chuck", "Bartowski", "S95724", output);
+              Student student = new Student("Chuck", "Bartowski", "S95724", output);
+//                Student student = InformationParser.parse(args);
                 this.students.add(student);
             }
             catch(Exception e){ 

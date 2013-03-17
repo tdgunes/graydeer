@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="GrayDeer/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/erensezener/java/db-derby-10.9.1.0-bin/lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="/Users/erensezener/java/db-derby-10.9.1.0-bin/lib/derbyrun.jar"/>
+	<classpathentry kind="lib" path="/Users/erensezener/java/db-derby-10.9.1.0-bin/lib/derbynet.jar"/>
+	<classpathentry kind="lib" path="/Users/erensezener/java/db-derby-10.9.1.0-bin/lib/derbytools.jar"/>
+	<classpathentry kind="lib" path="/Users/erensezener/java/db-derby-10.9.1.0-bin/lib/derby.jar"/>
+	<classpathentry kind="lib" path="/Users/erensezener/Downloads/ojdbc6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

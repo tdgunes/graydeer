@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class Executer {
     
-    private String[] argsForProcess;
+    private String[] argsForProcess; //Java files to run
 
     
     public Executer(String command, ArrayList<String> argsProcess){
@@ -66,7 +66,7 @@ public class Executer {
 
         return str;
     }
-
+ 
   
     
 }

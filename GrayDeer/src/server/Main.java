@@ -17,7 +17,7 @@ public class Main {
         //Testing Classes
         
         ArrayList<String> arguments = new ArrayList<String>();
-        arguments.add("homework.py");
+        arguments.add("/Users/erensezener/Documents/GrayDeer/GrayDeer/homework.py");
         Executer executer = new Executer("python",arguments);
         ArrayList <String> inputs = new ArrayList<String>();
         inputs.add("4");

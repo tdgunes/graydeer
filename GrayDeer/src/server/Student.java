@@ -9,10 +9,17 @@ package server;
  * @author tdgunes
  */
 public class Student {
-    public String name;
-    public String surname;
-    public String schoolNumber;
-    public String homeworkOutput;
+    private String name;
+    private String surname;
+    private String schoolNumber;
+    private String homeworkOutput;
+    
+    public Student(){
+   	 this.name = "Unknown";
+        this.surname = "Unknown";
+        this.schoolNumber = "Unknown";
+        this.homeworkOutput = "Unknown";
+   }
 
     public Student(String name, String surname, String schoolNumber, String homeworkOutput) {
         this.name = name;
@@ -20,6 +27,38 @@ public class Student {
         this.schoolNumber = schoolNumber;
         this.homeworkOutput = homeworkOutput;
     }
+    
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getSchoolNumber() {
+		return schoolNumber;
+	}
+
+	public void setSchoolNumber(String schoolNumber) {
+		this.schoolNumber = schoolNumber;
+	}
+
+	public String getHomeworkOutput() {
+		return homeworkOutput;
+	}
+
+	public void setHomeworkOutput(String homeworkOutput) {
+		this.homeworkOutput = homeworkOutput;
+	}
     
     
 }
