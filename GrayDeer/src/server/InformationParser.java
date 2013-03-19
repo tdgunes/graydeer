@@ -3,13 +3,14 @@ package server;
 import java.util.StringTokenizer;
 
 public class InformationParser {
-	private Student st = new Student();
+	//private Student st = new Student();
 	
     /*
      * Gets a string and returns the student info
      * Student info is parsed from the comments in a string
      */
-	public Student parse(String javaString){
+	public static Student parse(String javaString){
+                Student st = new Student();
 		String name="";
 		String surname="";
 		String number="";

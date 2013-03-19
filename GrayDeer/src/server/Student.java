@@ -20,6 +20,10 @@ public class Student {
         this.schoolNumber = "Unknown";
         this.homeworkOutput = "Unknown";
    }
+   
+    public String toString(){
+        return this.name+" "+this.homeworkOutput;
+    }
 
     public Student(String name, String surname, String schoolNumber, String homeworkOutput) {
         this.name = name;

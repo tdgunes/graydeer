@@ -15,7 +15,7 @@ public class Main {
         
    public static void main(String[] args) throws IOException, InterruptedException {
         //Testing Classes
-        
+        /*
         ArrayList<String> arguments = new ArrayList<String>();
         arguments.add("/Users/erensezener/Documents/GrayDeer/GrayDeer/homework.py");
         Executer executer = new Executer("python",arguments);
@@ -24,6 +24,25 @@ public class Main {
         inputs.add("4");
         String output = executer.execute(inputs);
         System.out.println(output);
+        */
+        
+        ArrayList <String> inputs = new ArrayList<String>();
+        inputs.add("4");
+  
+        
+        Config homeworkConfig = new Config();
+        BuildFarm farm = new BuildFarm(homeworkConfig,"/Users/tdgunes/homeworks/",
+                "/Users/tdgunes/homeworks/build/");
+        farm.plantTheFarm();
+        //does not wait    the build process 
+        Thread.sleep(1000);
+        farm.harvestTheFarm(inputs);
+        for (Student student:farm.getStudents()){
+            
+            System.out.println("---\n"+student+"\n----\n");
+        }
+        
+        
         
     }
 }

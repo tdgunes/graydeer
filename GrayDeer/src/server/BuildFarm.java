@@ -56,7 +56,7 @@ public class BuildFarm {
     }
     
     //gathering the outputs and adding them to Student Array
-    public void harvestTheFarm() {
+    public void harvestTheFarm(ArrayList<String> inputs) {
         
     	
         ArrayList<String> classFiles = this.getFilesWithExtension(this.buildDir,"class");
@@ -66,14 +66,14 @@ public class BuildFarm {
             ArrayList<String> args = new ArrayList<String>();
             args.add("-cp");
             args.add(this.buildDir);
-            args.add(classFile.replaceFirst("[.][^.]+$", ""));//great way 
+            args.add(classFile.replaceFirst("[.][^.]+$", ""));//great way to just getting the name
             // to getting rid of the extension
             Executer executer = new Executer("java",args);
             
             try{
 //            	InformationParser parser = new InformationParser();
-                String output = executer.execute(args); //FIXME inputs must be corrected
-              Student student = new Student("Chuck", "Bartowski", "S95724", output);
+                String output = executer.execute(inputs); //FIXME inputs must be corrected
+                Student student = new Student("Chuck", "Bartowski", "S95724", output);
 //                Student student = InformationParser.parse(args);
                 this.students.add(student);
             }
@@ -100,12 +100,19 @@ public class BuildFarm {
             if (listOfFiles[i].isFile()) {
                 aFile = listOfFiles[i].getName();
                 if (aFile.endsWith("."+extension)) {
+                    System.out.println(this.workDir+aFile);
                     paths.add(aFile);
+                    
                 }
             }
         }
         return (paths);
     }
 
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    
 
 }
