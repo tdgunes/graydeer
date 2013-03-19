@@ -15,14 +15,18 @@ public class Student {
     private String homeworkOutput;
     
     public Student(){
-   	 this.name = "Unknown";
+   	this.name = "Unknown";
         this.surname = "Unknown";
         this.schoolNumber = "Unknown";
         this.homeworkOutput = "Unknown";
    }
    
     public String toString(){
-        return this.name+" "+this.homeworkOutput;
+        String str;
+        str = "\n" + TermColor.returnRed("Student Name: ")+ this.name + "\n";
+        str += TermColor.returnRed("Homework Output") + "\n" + this.homeworkOutput;
+        
+        return str;
     }
 
     public Student(String name, String surname, String schoolNumber, String homeworkOutput) {

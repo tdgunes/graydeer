@@ -33,6 +33,7 @@ public class Executer {
         ProcessBuilder builder = new ProcessBuilder(this.argsForProcess);
         builder.redirectErrorStream(true);
         Process process = builder.start();
+        process.waitFor();
 
     }
     
@@ -40,6 +41,7 @@ public class Executer {
         String line;
         Scanner scan = new Scanner(System.in);
         String str = "";
+        String error = "";
      
         ProcessBuilder builder = new ProcessBuilder(this.argsForProcess);
         builder.redirectErrorStream(true);
@@ -48,23 +50,28 @@ public class Executer {
         OutputStream stdin = process.getOutputStream();
         InputStream stderr = process.getErrorStream();
         InputStream stdout = process.getInputStream();
-
+ 
+        
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
+        //BufferedReader errorReader = new BufferedReader(new InputStreamReader(stderr));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
-        
-        
+      
         for (String string : inputs) {
             writer.write(string + "\n"); 
             writer.flush();
         }
-
+        
+        
         line = reader.readLine();
         while (line != null && !line.trim().equals("--EOF--")) {
             str += line + "\n";
             line = reader.readLine();
         }
-
+        
+     
         return str;
+        
+      
     }
  
   

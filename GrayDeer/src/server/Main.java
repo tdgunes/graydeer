@@ -25,24 +25,33 @@ public class Main {
         String output = executer.execute(inputs);
         System.out.println(output);
         */
+       
         
-        ArrayList <String> inputs = new ArrayList<String>();
-        inputs.add("4");
-  
+        String source = "/* can eren sezener s003777 department of conputer science */\n" +
+"import java.util.Scanner;\n" +
+"\n" +
+"class Echo\n" +
+"{\n" +
+"  public static void main (String[] args) \n" +
+"  {\n" +
+"    String inData;\n" +
+"    Scanner scan = new Scanner( System.in );\n" +
+"\n" +
+"    System.out.println(\"Enter the data:\");\n" +
+"    inData = scan.nextLine();\n" +
+"\n" +
+"    System.out.println(\"You entered:\" + inData );\n" +
+"  }\n" +
+"}\n" +
+"\n";
         
-        Config homeworkConfig = new Config();
-        BuildFarm farm = new BuildFarm(homeworkConfig,"/Users/tdgunes/homeworks/",
-                "/Users/tdgunes/homeworks/build/");
-        farm.plantTheFarm();
-        //does not wait    the build process 
-        Thread.sleep(1000);
-        farm.harvestTheFarm(inputs);
-        for (Student student:farm.getStudents()){
-            
-            System.out.println("---\n"+student+"\n----\n");
-        }
-        
-        
+        Config config = new Config();
+        FileStorage fileStorage = new FileStorage("Echo", source, "/Users/tdgunes"
+                + "/homeworks/", ".java");
+
+        fileStorage.buildFile(config);
+        fileStorage.runFile(config);
+        System.out.println(fileStorage.getStudent());
         
     }
 }
