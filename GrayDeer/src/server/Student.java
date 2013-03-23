@@ -13,6 +13,7 @@ public class Student {
     private String surname;
     private String schoolNumber;
     private String homeworkOutput;
+    private double grade;
     
     public Student(){
    	this.name = "Unknown";
@@ -66,6 +67,14 @@ public class Student {
 
 	public void setHomeworkOutput(String homeworkOutput) {
 		this.homeworkOutput = homeworkOutput;
+	}
+	
+	public double getGrade() {
+		return grade;
+	}
+
+	public void setGrade(double grade) {
+		this.grade = grade;
 	}
     
     
