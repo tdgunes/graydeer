@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  */
 public class GrayDeer {
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
 
         /*JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class GrayDeer {
         Homework homework = new Homework();
            frame.add(homework);
            frame.setVisible(true);*/
-    }
+    
     /**
      * @param args the command line arguments
      */
