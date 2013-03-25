@@ -4,6 +4,8 @@
  */
 package server;
 
+import homeworks.Hw1;
+
 /**
  *
  * @author tdgunes
@@ -12,5 +14,11 @@ package server;
  * 
  */
 public class Config {
+	
+	Hw1 currentHomework = new Hw1();
+	
+
+	
+	
     
 }

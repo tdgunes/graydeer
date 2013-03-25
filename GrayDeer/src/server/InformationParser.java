@@ -8,7 +8,9 @@ public class InformationParser {
     /*
      * Gets a string and returns the student info
      * Student info is parsed from the comments in a string
-     */
+     * 
+     * String format is assumed to be like /* Can Eren Sezener S003777 Department of Computer Science */
+
 	public static Student parse(String javaString){
                 Student st = new Student();
 		String name="";

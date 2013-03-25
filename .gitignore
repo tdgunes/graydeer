@@ -10,3 +10,13 @@ GrayDeer/src/.DS_Store
 *.swp
 
 bin/.DS_Store
+
+*.properties
+
+*.properties
+
+*.properties
+
+GrayDeer/nbproject/private/private.properties
+
+*.properties
