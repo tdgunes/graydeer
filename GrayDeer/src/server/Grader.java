@@ -16,8 +16,8 @@ public class Grader {
 	
 	public void grade(Student std, String hwAnswers){
 		
-		if(hwAnswers.equals(std.getHomeworkOutput())) 
+/*		if(hwAnswers.equals(std.getHomeworkOutput())) 
 			std.setGrade(Hw1.getMaxGrade());
 	}
-	
+*/}	
 }

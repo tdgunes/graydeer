@@ -53,6 +53,26 @@ class ChatHandler implements Runnable {
                     if (msg.equals("LIST")) {
                         writer.println("1. Echo\n2.MonteCarlo\n3.ArrayList\n");
                     } else {
+                        //------------ FIXME -----------
+                        //The problem is when client sends the file(message)
+                        //The message should be gathered in this loop however
+                        //it does not work as it is intended :) 
+                        
+                        //(because of the "evil java")
+                        
+                        String source=msg;
+                        while (reader.hasNextLine()) {
+                            msg = reader.nextLine();
+                            source += msg;
+                            //System.out.println(gotMessage);
+                            if (msg.equals("")) {
+                                System.out.println("----");
+                                break;
+                            }
+                           // System.out.println("---");
+                        }
+                        //------------ FIXME -----------
+                        
                         //running the code
                         Config config = new Config();
                         FileStorage fileStorage = new FileStorage("Echo", msg, "/Users/tdgunes"
