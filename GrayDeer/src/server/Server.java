@@ -1,83 +1,80 @@
 package server;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.PrintWriter;
+import java.net.*;
+import java.util.Scanner;
 
-
-// it is not a proper TCPServer, I believe it requires
-//a multi-threaded TCP Server FIXME
-
+//Multi threaded server
 public class Server {
+    // server port number
 
-    private ServerSocket server;
-    private int port = 7777;
+    //default port
+    public static int PORT = 3458;
 
-    public Server() {
-        try {
-            server = new ServerSocket(port);
-        } catch (Exception e) {
-        }
-    }
+    public static void start(int port) throws Exception {
+        // create socket and bind to port
+        PORT = port;
+        ServerSocket sock = new ServerSocket(PORT);
+        System.out.println("Server is waiting for clients to connect,\nupload their homeworks.");
 
-    public static void main(String[] args) {
-        //Server example = new Server();
-        //example.handleConnection(); 
-    }
-
-    public void handleConnection() {
-        System.out.println("Waiting for client homework uploads");
         while (true) {
-            try {
-                Socket socket = server.accept();
-                ConnectionHandler connectionHandler = new ConnectionHandler(socket);
-            } catch (Exception e) {
-            }
+            // Listen to new connection.
+            Socket clientSocket = sock.accept();
+            System.out.println(clientSocket.getInetAddress() + " client has connected.");
+            // Create a thread that handles the client connection in parallel
+            // so that the server is not blocked.
+            // Then go back to the beginning of the loop to continue listening
+            // to the new connections.
+            new Thread(new ChatHandler(clientSocket)).start();
         }
     }
 }
 
-class ConnectionHandler implements Runnable {
+class ChatHandler implements Runnable {
 
-    private Socket socket;
+    private Socket clientSocket;
 
-    public ConnectionHandler(Socket socket) {
-
-        this.socket = socket;
-        Thread t = new Thread(this);
-
-        //Thread Start
-        t.start();
+    public ChatHandler(Socket s) {
+        clientSocket = s;
     }
 
     @Override
     public void run() {
         try {
-            //Read a message sent by client application
-            System.out.println("Server is working...");
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            String strMessage = (String) ois.readObject();
-            //System.out.println("Message Recieved: " + strMessage);
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject("Processing...");
+            Scanner reader = new Scanner(clientSocket.getInputStream());
+            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            while (true) {
+                // read msg from client, and print to terminal.
+                try {
+                    String msg = reader.nextLine();
 
-            Config config = new Config();
-            FileStorage fileStorage = new FileStorage("Echo", strMessage, "/Users/tdgunes"
-                    + "/homeworks/", ".java");
+                    System.out.println(clientSocket.getInetAddress() + " > " + msg);
 
-            fileStorage.buildFile(config);
-            fileStorage.runFile(config);
-            System.out.println(fileStorage.getStudent());
-            oos.writeObject("Compiled, seems working!");
-            ois.close();
-            oos.close();
-            socket.close();
-          
-            System.out.println("Waiting for client message...");
+                    if (msg.equals("LIST")) {
+                        writer.println("1. Echo\n2.MonteCarlo\n3.ArrayList\n");
+                    } else {
+                        //running the code
+                        Config config = new Config();
+                        FileStorage fileStorage = new FileStorage("Echo", msg, "/Users/tdgunes"
+                                + "/homeworks/", ".java");
 
+                        fileStorage.buildFile(config);
+                        fileStorage.runFile(config);
+
+                        //System.out.println("Enter message to send to the client: ");
+                        writer.println("Your homework is seems fine");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("Exception: " + e.getMessage());
+                    //client disconnected FIXME
+                    System.out.println("Seems like connection has been interrupted!");
+                    break;
+                }
+
+            }
         } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
         }
-
     }
 }

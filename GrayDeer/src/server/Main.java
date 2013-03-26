@@ -5,7 +5,6 @@
 package server;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Main {
         
-   public static void main(String[] args) throws IOException, InterruptedException {
+   public static void main(String[] args) throws IOException, InterruptedException, Exception {
         //Testing Classes
         /*
         ArrayList<String> arguments = new ArrayList<String>();
@@ -27,7 +26,6 @@ public class Main {
         */
        
         
-        Server example = new Server();
-        example.handleConnection(); 
+        Server.start(3458);
     }
 }
