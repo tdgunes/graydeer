@@ -44,48 +44,53 @@ class ChatHandler implements Runnable {
             Scanner reader = new Scanner(clientSocket.getInputStream());
             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
             while (true) {
+                
                 // read msg from client, and print to terminal.
                 try {
-                    String msg = reader.nextLine();
+                    String msg = " ";
 
-                    System.out.println(clientSocket.getInetAddress() + " > " + msg);
+                    String source = "";
+                    
+                    while (reader.hasNextLine()) {
+                        msg = reader.nextLine();
+                        source += msg;
+                        System.out.println(source);
+         
+                        // System.out.println("---");
+                    }
+                    
+                    if(source.equals("")==false){
+                         System.out.println(clientSocket.getInetAddress() + " > " + source);
+                    }
+                   
 
-                    if (msg.equals("LIST")) {
+                    if (source.equals("LIST")) {
                         writer.println("1. Echo\n2.MonteCarlo\n3.ArrayList\n");
-                    } else {
+                    } 
+                    else if (source.equals("")==false) {
                         //------------ FIXME -----------
                         //The problem is when client sends the file(message)
                         //The message should be gathered in this loop however
                         //it does not work as it is intended :) 
-                        
+
                         //(because of the "evil java")
-                        
-                        String source=msg;
-                        while (reader.hasNextLine()) {
-                            msg = reader.nextLine();
-                            source += msg;
-                            //System.out.println(gotMessage);
-                            if (msg.equals("")) {
-                                System.out.println("----");
-                                break;
-                            }
-                           // System.out.println("---");
-                        }
+
                         //------------ FIXME -----------
-                        
+
                         //running the code
                         Config config = new Config();
-                        FileStorage fileStorage = new FileStorage("Echo", msg, "/Users/tdgunes"
+                        FileStorage fileStorage = new FileStorage("Echo", source, "/Users/tdgunes"
                                 + "/homeworks/", ".java");
 
                         fileStorage.buildFile(config);
                         fileStorage.runFile(config);
-
+                        System.out.println(fileStorage.getStudent());
                         //System.out.println("Enter message to send to the client: ");
                         writer.println("Your homework is seems fine");
+                  
                     }
-                }
-                catch (Exception e){
+
+                } catch (Exception e) {
                     System.out.println("Exception: " + e.getMessage());
                     //client disconnected FIXME
                     System.out.println("Seems like connection has been interrupted!");

@@ -31,7 +31,8 @@ public class Client {
                     + "    System.out.println(\"You entered:\" + inData );\n"
                     + "  }\n"
                     + "}\n"
-                    + "\n";
+                    ///END OF THE FILE 
+                    + "\n"+"\r\n";
 
 
 
@@ -42,18 +43,20 @@ public class Client {
             Socket socket = new Socket(serverIP, serverPort);
 
             // create reader and writer
-            Scanner reader = new Scanner(socket.getInputStream());
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+  
             System.out.println("Connected to Server");
 
-
+            Scanner reader = new Scanner(socket.getInputStream());
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);   
         while(true) {
+
             System.out.print("Enter message to send: ");
             String message = userInput.nextLine();
             if (message.equals("UPLOAD")){
                 message = source;
             }
             writer.println(message);
+         
             while (reader.hasNextLine()){
                  String gotMessage = reader.nextLine();
                  System.out.println(gotMessage);
@@ -63,7 +66,7 @@ public class Client {
                  }
                  System.out.println("---");
             }
-           
+            message="";
         }
 
 
