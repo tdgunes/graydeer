@@ -1,6 +1,8 @@
 package server;
 
-import homeworks.Hw1;
+import java.util.Map;
+
+import homeworks.*;
 
 /*
  * @author erensezener
@@ -13,11 +15,27 @@ import homeworks.Hw1;
 
 
 public class Grader {
-	
-	public void grade(Student std, String hwAnswers){
-		
-/*		if(hwAnswers.equals(std.getHomeworkOutput())) 
-			std.setGrade(Hw1.getMaxGrade());
+	private Homeworks hw = null;
+
+	public void grade(Student std, int hwName){
+		System.out.println(hwName);
+		initializeHw(hwName);
+		String output = std.getHomeworkOutput();
+		Map<String, Double> gradeMap = hw.getGradeMap();
+		double grade = (Double) gradeMap.get(output);
+		std.setGrade(grade);
 	}
-*/}	
-}
+
+	private void initializeHw(int hwName) {
+		switch(hwName){
+			case 1:  
+				hw = new Hw1();
+				break;
+			default:  
+				hw = new Homeworks(); 
+				break;
+		}		
+		
+	}
+}	
+

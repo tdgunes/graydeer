@@ -20,3 +20,7 @@ bin/.DS_Store
 GrayDeer/nbproject/private/private.properties
 
 *.properties
+
+*.form
+
+*.form
