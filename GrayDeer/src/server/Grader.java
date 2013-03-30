@@ -18,7 +18,6 @@ public class Grader {
 	private Homeworks hw = null;
 
 	public void grade(Student std, int hwName){
-		System.out.println(hwName);
 		initializeHw(hwName);
 		String output = std.getHomeworkOutput();
 		Map<String, Double> gradeMap = hw.getGradeMap();
@@ -26,6 +25,7 @@ public class Grader {
 		std.setGrade(grade);
 	}
 
+	
 	private void initializeHw(int hwName) {
 		switch(hwName){
 			case 1:  

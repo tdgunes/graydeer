@@ -4,6 +4,12 @@ package homeworks;
 
 public class Hw1 extends Homeworks {
 	
+	/*
+	 * Results and their grades are added here.
+	 * First parameter is the result string.
+	 * Second parameter is the grade as a double.
+	 */
+	
 	public void setResults(){
 		gradeMap.put("6 8 10", 5.0);
 		gradeMap.put("6 8", 4.0);
