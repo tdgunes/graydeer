@@ -14,6 +14,7 @@ public class Hw1 extends Homeworks {
 		gradeMap.put("6 8 10", 5.0);
 		gradeMap.put("6 8", 4.0);
 		gradeMap.put("6 10", 3.0);
+		transformResults();
 	}
 	
 
