@@ -15,7 +15,6 @@ import homeworks.Hw1;
  */
 public class Config {
 	
-	Hw1 currentHomework = new Hw1();
 	
 
 	

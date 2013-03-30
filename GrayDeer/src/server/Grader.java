@@ -17,14 +17,21 @@ import homeworks.*;
 public class Grader {
 	private Homeworks hw = null;
 
-	public void grade(Student std, int hwName){
+	public Grader(int hwName) {
+		super();
 		initializeHw(hwName);
+	}
+
+	public void grade(Student std){
 		String output = std.getHomeworkOutput();
 		Map<String, Double> gradeMap = hw.getGradeMap();
 		double grade = (Double) gradeMap.get(output);
 		std.setGrade(grade);
 	}
 
+	/*
+	 * All homework classes should be added to switch statement.
+	 */
 	
 	private void initializeHw(int hwName) {
 		switch(hwName){

@@ -109,7 +109,7 @@ public final class FileStorage {
     public void runFile(Config config){
           //javac ./Homework1.java -d ./build/
 
-
+    	Grader grader = new Grader(hw1);
         ArrayList<String> args = new ArrayList<String>();
         args.add("-cp");
         args.add(this.studentFolder);
@@ -124,6 +124,7 @@ public final class FileStorage {
             
                  String output = executer.execute(inputs); //FIXME inputs must be corrected
                  this.student.setHomeworkOutput(output);
+                 
                 
         } catch (Exception e) {
           
@@ -137,6 +138,7 @@ public final class FileStorage {
         return student;
     }
     
-    
+    private final static int hw1 = 1;
+    private final static int hw2 = 2;
      
 }
