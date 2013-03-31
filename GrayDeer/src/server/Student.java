@@ -37,6 +37,12 @@ public class Student {
         this.homeworkOutput = homeworkOutput;
     }
     
+    public void grade(int hw){
+    	Grader grader = new Grader(hw); //Grader is initialized with rules for a homework.
+        grader.grade(this);
+
+    }
+    
 	public String getName() {
 		return name;
 	}
@@ -76,6 +82,8 @@ public class Student {
 	public void setGrade(double grade) {
 		this.grade = grade;
 	}
-    
+	
+    //There must be an id for all homeworks.
+
     
 }

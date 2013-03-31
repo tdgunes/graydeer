@@ -109,7 +109,6 @@ public final class FileStorage {
     public void runFile(Config config){
           //javac ./Homework1.java -d ./build/
 
-    	Grader grader = new Grader(hw1);
         ArrayList<String> args = new ArrayList<String>();
         args.add("-cp");
         args.add(this.studentFolder);
@@ -124,8 +123,8 @@ public final class FileStorage {
             
                  String output = executer.execute(inputs); //FIXME inputs must be corrected
                  this.student.setHomeworkOutput(output);
+                 this.student.grade(hw1);
                  
-                
         } catch (Exception e) {
           
             throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
