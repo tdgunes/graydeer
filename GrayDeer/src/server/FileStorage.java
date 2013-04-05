@@ -27,6 +27,8 @@ public final class FileStorage {
     private String studentFolder;
     private String writtenHomeworkFile; //this will be created in constructor
     //the last path of students homework and it is the path
+    
+    public boolean isBuild = false;
 
     public String combine (String path1, String path2)
     {
@@ -97,6 +99,7 @@ public final class FileStorage {
         try {
                 Executer executer = new Executer("javac", args);
                  executer.executeWithoutInputs();
+                 this.isBuild = true;
         } catch (Exception e) {
             //build problem
             throw new UnsupportedOperationException("BUILD FAILED:" + this.writtenHomeworkFile
@@ -122,8 +125,9 @@ public final class FileStorage {
         try {
             
                  String output = executer.execute(inputs); //FIXME inputs must be corrected
+                 System.out.println("OUTPUT: "+ output);
                  this.student.setHomeworkOutput(output);
-                 this.student.grade(hw1);
+                // this.student.grade(hw1);
                  
         } catch (Exception e) {
           
@@ -137,7 +141,7 @@ public final class FileStorage {
         return student;
     }
     
-    private final static int hw1 = 1;
+  /*  private final static int hw1 = 1;
     private final static int hw2 = 2;
-     
+    */ 
 }

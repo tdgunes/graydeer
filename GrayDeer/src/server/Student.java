@@ -24,8 +24,8 @@ public class Student {
    
     public String toString(){
         String str;
-        str = "\n" + TermColor.returnRed("Student Name: ")+ this.name + "\n";
-        str += TermColor.returnRed("Homework Output") + "\n" + this.homeworkOutput;
+        str = "\n" + "Student Name: "+ this.name + "\n";
+        str += "Homework Output" + "\n" + this.homeworkOutput;
         
         return str;
     }

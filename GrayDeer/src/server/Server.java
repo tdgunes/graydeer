@@ -1,105 +1,93 @@
 package server;
 
-import java.io.PrintWriter;
-import java.net.*;
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
-//Multi threaded server
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Server {
-    // server port number
-
-    //default port
-    public static int PORT = 3458;
 
     public static void start(int port) throws Exception {
-        // create socket and bind to port
-        PORT = port;
-        ServerSocket sock = new ServerSocket(PORT);
-        System.out.println("Server is waiting for clients to connect,\nupload their homeworks.");
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/fetch", new fetchHandler());
+        server.createContext("/submit", new submitHandler());
+        server.createContext("/verify", new verifyHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+    }
 
-        while (true) {
-            // Listen to new connection.
-            Socket clientSocket = sock.accept();
-            System.out.println(clientSocket.getInetAddress() + " client has connected.");
-            // Create a thread that handles the client connection in parallel
-            // so that the server is not blocked.
-            // Then go back to the beginning of the loop to continue listening
-            // to the new connections.
-            new Thread(new ChatHandler(clientSocket)).start();
+    static class fetchHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            System.out.println("IP:" + t.getLocalAddress());
+            System.out.println("Request Body:\n" + requestBody);
+            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            String response = "1. Monte Carlo\n"
+                    + "2. Echo\n"
+                    + "3. ArrayList\n";
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
-}
 
-class ChatHandler implements Runnable {
+    static class submitHandler implements HttpHandler {
 
-    private Socket clientSocket;
-
-    public ChatHandler(Socket s) {
-        clientSocket = s;
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            System.out.println("IP:" + t.getLocalAddress());
+            System.out.println("Request Body:\n" + requestBody);
+            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            
+            
+            Config config = new Config();
+            FileStorage fileStorage = new FileStorage("Echo", requestBody, "/Users/tdgunes"
+                    + "/homeworks/", ".java");
+            System.out.println("Submitting!");
+            fileStorage.buildFile(config);
+            
+            while(fileStorage.isBuild == false){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            fileStorage.runFile(config);
+            System.out.println(""+fileStorage.getStudent());
+            String response = fileStorage.getStudent().getHomeworkOutput();
+            
+ 
+            
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
     }
 
-    @Override
-    public void run() {
-        try {
-            Scanner reader = new Scanner(clientSocket.getInputStream());
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
-            while (true) {
-                
-                // read msg from client, and print to terminal.
-                try {
-                    String msg = " ";
+    static class verifyHandler implements HttpHandler {
 
-                    String source = "";
-                    
-                    while (reader.hasNextLine()) {
-                        msg = reader.nextLine();
-                        source += msg;
-                        System.out.println(source);
-         
-                        // System.out.println("---");
-                    }
-                    
-                    if(source.equals("")==false){
-                         System.out.println(clientSocket.getInetAddress() + " > " + source);
-                    }
-                   
-
-                    if (source.equals("LIST")) {
-                        writer.println("1. Echo\n2.MonteCarlo\n3.ArrayList\n");
-                    } 
-                    else if (source.equals("")==false) {
-                        //------------ FIXME -----------
-                        //The problem is when client sends the file(message)
-                        //The message should be gathered in this loop however
-                        //it does not work as it is intended :) 
-
-                        //(because of the "evil java")
-
-                        //------------ FIXME -----------
-
-                        //running the code
-                        Config config = new Config();
-                        FileStorage fileStorage = new FileStorage("Echo", source, "/Users/tdgunes"
-                                + "/homeworks/", ".java");
-
-                        fileStorage.buildFile(config);
-                        fileStorage.runFile(config);
-                        System.out.println(fileStorage.getStudent());
-                        //System.out.println("Enter message to send to the client: ");
-                        writer.println("Your homework is seems fine");
-                  
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("Exception: " + e.getMessage());
-                    //client disconnected FIXME
-                    System.out.println("Seems like connection has been interrupted!");
-                    break;
-                }
-
-            }
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            System.out.println("IP:" + t.getLocalAddress());
+            System.out.println("Request Body:\n" + requestBody);
+            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            String response = requestBody;
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
 }
