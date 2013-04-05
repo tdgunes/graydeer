@@ -78,6 +78,7 @@ public class StudentGUI extends JPanel {
 		//Create and set up the window.
 		JFrame frame = new JFrame("SimpleTableDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(600, 500);
 
 		//Create and set up the content pane.
 		StudentGUI newContentPane = new StudentGUI();
