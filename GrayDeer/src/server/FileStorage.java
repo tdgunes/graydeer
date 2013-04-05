@@ -141,12 +141,10 @@ public final class FileStorage {
         return student;
     }
     
-<<<<<<< HEAD
-  /*  private final static int hw1 = 1;
-=======
+
+  /*  
     //There must be an id for all homeworks.
     private final static int hw1 = 1;
->>>>>>> Add GUI for student users
     private final static int hw2 = 2;
     */ 
 }
