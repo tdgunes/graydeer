@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class StudentGUI extends JPanel {
 
-    private boolean DEBUG = false;
+    private boolean DEBUG = true;
 
     public StudentGUI() {
         super(new GridLayout(1, 0));
@@ -35,15 +35,48 @@ public class StudentGUI extends JPanel {
             "Actions",
             "Grade"
         };
+        
+        //*******************************
+        //FIXME make this as a method
+        HTTPLib httpLib = new HTTPLib("http://localhost:8000/fetch/");
+        //FIXME deleted for checking httplib
+        //printDebugData(table);
+        int listNum = 0;
+        Object[][] data = null;
+        try {
+            String response = httpLib.postData("list?");
+            System.out.println("||| GrayDeer POST response: " + response);
+            String[] lines = HTTPLib.splitItWithString(response, "+=+");
+            //fetched data
+            
+            listNum = lines.length;
+            System.out.println("ListNum: "+ listNum);
+            data = new Object[listNum][4];
+         
+            for (int i = 0; i < lines.length; i++) {
+                //aaa**aaa**aaaa**aaa
+                String string = lines[i];
+                System.out.println(string);
+                String[] parsedItems = HTTPLib.splitItWithString(string, "**");
+                System.arraycopy(parsedItems, 0, data[i], 0, 4);
+                /*       for (int j = 0; j < 4; j++) {
+                    data[i][j] = parsedItems[j];
+                }*/
+                
+            }
 
-        Object[][] data = {
-            {"Homework 1", "Homework Uploaded",
-                "See Notes", new Double(5.0)},
-            {"Homework 2", "Deadline: 14/04/2013",
-                "Upload", new Double(0.0)},
-            {"Homework 3", "TBA",
-                "-", new Double(0.0)}
-        };
+        } catch (Exception er) {
+        }
+        //*******************************
+        
+        /*
+         {"Homework 1", "Homework Uploaded",
+         "See Notes", new Double(5.0)},
+         {"Homework 2", "Deadline: 14/04/2013",
+         "Upload", new Double(0.0)},
+         {"Homework 3", "TBA",
+         "-", new Double(0.0)}
+         };*/
 
         final JTable table = new JTable(data, columnNames) {
             private static final long serialVersionUID = 1L;
@@ -60,11 +93,21 @@ public class StudentGUI extends JPanel {
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
 
+        //httplib for sending, getting homework/list
+
 
         if (DEBUG) {
             table.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseClicked(MouseEvent e) {
-                    printDebugData(table);
+                    HTTPLib httpLib = new HTTPLib("http://localhost:8000/verify/");
+                    //FIXME deleted for checking httplib
+                    //printDebugData(table);
+                    try {
+                        String response = httpLib.postData("hello");
+                        System.out.println("||| GrayDeer POST response: " + response);
+                    } catch (Exception er) {
+                    }
                 }
             });
         }
@@ -74,7 +117,7 @@ public class StudentGUI extends JPanel {
 
         //Add the scroll pane to this panel.
         add(scrollPane);
-        
+
         //createAndShowGUI();
     }
 
@@ -121,8 +164,8 @@ public class StudentGUI extends JPanel {
         addItem(m, "Save As", KeyEvent.VK_A);
         addItem(m, "Import", KeyEvent.VK_I);
         addItem(m, "Export", KeyEvent.VK_E);
-    
-        
+
+
         //Display the window.
         frame.pack();
         frame.setVisible(true);
@@ -134,7 +177,4 @@ public class StudentGUI extends JPanel {
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         m.add(mi);
     }
-
-    
-
 }

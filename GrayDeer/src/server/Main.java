@@ -24,8 +24,8 @@ public class Main {
         String output = executer.execute(inputs);
         System.out.println(output);
         */
-       
-        
-        Server.start(8000);
+        int portNum = 8000;
+        System.out.println("||| GrayDeer Server is started with "+ portNum + " port number in localhost");
+        Server.start(portNum);
     }
 }

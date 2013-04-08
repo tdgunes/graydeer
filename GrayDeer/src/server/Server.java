@@ -29,9 +29,9 @@ public class Server {
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
             System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
-            String response = "1. Monte Carlo\n"
-                    + "2. Echo\n"
-                    + "3. ArrayList\n";
+            String response = "Monte Integral**Homework Uploaded**See Notes**5.0**+=+"
+                    + "**Echo**Deadline: 14/04/13/**Upload**0.0+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -81,9 +81,10 @@ public class Server {
         public void handle(HttpExchange t) throws IOException {
             String requestBody = Saver.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
-            System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
-            String response = requestBody;
+            //System.out.println("Request Body:\n" + requestBody);
+            //System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            System.out.println("||| GrayDeer(verifyHandler) - "+ requestBody);
+            String response = "GrayDeer VerifyHandler echoes you: " +requestBody;
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
