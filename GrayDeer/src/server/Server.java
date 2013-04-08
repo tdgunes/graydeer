@@ -29,8 +29,22 @@ public class Server {
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
             System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
-            String response = "Monte Integral**Homework Uploaded**See Notes**5.0**+=+"
+            String response = "Monte Carlo Integral**Homework Uploaded**See Notes**5.0**+=+"
                     + "**Echo**Deadline: 14/04/13/**Upload**0.0+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
+                    + "**ArrayList**TBA**-**0.0**+=+"
                     + "**ArrayList**TBA**-**0.0**+=+";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
