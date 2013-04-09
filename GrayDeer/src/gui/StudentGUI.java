@@ -13,9 +13,15 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -27,6 +33,50 @@ public class StudentGUI extends JPanel {
 
     private boolean DEBUG = true;
 
+    private Object[][] fetchData(Object[][] data, String hostName)  {
+
+        try {
+            HTTPLib httpLib = new HTTPLib("http://" + hostName);
+            int listNum = 0;
+            String response = httpLib.postData("list?");//sending list? does not required
+            System.out.println("||| GrayDeer POST response: " + response);
+            String[] lines = HTTPLib.splitItWithString(response, "+=+");
+            //fetched data
+
+            listNum = lines.length;
+            System.out.println("ListNum: " + listNum);
+            data = new Object[listNum][4];
+
+            for (int i = 0; i < lines.length; i++) {
+                //aaa**aaa**aaaa**aaa
+                String string = lines[i];
+                System.out.println(string);
+                String[] parsedItems = HTTPLib.splitItWithString(string, "**");
+                System.arraycopy(parsedItems, 0, data[i], 0, 4);
+                /*       for (int j = 0; j < 4; j++) {
+                 data[i][j] = parsedItems[j];
+                 }*/
+            }
+            return data;
+        } catch (ConnectException er) {
+            //unable to get the list, server is unavailable
+
+            int reply = JOptionPane.showConfirmDialog(null, "Unable to access to the host(\"" + hostName + ")\"\n"
+                    + "Do you want to try to connect again ?", "Warning!", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                //looping :)
+                return this.fetchData(data, hostName);
+            } else {
+                System.exit(0);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
     public StudentGUI() {
         super(new GridLayout(1, 0));
 
@@ -35,48 +85,17 @@ public class StudentGUI extends JPanel {
             "Actions",
             "Grade"
         };
-        
-        //*******************************
-        //FIXME make this as a method
-        HTTPLib httpLib = new HTTPLib("http://localhost:8000/fetch/");
-        //FIXME deleted for checking httplib
-        //printDebugData(table);
-        int listNum = 0;
-        Object[][] data = null;
-        try {
-            String response = httpLib.postData("list?");
-            System.out.println("||| GrayDeer POST response: " + response);
-            String[] lines = HTTPLib.splitItWithString(response, "+=+");
-            //fetched data
-            
-            listNum = lines.length;
-            System.out.println("ListNum: "+ listNum);
-            data = new Object[listNum][4];
-         
-            for (int i = 0; i < lines.length; i++) {
-                //aaa**aaa**aaaa**aaa
-                String string = lines[i];
-                System.out.println(string);
-                String[] parsedItems = HTTPLib.splitItWithString(string, "**");
-                System.arraycopy(parsedItems, 0, data[i], 0, 4);
-                /*       for (int j = 0; j < 4; j++) {
-                    data[i][j] = parsedItems[j];
-                }*/
-                
-            }
 
-        } catch (Exception er) {
-        }
         //*******************************
-        
-        /*
-         {"Homework 1", "Homework Uploaded",
-         "See Notes", new Double(5.0)},
-         {"Homework 2", "Deadline: 14/04/2013",
-         "Upload", new Double(0.0)},
-         {"Homework 3", "TBA",
-         "-", new Double(0.0)}
-         };*/
+
+        Object[][] data = {};
+        String hostName = "localhost:8000/fetch/";
+     
+        //starting the loop
+        data = this.fetchData(data,hostName);
+    
+        //*******************************
+
 
         final JTable table = new JTable(data, columnNames) {
             private static final long serialVersionUID = 1L;
