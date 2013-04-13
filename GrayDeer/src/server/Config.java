@@ -4,6 +4,9 @@
  */
 package server;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -13,6 +16,16 @@ package server;
  * 
  */
 public class Config {
+	protected Map<String, String> conf = new HashMap<String, String>();
+
+	public Config(Map<String, String> conf) {
+		super();
+		this.conf = conf;
+		conf.put("Type", "Java");
+		//TODO Create keys and values for configuration
+		
+	}	
+	
 	
 	
 
