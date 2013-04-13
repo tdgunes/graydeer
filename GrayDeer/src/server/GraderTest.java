@@ -14,7 +14,6 @@ public class GraderTest {
 		myStudent.setHomeworkOutput("6 8");
 		myStudent.grade(HW1);
 		System.out.println(myStudent.getGrade());
-
 	}
 	
 	private static final int HW1=1;

@@ -17,6 +17,10 @@ import java.util.Map;
  */
 public class Config {
 	protected Map<String, String> conf = new HashMap<String, String>();
+	
+	public Config() {
+		super();
+	}
 
 	public Config(Map<String, String> conf) {
 		super();
