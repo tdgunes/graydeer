@@ -127,7 +127,7 @@ public final class FileStorage {
                  String output = executer.execute(inputs); //FIXME inputs must be corrected
                  System.out.println("OUTPUT: "+ output);
                  this.student.setHomeworkOutput(output);
-                // this.student.grade(hw1);
+//                 this.student.grade(hw1);
                  
         } catch (Exception e) {
           
@@ -142,9 +142,9 @@ public final class FileStorage {
     }
     
 
-  /*  
+   
     //There must be an id for all homeworks.
-    private final static int hw1 = 1;
-    private final static int hw2 = 2;
-    */ 
+    private final static int HW1 = 1;
+    private final static int HW2 = 2;
+
 }
