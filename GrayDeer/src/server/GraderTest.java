@@ -9,13 +9,14 @@ public class GraderTest {
 	 * This is a class to test Grader class.
 	 */
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Student myStudent = new Student();
-		Grader myGrader = new Grader(1);
 		myStudent.setHomeworkOutput("6 8");
-		myGrader.grade(myStudent);
+		myStudent.grade(HW1);
 		System.out.println(myStudent.getGrade());
 
-	}*/
+	}
+	
+	private static final int HW1=1;
 
 }
