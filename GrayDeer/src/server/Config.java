@@ -20,12 +20,12 @@ public class Config {
 	
 	public Config() {
 		super();
+		conf.put("Type", "Java");
 	}
 
 	public Config(Map<String, String> conf) {
 		super();
 		this.conf = conf;
-		conf.put("Type", "Java");
 		//TODO Create keys and values for configuration
 		
 	}	
