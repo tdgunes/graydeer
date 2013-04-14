@@ -10,7 +10,7 @@ public class Homeworks {
 	protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
 	protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
 	protected Map<String, Double> gradeMap = new HashMap<String, Double>();	
-
+        protected Config homeworkConfig = null;
 	// Constructors
 	public Homeworks() {
 	}

@@ -2,13 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package server.student;
+
+import java.io.Serializable;
+import server.Grader;
 
 /**
  *
  * @author tdgunes
  */
-public class Student {
+public class Student implements Serializable {
     private String name;
     private String surname;
     private String schoolNumber;

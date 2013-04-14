@@ -1,4 +1,6 @@
-package homeworks;
+package TestCases;
+
+import homeworks.Hw1;
 
 /* Can Eren Sezener S003777 Department of Computer Science */
 

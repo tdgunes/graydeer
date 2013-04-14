@@ -1,5 +1,6 @@
 package server;
 
+import homeworks.Config;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -25,7 +26,7 @@ public class Server {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
             System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
@@ -57,7 +58,7 @@ public class Server {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
             System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
@@ -93,7 +94,7 @@ public class Server {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String requestBody = Saver.convertStreamToString(t.getRequestBody());
+            String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             //System.out.println("Request Body:\n" + requestBody);
             //System.out.println("Request Header:\n" + t.getRequestHeaders().toString());

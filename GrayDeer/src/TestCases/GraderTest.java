@@ -1,4 +1,6 @@
-package server;
+package TestCases;
+
+import server.student.Student;
 
 
 public class GraderTest {

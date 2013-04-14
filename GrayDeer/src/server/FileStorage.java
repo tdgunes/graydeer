@@ -4,6 +4,8 @@
  */
 package server;
 
+import homeworks.Config;
+import server.student.Student;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -30,12 +32,7 @@ public final class FileStorage {
     
     public boolean isBuild = false;
 
-    public String combine (String path1, String path2)
-    {
-        File file1 = new File(path1);
-        File file2 = new File(file1, path2);
-        return file2.getPath();
-    }
+
     
     public FileStorage(String homeworkName,String homeworkFileString,String homeworksStoragePath,
             String extension) throws FileNotFoundException{
@@ -46,18 +43,18 @@ public final class FileStorage {
        
         // homeworksStoragePath -> /Users/tdgunes/homeworks/
         
-        this.homeworkStoragePath=  this.combine(homeworksStoragePath, this.homeworkName); 
+        this.homeworkStoragePath=  Utils.combine(homeworksStoragePath, this.homeworkName); 
         //Users/tdgunes/homeworks/MonteCarlo/
-        this.createTheDir(this.homeworkStoragePath); //homework dir is created
+        Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
         
         
-        this.studentFolder = this.combine(this.homeworkStoragePath, this.student.getSchoolNumber());
-        this.createTheDir(this.studentFolder);
+        this.studentFolder = Utils.combine(this.homeworkStoragePath, this.student.getSchoolNumber());
+        Utils.createTheDir(this.studentFolder);
         //Users/tdgunes/homeworks/MonteCarlo/S002423
         
-        this.writtenHomeworkFile = this.combine(this.studentFolder, homeworkName+extension);
+        this.writtenHomeworkFile = Utils.combine(this.studentFolder, homeworkName+extension);
         //Users/tdgunes/homework/MonteCarlo/s002423/MonteCarlo.java
-        this.writeAFile(this.writtenHomeworkFile, homeworkFileString); //writing source to the file
+        Utils.writeAFile(this.writtenHomeworkFile, homeworkFileString); //writing source to the file
         
         
         //initiation is completed :)3
@@ -66,25 +63,7 @@ public final class FileStorage {
     }
     
     
-    public void createTheDir(String dirPath){
-        
-        // Example of the studentFolder /Users/tdgunes/homeworks/MonteCarlo/S002222/
-        File dir = new File(dirPath);
-        dir.mkdir();
-    }
-    
-    public void writeAFile(String aFile, String source) throws FileNotFoundException{
-        //Users/tdgunes/homeworks/
-     ;
-        // Example of the studentFile /Users/tdgunes/homeworks/MonteCarlo/S002222/MonteCarlo.java
-        try{
-            PrintWriter out = new PrintWriter(aFile);
-            out.println(source);
-            out.close(); 
-        }
-        catch(Exception e){
-        }
-    }
+   
     
     public void buildFile(Config config){//FIXME make this work with a config class
           //javac ./Homework1.java -d ./build/

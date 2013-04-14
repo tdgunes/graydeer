@@ -1,5 +1,6 @@
 package server;
 
+import server.student.Student;
 import java.util.StringTokenizer;
 
 public class InformationParser {
