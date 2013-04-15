@@ -1,6 +1,6 @@
 package server;
 
-import homeworks.Config;
+import homeworks.configs.Config;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -66,9 +66,10 @@ public class Server {
             
             Config config = new Config();
             
-            String StoragePath = config.getStoragePath();
-
-            FileStorage fileStorage = new FileStorage("Echo", requestBody, StoragePath, ".java");
+            String storagePath = config.getStoragePath();
+            String extension  = config.conf.get("Extension");
+            
+            FileStorage fileStorage = new FileStorage("Echo", requestBody, storagePath, extension);
 //            FileStorage fileStorage = new FileStorage("Echo", requestBody, "/Users/tdgunes"
 //                    + "/homeworks/", ".java");
             System.out.println("Submitting!");

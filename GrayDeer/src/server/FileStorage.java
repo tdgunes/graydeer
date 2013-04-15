@@ -4,7 +4,7 @@
  */
 package server;
 
-import homeworks.Config;
+import homeworks.configs.Config;
 import server.student.Student;
 import java.io.File;
 import java.io.FileNotFoundException;

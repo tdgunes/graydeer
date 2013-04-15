@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package homeworks;
+package homeworks.configs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,25 +18,27 @@ import java.util.Map;
  * 
  */
 public class Config {
-	protected Map<String, String> conf = new HashMap<String, String>();
+	public Map<String, String> conf = new HashMap<String, String>();
 //	String StoragePath = "/Users/tdgunes" + "/homeworks/";
-	String StoragePath = "/Users/erensezener" + "/homeworks/";
+	private String storagePath = "/Users/erensezener" + "/homeworks/";
 
 	
-	public Config() {
-		super();
-		conf.put("Type", "Java");
+	public Config(String storagePath) {
+                if (storagePath.equals("")==false){
+                    this.storagePath = storagePath;
+                }
+		//conf.put("Type", "Java");
+                //conf.put("Extension", ".java");
 	}
 
 	public Config(Map<String, String> conf) {
-		super();
 		this.conf = conf;
 		//TODO Create keys and values for configuration
 		
 	}
 
 	public String getStoragePath() {
-		return StoragePath;
+		return storagePath;
 	}	
 	
 	

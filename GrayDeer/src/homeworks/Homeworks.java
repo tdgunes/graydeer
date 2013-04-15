@@ -1,5 +1,6 @@
 package homeworks;
 
+import homeworks.configs.Config;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
