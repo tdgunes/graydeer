@@ -27,3 +27,4 @@ GrayDeer/nbproject/private/private.properties
 
 *.form
 /GrayDeer/dist/
+.DS_Store

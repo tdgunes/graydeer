@@ -14,9 +14,14 @@ import java.util.Map;
  * This file should implement the rules of a homework
  * like if it is java file build process is in this way
  * 
+ * Directory setting will also be set here.
+ * 
  */
 public class Config {
 	protected Map<String, String> conf = new HashMap<String, String>();
+//	String StoragePath = "/Users/tdgunes" + "/homeworks/";
+	String StoragePath = "/Users/erensezener" + "/homeworks/";
+
 	
 	public Config() {
 		super();
@@ -28,6 +33,10 @@ public class Config {
 		this.conf = conf;
 		//TODO Create keys and values for configuration
 		
+	}
+
+	public String getStoragePath() {
+		return StoragePath;
 	}	
 	
 	

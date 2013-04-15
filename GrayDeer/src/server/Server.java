@@ -65,8 +65,12 @@ public class Server {
             
             
             Config config = new Config();
-            FileStorage fileStorage = new FileStorage("Echo", requestBody, "/Users/tdgunes"
-                    + "/homeworks/", ".java");
+            
+            String StoragePath = config.getStoragePath();
+
+            FileStorage fileStorage = new FileStorage("Echo", requestBody, StoragePath, ".java");
+//            FileStorage fileStorage = new FileStorage("Echo", requestBody, "/Users/tdgunes"
+//                    + "/homeworks/", ".java");
             System.out.println("Submitting!");
             fileStorage.buildFile(config);
             
