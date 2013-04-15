@@ -4,11 +4,12 @@
  */
 package server;
 
+import homeworks.Homework;
 import homeworks.configs.Config;
+import homeworks.configs.JavaConfig;
+
 import server.student.Student;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -21,29 +22,32 @@ import java.util.ArrayList;
  */
 public final class FileStorage {
     //homeworkName
-    private String homeworkName;
-    private String homeworkFileString; //This is not a path, it is the source
-    private Student student;
-    private String homeworkStoragePath; //Let's say in /Users/tdgunes/homeworks/
+    public String homeworkName;
+    public String homeworkFileString; //This is not a path, it is the source
+    public Student student;
+    public String homeworkStoragePath; //Let's say in /Users/tdgunes/homeworks/
     
-    private String studentFolder;
-    private String writtenHomeworkFile; //this will be created in constructor
+    public String studentFolder;
+    public String writtenHomeworkFile; 
+     //this will be created in constructor
     //the last path of students homework and it is the path
+    
+    public Config config;
     
     public boolean isBuild = false;
 
 
     
-    public FileStorage(String homeworkName,String homeworkFileString,String homeworksStoragePath,
-            String extension) throws FileNotFoundException{
+    public FileStorage(Homework homework,String homeworkFileString) throws FileNotFoundException{
         
         this.homeworkFileString = homeworkFileString;
         this.student = InformationParser.parse(homeworkFileString);
-        this.homeworkName = homeworkName;
+        this.homeworkName = homework.homeworkName;
+        this.config = (JavaConfig) homework.homeworkConfig;
        
         // homeworksStoragePath -> /Users/tdgunes/homeworks/
         
-        this.homeworkStoragePath=  Utils.combine(homeworksStoragePath, this.homeworkName); 
+        this.homeworkStoragePath=  Utils.combine(homework.homeworkConfig.getStoragePath(), this.homeworkName); 
         //Users/tdgunes/homeworks/MonteCarlo/
         Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
         
@@ -52,31 +56,29 @@ public final class FileStorage {
         Utils.createTheDir(this.studentFolder);
         //Users/tdgunes/homeworks/MonteCarlo/S002423
         
-        this.writtenHomeworkFile = Utils.combine(this.studentFolder, homeworkName+extension);
+        this.writtenHomeworkFile = Utils.combine(this.studentFolder, homeworkName+homework.homeworkConfig.conf.get("Extension"));
         //Users/tdgunes/homework/MonteCarlo/s002423/MonteCarlo.java
         Utils.writeAFile(this.writtenHomeworkFile, homeworkFileString); //writing source to the file
         
         
-        //initiation is completed :)3
+        //initiation is completed :)
         
+   
         
     }
     
     
    
     
-    public void buildFile(Config config){//FIXME make this work with a config class
+    public void buildFile(){//FIXME make this work with a config class
           //javac ./Homework1.java -d ./build/
 
             
-        ArrayList<String> args = new ArrayList<String>();
-        args.add(this.writtenHomeworkFile);
-        args.add("-d");
-        args.add(this.studentFolder);//FIXME we can change it
+        //FIXME we can change it
          //FIXME we can put them into Config.java
-        System.out.println("Building... \"javac "+args.toString()+"\"");
+        System.out.println("Building... \"javac "+config.buildArgs.toString()+"\"");
         try {
-                Executer executer = new Executer("javac", args);
+                Executer executer = new Executer(config.buildArgs);
                  executer.executeWithoutInputs();
                  this.isBuild = true;
         } catch (Exception e) {
@@ -88,25 +90,29 @@ public final class FileStorage {
     }
     
     
-    public void runFile(Config config){
+    public void runFile(){
           //javac ./Homework1.java -d ./build/
 
-        ArrayList<String> args = new ArrayList<String>();
-        args.add("-cp");
-        args.add(this.studentFolder);
-        args.add(this.homeworkName);//great way to just getting the name
-        // to getting rid of the extension
-        
+
+        //// FIXME *******************
+        /// Homework object must give inputs
         ArrayList<String> inputs = new ArrayList<String>();
         inputs.add("hello");
-        System.out.println("Running... \"java "+args.toString()+"\"");
-        Executer executer = new Executer("java", args);
+        //// FIXME *******************
+        System.out.println("Running... \"java "+config.runArgs.toString()+"\"");
+        
+        Executer executer = new Executer(config.runArgs);
         try {
             
                  String output = executer.execute(inputs); //FIXME inputs must be corrected
                  System.out.println("OUTPUT: "+ output);
+                  //// FIXME *******************
+                 ///// This must be not like this 
+                 ///// student object should have an array of homeworks
+                 /////
                  this.student.setHomeworkOutput(output);
-//                 this.student.grade(hw1);
+                  //// FIXME *******************
+
                  
         } catch (Exception e) {
           
@@ -120,10 +126,5 @@ public final class FileStorage {
         return student;
     }
     
-
-   
-    //There must be an id for all homeworks.
-    private final static int HW1 = 1;
-    private final static int HW2 = 2;
 
 }

@@ -1,8 +1,11 @@
-package homeworks;
+package homeworks.examples;
+
+import homeworks.Homework;
+import homeworks.configs.JavaConfig;
 
 
 
-public class Hw1 extends Homeworks {
+public class HW1 extends Homework {
 	
 	/*
 	 * Results and their grades are added here.
@@ -18,22 +21,24 @@ public class Hw1 extends Homeworks {
 	}
 	
 
-	public Hw1() {
+	public HW1() {
 		super();
+                this.homeworkName = "Echo";
+                this.homeworkConfig = new JavaConfig();
 		setResults();
 	}
 	
-	public Hw1(int maxGrade) {
+	public HW1(int maxGrade) {
 		super(maxGrade);
 		setResults();
 	}
 	
-	public Hw1(int maxGrade, boolean capsSensitive) {
+	public HW1(int maxGrade, boolean capsSensitive) {
 		super(maxGrade, capsSensitive);
 		setResults();
 	}
 	
-	public Hw1(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive) {
+	public HW1(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive) {
 		super(maxGrade, capsSensitive, whitespaceSensitive);
 		setResults();
 	}

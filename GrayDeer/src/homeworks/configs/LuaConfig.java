@@ -8,6 +8,12 @@ package homeworks.configs;
  *
  * @author tdgunes
  */
-public class LuaConfig extends Config{
-    
+public class LuaConfig extends Config {
+
+    public LuaConfig(String storagePath) {
+        super(storagePath);
+        conf.put("Type", "Lua");
+        conf.put("Extension", ".lua");
+
+    }
 }

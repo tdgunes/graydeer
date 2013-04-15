@@ -8,6 +8,9 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import homeworks.Homework;
+import homeworks.configs.JavaConfig;
+import homeworks.examples.HW1;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,17 +67,23 @@ public class Server {
             System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
             
             
-            Config config = new Config();
+           
+             //// FIXME *******************
+            /// Automatic homework selection part here!
+            Homework homework = new HW1();
+            //////////
             
-            String storagePath = config.getStoragePath();
-            String extension  = config.conf.get("Extension");
             
-            FileStorage fileStorage = new FileStorage("Echo", requestBody, storagePath, extension);
-//            FileStorage fileStorage = new FileStorage("Echo", requestBody, "/Users/tdgunes"
-//                    + "/homeworks/", ".java");
+            //directly sending homework to fileStorage
+            FileStorage fileStorage = new FileStorage(homework, requestBody);
+            homework.homeworkConfig.setArgs(fileStorage.writtenHomeworkFile, 
+                    fileStorage.studentFolder, 
+                    homework.homeworkName);
+            
             System.out.println("Submitting!");
-            fileStorage.buildFile(config);
+            fileStorage.buildFile();
             
+             //// FIXME *******************
             while(fileStorage.isBuild == false){
                 try {
                     Thread.sleep(1000);
@@ -82,7 +91,10 @@ public class Server {
                     Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            fileStorage.runFile(config);
+             //// FIXME *******************
+            
+            
+            fileStorage.runFile();
             System.out.println(""+fileStorage.getStudent());
             String response = fileStorage.getStudent().getHomeworkOutput();
             

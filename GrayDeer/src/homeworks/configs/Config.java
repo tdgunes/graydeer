@@ -4,6 +4,7 @@
  */
 package homeworks.configs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,15 +19,20 @@ import java.util.Map;
  * 
  */
 public class Config {
+    //after cs102 lecture this week 15 April 2013 :) 
+    
 	public Map<String, String> conf = new HashMap<String, String>();
-//	String StoragePath = "/Users/tdgunes" + "/homeworks/";
-	private String storagePath = "/Users/erensezener" + "/homeworks/";
-
+	private String storagePath = "/Users/tdgunes" + "/homeworks/";
+	//private String storagePath = "/Users/erensezener" + "/homeworks/";
+        
+        public ArrayList<String> buildArgs = new ArrayList<String>();
+        public ArrayList<String> runArgs = new ArrayList<String>();
 	
 	public Config(String storagePath) {
                 if (storagePath.equals("")==false){
                     this.storagePath = storagePath;
                 }
+
 		//conf.put("Type", "Java");
                 //conf.put("Extension", ".java");
 	}
@@ -41,7 +47,9 @@ public class Config {
 		return storagePath;
 	}	
 	
-	
+	public void setArgs (String writtenHomeworkFile, String studentFolder, String homeworkName) {
+            
+        }
 	
 
 	

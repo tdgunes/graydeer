@@ -9,5 +9,12 @@ package homeworks.configs;
  * @author tdgunes
  */
 public class CPPConfig extends Config {
-    
+
+    public CPPConfig(String storagePath) {
+        // g++ 
+        super(storagePath);
+        conf.put("Type", "C++");
+        conf.put("Extension", ".cpp");
+
+    }
 }

@@ -24,8 +24,8 @@ public class Executer {
     private String[] argsForProcess; //Java files to run
 
     
-    public Executer(String command, ArrayList<String> argsProcess){
-        argsProcess.add(0, command);
+    public Executer(ArrayList<String> argsProcess){
+        
         this.argsForProcess= argsProcess.toArray(new String[argsProcess.size()]);
 
     }

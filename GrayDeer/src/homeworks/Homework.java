@@ -5,27 +5,36 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
-public class Homeworks {
+// a homewokr!
+public class Homework {
+    
+    
 	protected double maxGrade = 5.0;
 	protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
 	protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
 	protected Map<String, Double> gradeMap = new HashMap<String, Double>();	
-        protected Config homeworkConfig = null;
+        
+        //All of the build rules will be here
+        public Config homeworkConfig = null;
+        
+        public String homeworkName = "";
+        
+        
+        
 	// Constructors
-	public Homeworks() {
+	public Homework() {
 	}
 
-	public Homeworks(int maxGrade){
+	public Homework(int maxGrade){
 		this.maxGrade = maxGrade;
 	}
 
-	public Homeworks(int maxGrade, boolean capsSensitive){
+	public Homework(int maxGrade, boolean capsSensitive){
 		this.maxGrade = maxGrade;
 		this.caseSensitive = capsSensitive;
 	}
 
-	public Homeworks(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive){
+	public Homework(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive){
 		this.maxGrade = maxGrade;
 		this.caseSensitive = capsSensitive;
 		this.whitespaceSensitive = whitespaceSensitive;

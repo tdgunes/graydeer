@@ -1,5 +1,6 @@
 package server;
 
+import homeworks.examples.HW1;
 import server.student.Student;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import homeworks.*;
 
 
 public class Grader {
-	private Homeworks hw = null;
+	private Homework hw = null;
 
 	public Grader(int hwName) {
 		super();
@@ -37,10 +38,10 @@ public class Grader {
 	private void initializeHw(int hwName) {
 		switch(hwName){
 			case 1:  
-				hw = new Hw1();
+				hw = new HW1();
 				break;
 			default:  
-				hw = new Homeworks(); 
+				hw = new Homework(); 
 				break;
 		}		
 		
