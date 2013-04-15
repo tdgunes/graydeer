@@ -68,7 +68,7 @@ public class StudentDB {
     }
     
     //adding to the end of the file
-    public void addStudent(Student student){
+    public void addStudent(Student student) throws IOException{
        ArrayList <Student> currentStudents = this.getStudents();
        currentStudents.add(student);
        
