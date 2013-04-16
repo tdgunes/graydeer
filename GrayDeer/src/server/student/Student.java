@@ -6,13 +6,10 @@ package server.student;
 
 import homeworks.Homework;
 import java.io.Serializable;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.util.HashMap;
 import java.util.Map;
 
->>>>>>> Implement nested HashMap for Students and their Homeworks
 import server.Grader;
 
 /**
@@ -23,13 +20,10 @@ public class Student implements Serializable {
     private String name;
     private String surname;
     private String schoolNumber;
-<<<<<<< HEAD
-    private String homeworkOutput;
     //FIXME ******************
     private ArrayList<Homework> homeworks = new ArrayList<Homework>();
     //FIXME ******************
-    private double grade;
-=======
+
     // hwMap -> key: Homework Name, value: HashMap of a Homework
     private Map<String, HomeworkInfo> hwMap =  new HashMap<String, HomeworkInfo>();
 
@@ -56,7 +50,6 @@ public class Student implements Serializable {
 		HomeworkInfo value = hwMap.get(key);
 		return value;
 	}
->>>>>>> Implement nested HashMap for Students and their Homeworks
     
 	/*
 	 * Trivial methods
@@ -67,17 +60,7 @@ public class Student implements Serializable {
         this.schoolNumber = "Unknown";
    }
    
-<<<<<<< HEAD
-    public String toString(){
-        String str;
-        str = "\n" + "Student Name: "+ this.name + "\n";
-        //str += "Homework Output" + "\n" + this.homeworkOutput;
-        
-        return str;
-    }
 
-=======
->>>>>>> Implement nested HashMap for Students and their Homeworks
     public Student(String name, String surname, String schoolNumber, String homeworkOutput) {
         this.name = name;
         this.surname = surname;
