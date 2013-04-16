@@ -12,6 +12,7 @@ public class Homework {
 	protected double maxGrade = 5.0;
 	protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
 	protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
+<<<<<<< HEAD:GrayDeer/src/homeworks/Homework.java
 	protected Map<String, Double> gradeMap = new HashMap<String, Double>();	
         
         //All of the build rules will be here
@@ -23,6 +24,13 @@ public class Homework {
         
 	// Constructors
 	public Homework() {
+=======
+	protected Map<String, Double> gradeMap = new HashMap<String, Double>();	// Key: Output of a student, Value: Grade of a student
+    protected Config homeworkConfig = null;
+	
+    // Constructors
+	public Homeworks() {
+>>>>>>> Implement nested HashMap for Students and their Homeworks:GrayDeer/src/homeworks/Homeworks.java
 	}
 
 	public Homework(int maxGrade){
