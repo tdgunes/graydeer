@@ -4,7 +4,9 @@
  */
 package server.student;
 
+import homeworks.Homework;
 import java.io.Serializable;
+import java.util.ArrayList;
 import server.Grader;
 
 /**
@@ -16,6 +18,9 @@ public class Student implements Serializable {
     private String surname;
     private String schoolNumber;
     private String homeworkOutput;
+    //FIXME ******************
+    private ArrayList<Homework> homeworks = new ArrayList<Homework>();
+    //FIXME ******************
     private double grade;
     
     public Student(){
@@ -28,7 +33,7 @@ public class Student implements Serializable {
     public String toString(){
         String str;
         str = "\n" + "Student Name: "+ this.name + "\n";
-        str += "Homework Output" + "\n" + this.homeworkOutput;
+        //str += "Homework Output" + "\n" + this.homeworkOutput;
         
         return str;
     }
