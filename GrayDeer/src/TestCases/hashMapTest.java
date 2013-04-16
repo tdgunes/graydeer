@@ -9,7 +9,6 @@ public class hashMapTest {
 	 */
 	public static void main(String[] args) {
 		Student st = new Student();
-//		HomeworkInfo hi = new HomeworkInfo();
 		Student.HomeworkInfo myHwInfo = st.new HomeworkInfo();
 		myHwInfo.setHwInfo("Grade", "6");
 		st.setHwNo("HW1", myHwInfo);
