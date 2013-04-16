@@ -96,7 +96,8 @@ public class Server {
             
             fileStorage.runFile();
             System.out.println(""+fileStorage.getStudent());
-            String response = fileStorage.getStudent().getHomeworkOutput();
+            String response = "FIXME - Not implemented yet!";
+            //= fileStorage.getStudent().getHomeworkOutput();
             
  
             

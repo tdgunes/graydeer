@@ -20,6 +20,9 @@ public class Student implements Serializable {
 	private String name;
 	private String surname;
 	private String schoolNumber;
+        
+        private String privateKey; //a 16 digit random key per student
+        
 	//FIXME ******************
 	private ArrayList<Homework> homeworks = new ArrayList<Homework>();
 	//FIXME ******************
@@ -68,10 +71,12 @@ public class Student implements Serializable {
 	}
 
 
-	public Student(String name, String surname, String schoolNumber, String homeworkOutput) {
+	public Student(String name, String surname, String schoolNumber, String homeworkOutput,
+                String privateNumber) {
 		this.name = name;
 		this.surname = surname;
 		this.schoolNumber = schoolNumber;
+                this.privateKey = privateNumber;
 	}
 
 	public void grade(int HW){
@@ -80,6 +85,7 @@ public class Student implements Serializable {
 
 	}
 
+        @Override
 	public String toString(){
 		String str;
 		str = "\n" + "Student Name: "+ this.name + "\n";
