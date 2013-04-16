@@ -25,10 +25,10 @@ public class Grader {
 	}
 
 	public void grade(Student std){
-		String output = std.getHomeworkOutput();
+		String output = std.getHwNo("HW1").getHwInfo("Output");
 		Map<String, Double> gradeMap = hw.getGradeMap();
-		double grade = (Double) gradeMap.get(output);
-		std.setGrade(grade);
+		String grade = String.valueOf(gradeMap.get(output));
+		std.getHwNo("HW1").setHwInfo("Grade", grade);
 	}
 
 	/*

@@ -111,7 +111,7 @@ public final class FileStorage{
                  ///// This must be not like this 
                  ///// student object should have an array of homeworks
                  /////
-                 this.student.setHomeworkOutput(output);
+                 this.student.getHwNo("HW1").setHwInfo("Output", output);
                   //// FIXME *******************
 
                  

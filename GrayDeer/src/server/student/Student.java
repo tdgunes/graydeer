@@ -28,6 +28,14 @@ public class Student implements Serializable {
 	
 	// HomeworkInfo contains a HashMap of homework information related to a 
 	public class HomeworkInfo{
+		
+		public HomeworkInfo(){
+		}
+		
+		public HomeworkInfo(String key, String value){
+			hwInfo.put(key, value);
+		}
+		
 		private Map<String, String> hwInfo =  new HashMap<String, String>();
 
 		public void setHwInfo(String key, String value) {
