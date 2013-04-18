@@ -78,10 +78,9 @@ public class Student implements Serializable {
 		this.schoolNumber = schoolNumber;
                 this.privateKey = privateNumber;
 	}
-
+        
 	public void grade(int HW){
-		Grader grader = new Grader(HW); //Grader is initialized with rules for a homework.
-		grader.grade(this);
+                //***** FIXME
 
 	}
 

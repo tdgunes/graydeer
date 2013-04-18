@@ -5,6 +5,7 @@ import server.student.Student;
 import java.util.Map;
 
 import homeworks.*;
+import java.io.FileNotFoundException;
 
 /*
  * @author erensezener
@@ -19,9 +20,9 @@ import homeworks.*;
 public class Grader {
 	private Homework hw = null;
 
-	public Grader(int hwName) {
+	public Grader(int hwName) throws FileNotFoundException {
 		super();
-		initializeHw(hwName);
+
 	}
 
 	public void grade(Student std){
@@ -34,17 +35,17 @@ public class Grader {
 	/*
 	 * All homework classes should be added to switch statement.
 	 */
-	
-	private void initializeHw(int hwName) {
+	/*
+	private void initializeHw(int hwName) throws FileNotFoundException {
 		switch(hwName){
 			case 1:  
 				hw = new HW1();
 				break;
 			default:  
-				hw = new Homework(); 
+				hw = new Homework("Echo"); 
 				break;
 		}		
 		
-	}
+	}*/
 }	
 

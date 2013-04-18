@@ -2,6 +2,7 @@ package homeworks.examples;
 
 import homeworks.Homework;
 import homeworks.configs.JavaConfig;
+import java.io.FileNotFoundException;
 
 
 
@@ -21,25 +22,25 @@ public class HW1 extends Homework {
 	}
 	
 
-	public HW1() {
-		super();
-                this.homeworkName = "Echo";
-                this.homeworkConfig = new JavaConfig();
+	public HW1(String source) throws FileNotFoundException {
+		super("Echo",source,new JavaConfig());
+               
+		//setResults();
+	}
+	/*
+	public HW1(int maxGrade,) throws FileNotFoundException {
+		super("Echo",maxGrade);
 		setResults();
 	}
 	
-	public HW1(int maxGrade) {
-		super(maxGrade);
+	public HW1(int maxGrade, boolean capsSensitive) throws FileNotFoundException {
+		super("Echo",maxGrade, capsSensitive);
 		setResults();
 	}
 	
-	public HW1(int maxGrade, boolean capsSensitive) {
-		super(maxGrade, capsSensitive);
+	public HW1(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive) throws FileNotFoundException {
+		super("Echo",maxGrade, capsSensitive, whitespaceSensitive);
 		setResults();
 	}
-	
-	public HW1(int maxGrade, boolean capsSensitive, boolean whitespaceSensitive) {
-		super(maxGrade, capsSensitive, whitespaceSensitive);
-		setResults();
-	}
+        */
 }

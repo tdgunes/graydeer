@@ -14,6 +14,26 @@ import homeworks.examples.HW1;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/*
+        TEST CASE HERE
+
+/* can eren sezener s003777 department of conputer science */
+/*
+import java.util.Scanner;
+
+class Echo{  
+public static void main (String[] args)
+   {   
+ String inData;    
+Scanner scan = new Scanner( System.in ); 
+   System.out.println("Enter a text here: ");    
+inData = scan.nextLine();   
+ System.out.println("Lenght: " + inData.length()  + 99999); 
+ }}
+
+
+*/
 public class Server {
 
     public static void start(int port) throws Exception {
@@ -64,39 +84,28 @@ public class Server {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            System.out.println("Request Header:\n" + t.getRequestHeaders().size());
             
             
            
              //// FIXME *******************
             /// Automatic homework selection part here!
-            Homework homework = new HW1();
+            System.out.println("Submitting!");
+            Homework homework = new HW1(requestBody);
             //////////
             
             
             //directly sending homework to fileStorage
-            FileStorage fileStorage = new FileStorage(homework, requestBody);
-            homework.homeworkConfig.setArgs(fileStorage.writtenHomeworkFile, 
-                    fileStorage.studentFolder, 
-                    homework.homeworkName);
+
+    
+
+            //build and run simple :)
+            homework.finalizeHomework();
             
-            System.out.println("Submitting!");
-            fileStorage.buildFile();
-            
-             //// FIXME *******************
-            while(fileStorage.isBuild == false){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-             //// FIXME *******************
-            
-            
-            fileStorage.runFile();
-            System.out.println(""+fileStorage.getStudent());
-            String response = "FIXME - Not implemented yet!";
+            //"FIXME - Not implemented yet!"- UGLY UGLY
+            String response ="Done?";
+           //homework.fileStorage.student.getHwNo("HW1").getHwInfo("Output");
+           
             //= fileStorage.getStudent().getHomeworkOutput();
             
  
