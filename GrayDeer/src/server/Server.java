@@ -11,12 +11,14 @@ import com.sun.net.httpserver.HttpServer;
 import homeworks.Homework;
 import homeworks.configs.JavaConfig;
 import homeworks.examples.HW1;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.student.StudentDB;
 
 
 /*
-        TEST CASE HERE
+        TEST CASE HERE PLEASE DON'T DELETE
 
 /* can eren sezener s003777 department of conputer science */
 /*
@@ -34,8 +36,10 @@ inData = scan.nextLine();
 
 
 */
-public class Server {
+public final class Server {
 
+    //this is scary by the way, since if there is no database there, some requests may kill the server :)
+    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
     public static void start(int port) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/fetch", new fetchHandler());
@@ -49,10 +53,23 @@ public class Server {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
+            
+            //this will be gathered from the studentDB
+            
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
+            String privateKey = t.getRequestHeaders().get("key").toString();
+            
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
+            System.out.println("Student Key:\n" + privateKey);
+             
+            
+            //NOT TEST since, we don't have a database yet! (physically no, programmatically yes) 
+            ArrayList<Homework> homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
+            
+            
+            
+            
             String response = "Monte Carlo Integral**Homework Uploaded**See Notes**5.0**+=+"
                     + "**Echo**Deadline: 14/04/13/**Upload**0.0+=+"
                     + "**ArrayList**TBA**-**0.0**+=+"
@@ -84,9 +101,10 @@ public class Server {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().size());
+            System.out.println("Request Header:\n" + t.getRequestHeaders().get("key").toString());
             
-            
+            String privateKey = t.getRequestHeaders().get("key").toString();
+            //this key is special for every student, should be mailed all of them
            
              //// FIXME *******************
             /// Automatic homework selection part here!

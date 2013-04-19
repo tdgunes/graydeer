@@ -21,8 +21,17 @@ public class Homework {
     //All of the build rules will be here
     public Config homeworkConfig = null;
     public String homeworkName = "";
+    
+    public String status =  "";
+    public String actions = "";
+    
+    public String grade = "";
+
+    
     public FileStorage fileStorage;
     public String homeworkSource = "";//string of the file
+    
+    //may be it can be deleted
     public boolean graded = false;
     
     protected Map<String, Double> gradeMap = new HashMap<String, Double>();	// Key: Output of a student, Value: Grade of a student
@@ -61,9 +70,12 @@ public class Homework {
 */
     public void finalizeHomework() {
         try {
-            System.out.println("hey");
+            System.out.println("Finalizing...");
             this.fileStorage.buildFile();
             this.fileStorage.runFile();
+            
+            //if it is not catched
+            
             this.graded = true;
         } catch (Exception e) {
             System.out.println("Unable to finalize homework!:");

@@ -21,14 +21,17 @@ public class Student implements Serializable {
 	private String surname;
 	private String schoolNumber;
         
-        private String privateKey; //a 16 digit random key per student
+        public String privateKey; //a 16 digit random key per student
         
-	//FIXME ******************
+	//FIXME ****************** 
 	private ArrayList<Homework> homeworks = new ArrayList<Homework>();
 	//FIXME ******************
+        
+        //FIXME ****************** We don't need a HASHMAP ?
 	// hwMap -> key: Homework Name, value: HashMap of a Homework
 	private Map<String, HomeworkInfo> hwMap =  new HashMap<String, HomeworkInfo>();
-	
+	//FIXME ******************
+        
 	// HomeworkInfo contains a HashMap of homework information related to a 
 	public class HomeworkInfo{
 		

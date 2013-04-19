@@ -4,6 +4,7 @@
  */
 package server.student;
 
+import homeworks.Homework;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,6 +35,31 @@ public class StudentDB {
         this.workDir = workdir;
         this.dbFilePath = Utils.combine(workdir, this.dbName);
         
+    }
+    
+    public Student getStudentWithKey(String key){
+        // NOT TESTED
+        Student searchedOne = null;
+        for(Student student: this.getStudents()){
+            if (student.privateKey.equals(key)){
+                searchedOne = student;
+                break;
+            }
+        }
+        return searchedOne;
+    }
+    public ArrayList<Homework> getHomeworksOfAStudentByKey(String key){
+        //HIGH LEVEL :)
+        Student student = this.getStudentWithKey(key);
+        return this.getCurrentHomeworksOfAStudent(student);
+    } 
+    
+    public ArrayList<Homework> getCurrentHomeworksOfAStudent(Student student){
+        //
+        //
+        //  FIXME
+        // This is for /fetch
+        return new ArrayList<Homework>();
     }
     
     public ArrayList<Student> getStudents() {
