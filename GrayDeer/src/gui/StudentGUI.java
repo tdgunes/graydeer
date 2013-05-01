@@ -23,20 +23,35 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class StudentGUI extends JPanel {
 
     private boolean DEBUG = true;
+    private String privateKey = "";
 
-    private Object[][] fetchData(Object[][] data, String hostName)  {
+    private String getPrivateKey() {
+        String draft = "";
+
+
+
+        String reply = JOptionPane.showInputDialog(null,"Welcome to GrayDeer,"
+                + "as for first start, you need to enter your private-key,"
+                + " which is given by your instructor to you", "Welcome to GrayDeer!", "Welcome to GrayDeer!");
+
+        System.out.println(reply);
+
+        return draft;
+    }
+
+    private Object[][] fetchData(Object[][] data, String hostName) {
 
         try {
-            HTTPLib httpLib = new HTTPLib("http://" + hostName);
+            
+            // get privatekey from a window
+            
+            
+            
+            HTTPLib httpLib = new HTTPLib("http://" + hostName, privateKey);
             int listNum = 0;
             String response = httpLib.postData("list?");//sending list? does not required
             System.out.println("||| GrayDeer POST response: " + response);
@@ -79,7 +94,20 @@ public class StudentGUI extends JPanel {
     }
     public StudentGUI() {
         super(new GridLayout(1, 0));
-
+        
+        
+        
+        //*******************************
+        //Checking if there is a private key 
+        //
+        
+        //if not show a dialog to get it
+        //
+        
+        String draft = this.getPrivateKey();
+        
+        //*******************************
+        
         String[] columnNames = {"Assignment Name",
             "Status",
             "Actions",
@@ -119,7 +147,7 @@ public class StudentGUI extends JPanel {
             table.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    HTTPLib httpLib = new HTTPLib("http://localhost:8000/verify/");
+                    HTTPLib httpLib = new HTTPLib("http://localhost:8000/verify/",privateKey);
                     //FIXME deleted for checking httplib
                     //printDebugData(table);
                     try {

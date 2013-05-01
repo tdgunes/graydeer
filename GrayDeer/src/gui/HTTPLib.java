@@ -20,9 +20,19 @@ import java.util.StringTokenizer;
 public class HTTPLib {
     
     private String requestURL;
-    public HTTPLib(String requestURL) {
+    private String privateKey;
+    
+    public HTTPLib(String requestURL, String privateKey) {
         this.requestURL = requestURL;
+        this.privateKey = privateKey;
     }
+    
+    //****// private key 
+    
+    
+    
+    //****// 
+    
     //This is from one of my CS101 homeworks, https://github.com/tdgunes/ozucourses/blob/master/CS101/Homeworks/My%20Solutions/MineField.java
     //lines between 220-233
     //*********************
@@ -42,6 +52,10 @@ public class HTTPLib {
         return (tokenizerToStringArray(tokenizer));
     }
     //*********************
+    
+    
+  
+    
     
     // returns the response
     public String postData(String homework) throws MalformedURLException, IOException {
