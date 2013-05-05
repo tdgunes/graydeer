@@ -66,27 +66,15 @@ public final class Server {
             
             //NOT TEST since, we don't have a database yet! (physically no, programmatically yes) 
             ArrayList<Homework> homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
+            String response = "aaaa";
+            for (Homework homework: homeworks) {
+                response = response + "**"+homework.homeworkName+"**"+
+                        homework.status+"**"+homework.actions+"**"+homework.grade+"+=+";
+                
+            }
+    
             
-            
-            
-            
-            String response = "Monte Carlo Integral**Homework Uploaded**See Notes**5.0**+=+"
-                    + "**Echo**Deadline: 14/04/13/**Upload**0.0+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+"
-                    + "**ArrayList**TBA**-**0.0**+=+";
+           
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());

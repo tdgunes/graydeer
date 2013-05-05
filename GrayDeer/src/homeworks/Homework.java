@@ -101,20 +101,34 @@ public class Homework {
         this.homeworkName = homeworkName;
         this.fileStorage = new FileStorage(this, homeworkName);
     }
-	 */
-	public void finalizeHomework() {
-		try {
-			System.out.println("Finalizing...");
-			this.fileStorage.buildFile();
-			this.fileStorage.runFile();
 
-			//if it is not catched
-
-			this.graded = true;
-		} catch (Exception e) {
-			System.out.println("Unable to finalize homework!:");
-			e.printStackTrace();
-		}
+*/
+    public void finalizeHomework() {
+        try {
+            System.out.println("Finalizing...");
+            this.fileStorage.buildFile();
+            
+            double totalGrade = 0;
+            for (int i = 0; i < this.inputToOutputMap.keySet().size(); i++) {
+                ArrayList<String> inputs = new ArrayList<String>();
+                //inputs.add(this.gradeMap.); adding the i case
+                //getting keys from inputToOutputMap 
+                
+                //adding it to the inputs:
+                //- inputs.add(testCase)
+                String output = this.fileStorage.runFile(inputs);
+                //grading here
+                //totalGrade += 
+            }
+            //setting the final grade
+            
+            this.grade = "5.0";
+            //if it is not catched
+            this.graded = true;
+        } catch (Exception e) {
+            System.out.println("Unable to finalize homework!:");
+            e.printStackTrace();
+        }
 
 	}
 
@@ -190,74 +204,53 @@ public class Homework {
 
 		}
 
-		public void buildFile() {//FIXME make this work with a config class
-			//javac ./Homework1.java -d ./build/
+
+	       public void buildFile() {//FIXME make this work with a config class
+	            //javac ./Homework1.java -d ./build/
 
 
-			//FIXME we can change it
-			//FIXME we can put them into Config.java
-			System.out.println("Building... \"javac " + config.buildArgs.toString() + "\"");
-			try {
-				Executer executer = new Executer(config.buildArgs);
-				executer.executeWithoutInputs();
-				this.isBuild = true;
-			} catch (Exception e) {
-				//build problem
-				throw new UnsupportedOperationException("BUILD FAILED:" + this.writtenHomeworkFile
-						+ "\n" + e.getMessage());
-			}
+	            //FIXME we can change it
+	            //FIXME we can put them into Config.java
+	            System.out.println("Building... \"javac " + config.buildArgs.toString() + "\"");
+	            try {
+	                Executer executer = new Executer(config.buildArgs);
+	                executer.executeWithoutInputs();
+	                this.isBuild = true;
+	            } catch (Exception e) {
+	                //build problem
+	                throw new UnsupportedOperationException("BUILD FAILED:" + this.writtenHomeworkFile
+	                        + "\n" + e.getMessage());
+	            }
 
-		}
+	        }
 
-		public void runFile() {
-			//javac ./Homework1.java -d ./build/
-
-
-			//// FIXME *******************
-			/// Homework object must give inputs
-			ArrayList<String> inputs = new ArrayList<String>();
-			inputs.add("hello");
-			//// FIXME *******************
-			System.out.println("Running... \"java " + config.runArgs.toString() + "\"");
-
-			Executer executer = new Executer(config.runArgs);
-			try {
-
-				String output = executer.execute(inputs); //FIXME inputs must be corrected
-				System.out.println("OUTPUT:****\n" + output);
-				//// FIXME *******************
-				///// This must be not like this 
-				///// student object should have an array of homeworks
-				/////
-
-				//NullPointerException
-
-				/*java.lang.NullPointerException
-	at homeworks.Homework$FileStorage.runFile(Homework.java:188)
-	at homeworks.Homework.finalizeHomework(Homework.java:66)
-	at server.Server$submitHandler.handle(Server.java:83)
-	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:65)
-	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:65)
-	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:68)
-	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:557)
-	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:65)*/
-
-				//this.student.getHwNo("HW1").setHwInfo("Output", output);
-				//// FIXME *******************
+	        public String runFile(ArrayList<String> inputs ) {
 
 
-			} catch (Exception e) {
+	            System.out.println("Running... \"java " + config.runArgs.toString() + "\"");
 
-				e.printStackTrace();
-				// throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
-				//        + "\n" + e.getMessage());
+	            Executer executer = new Executer(config.runArgs);
+	            try {
 
-			}
+	                String output = executer.execute(inputs); //FIXME inputs must be corrected
+	                System.out.println("OUTPUT:****\n" + output);
+	                
+	                return output;
+	                
 
-		}
 
-		public Student getStudent() {
-			return student;
-		}
+	            } catch (Exception e) {
+	                throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
+	                        + "\n" + e.getMessage());
+	                
+	            }
+	            
+	         
+
+	        }
+
+	        public Student getStudent() {
+	            return student;
+	        }
+	    }
 	}
-}
