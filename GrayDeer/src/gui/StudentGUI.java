@@ -36,7 +36,7 @@ public class StudentGUI extends JPanel {
 
         String reply = JOptionPane.showInputDialog(null,"Welcome to GrayDeer,"
                 + "as for first start, you need to enter your private-key,"
-                + " which is given by your instructor to you", "Welcome to GrayDeer!", "Welcome to GrayDeer!");
+                + " which is given by your instructor to you", "your private key!");
 
         System.out.println(reply);
 
