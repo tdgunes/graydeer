@@ -5,8 +5,11 @@
 package server.student;
 
 import homeworks.Homework;
+import homeworks.examples.HW1;
+import homeworks.examples.HW2;
 import java.io.EOFException;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,18 +51,28 @@ public class StudentDB {
         }
         return searchedOne;
     }
-    public ArrayList<Homework> getHomeworksOfAStudentByKey(String key){
+    public ArrayList<Homework> getHomeworksOfAStudentByKey(String key) throws FileNotFoundException{
         //HIGH LEVEL :)
-        Student student = this.getStudentWithKey(key);
+        Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");
+        
+        ArrayList<Homework> myHomeworks = new ArrayList<Homework>();
+        HW2 homework2 = new HW2("");
+        myHomeworks.add(homework2);
+        
+        student.homeworks.add(homework2);
+        
         return this.getCurrentHomeworksOfAStudent(student);
     } 
     
-    public ArrayList<Homework> getCurrentHomeworksOfAStudent(Student student){
+    public ArrayList<Homework> getCurrentHomeworksOfAStudent(Student student) throws FileNotFoundException{
         //
         //
-        //  FIXME
+        //  FIXME ************************************
         // This is for /fetch
-        return new ArrayList<Homework>();
+        ArrayList<Homework> myHomeworks = new ArrayList<Homework>();
+        HW2 homework2 = new HW2("");
+        myHomeworks.add(homework2);
+        return myHomeworks;
     }
     
     public ArrayList<Student> getStudents() {

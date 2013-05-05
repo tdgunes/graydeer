@@ -13,9 +13,18 @@ import java.io.FileNotFoundException;
  * @author tdgunes
  */
 public class HW2 extends Homework {
+    /**
+     *
+     * @param source
+     * @throws FileNotFoundException
+     */
     public HW2(String source) throws FileNotFoundException {
-        
+                
 		super("Square",source,new JavaConfig());
-
+                this.status = "Deadline: 14/04/13";
+                this.actions = "See Notes";
+                this.grade = "Not Graded!";
+                
+                
 	}
 }

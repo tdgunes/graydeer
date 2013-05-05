@@ -22,9 +22,11 @@ public class Student implements Serializable {
 	private String schoolNumber;
         
         public String privateKey; //a 16 digit random key per student
+
+ 
         
 	//FIXME ****************** 
-	private ArrayList<Homework> homeworks = new ArrayList<Homework>();
+	public ArrayList<Homework> homeworks = new ArrayList<Homework>();
 	//FIXME ******************
         
         //FIXME ****************** We don't need a HASHMAP ?
@@ -74,8 +76,7 @@ public class Student implements Serializable {
 	}
 
 
-	public Student(String name, String surname, String schoolNumber, String homeworkOutput,
-                String privateNumber) {
+	public Student(String name, String surname, String schoolNumber,String privateNumber) {
 		this.name = name;
 		this.surname = surname;
 		this.schoolNumber = schoolNumber;
