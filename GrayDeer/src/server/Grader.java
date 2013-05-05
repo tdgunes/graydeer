@@ -1,6 +1,5 @@
 package server;
 
-import homeworks.examples.HW1;
 import server.student.Student;
 import java.util.Map;
 
@@ -26,15 +25,23 @@ public class Grader {
 	}
 
 	public void grade(Student std){
+		
 		String output = std.getHwNo("HW1").getHwInfo("Output");
-		Map<String, Double> gradeMap = hw.getGradeMap();
+		Homework
 		String grade = String.valueOf(gradeMap.get(output));
 		std.getHwNo("HW1").setHwInfo("Grade", grade);
+		
+		
+		
+//		String output = std.getHwNo("HW1").getHwInfo("Output");
+//		Map<String, Double> gradeMap = hw.
+//		String grade = String.valueOf(gradeMap.get(output));
+//		std.getHwNo("HW1").setHwInfo("Grade", grade);
 	}
 
 	/*
 	 * All homework classes should be added to switch statement.
-	 */
+	 *
 	/*
 	private void initializeHw(int hwName) throws FileNotFoundException {
 		switch(hwName){

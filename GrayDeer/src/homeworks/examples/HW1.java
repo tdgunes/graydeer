@@ -14,10 +14,21 @@ public class HW1 extends Homework {
 	 * Second parameter is the grade as a double.
 	 */
 	
+	/*
+	 * If students program output is '6 8 10', he/she gets 5.0 points
+	 * If students program output is '6 8', he/she gets 4.0 points
+	 */
+	
 	public void setResults(){
-		gradeMap.put("6 8 10", 5.0);
-		gradeMap.put("6 8", 4.0);
-		gradeMap.put("6 10", 3.0);
+		GradeMap gm = new GradeMap();
+		gm.setOutputGradePair("9", 2.0);
+		gm.setOutputGradePair("-9", 1.0);
+		inputToOutputMap.put("-3", gm);
+		
+		GradeMap gm2 = new GradeMap();
+		gm2.setOutputGradePair("16", 3.0);
+		inputToOutputMap.put("4", gm2);
+		
 		transformResults();
 	}
 	
