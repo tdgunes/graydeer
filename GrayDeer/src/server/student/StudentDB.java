@@ -58,10 +58,11 @@ public class StudentDB {
         ArrayList<Homework> myHomeworks = new ArrayList<Homework>();
         HW2 homework2 = new HW2("");
         myHomeworks.add(homework2);
-        
+        HW1 homework1 = new HW1("");
+        myHomeworks.add(homework1);
         student.homeworks.add(homework2);
-        
-        return this.getCurrentHomeworksOfAStudent(student);
+        student.homeworks.add(homework1);
+        return student.homeworks;
     } 
     
     public ArrayList<Homework> getCurrentHomeworksOfAStudent(Student student) throws FileNotFoundException{

@@ -10,17 +10,40 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import server.student.Student;
 
 /**
  *
  * @author tdgunes
  */
-
 //this file is for global functions that all of the
 //files accesses
 public class Utils {
-        public void save(String output, Student std) throws IOException {
+
+    public static String readFromFile(String path) {
+
+        // Location of file to read
+        File file = new File(path);
+        String totalString = "";
+        try {
+
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                totalString += line;
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            totalString = "FNF";
+        }
+        return totalString;
+
+    }
+
+
+    public static void save(String output, Student std) throws IOException {
         String filename = std.getSchoolNumber().toString();
         try {
             File file = new File(filename);
@@ -37,31 +60,29 @@ public class Utils {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
-    
-     public static String combine (String path1, String path2)
-    {
+
+    public static String combine(String path1, String path2) {
         File file1 = new File(path1);
         File file2 = new File(file1, path2);
         return file2.getPath();
     }
-     
-      public static void createTheDir(String dirPath){
-        
+
+    public static void createTheDir(String dirPath) {
+
         // Example of the studentFolder /Users/tdgunes/homeworks/MonteCarlo/S002222/
         File dir = new File(dirPath);
         dir.mkdir();
     }
-    
-    public static void writeAFile(String aFile, String source) throws FileNotFoundException{
+
+    public static void writeAFile(String aFile, String source) throws FileNotFoundException {
         //Users/tdgunes/homeworks/
-     
+
         // Example of the studentFile /Users/tdgunes/homeworks/MonteCarlo/S002222/MonteCarlo.java
-        try{
+        try {
             PrintWriter out = new PrintWriter(aFile);
             out.println(source);
-            out.close(); 
-        }
-        catch(Exception e){
+            out.close();
+        } catch (Exception e) {
         }
     }
 }

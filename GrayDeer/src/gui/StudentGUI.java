@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
@@ -23,24 +24,36 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import server.Utils;
 
 public class StudentGUI extends JPanel {
 
     private boolean DEBUG = true;
     private String privateKey = "";
+    private String preDefinedPathOfPrivateKey = "/Users/tdgunes/privatekey.txt";
 
     private String getPrivateKey() {
-        String draft = "";
-
-
-
-        String reply = JOptionPane.showInputDialog(null,"Welcome to GrayDeer,"
+        String readFile = Utils.readFromFile(this.preDefinedPathOfPrivateKey);
+        String reply = "";
+        if (readFile.equals("FNF") ||
+                readFile.equals("")){
+           
+            reply = JOptionPane.showInputDialog(null,"Welcome to GrayDeer,"
                 + "as for first start, you need to enter your private-key,"
                 + " which is given by your instructor to you", "your private key!");
+            try {
+                //writing the given reply to the predefined path     
+                Utils.writeAFile(this.preDefinedPathOfPrivateKey, reply);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+               
+            }
+        }
+        else {
+            reply = readFile;
+        }
 
-        System.out.println(reply);
-
-        return draft;
+        return reply;
     }
 
     private Object[][] fetchData(Object[][] data, String hostName) {
@@ -51,9 +64,9 @@ public class StudentGUI extends JPanel {
             
             
             
-            HTTPLib httpLib = new HTTPLib("http://" + hostName, privateKey);
+            HTTPLib httpLib = new HTTPLib(hostName, privateKey);
             int listNum = 0;
-            String response = httpLib.postData("list?");//sending list? does not required
+            String response = httpLib.postData("fetch","");
             System.out.println("||| GrayDeer POST response: " + response);
             String[] lines = HTTPLib.splitItWithString(response, "+=+");
             //fetched data
@@ -104,7 +117,8 @@ public class StudentGUI extends JPanel {
         //if not show a dialog to get it
         //
         
-        String draft = this.getPrivateKey();
+        this.privateKey = this.getPrivateKey();
+        System.out.println("Using the key: "+this.privateKey);
         
         //*******************************
         
@@ -117,7 +131,7 @@ public class StudentGUI extends JPanel {
         //*******************************
 
         Object[][] data = {};
-        String hostName = "localhost:8000/fetch/";
+        String hostName = "http://localhost:8000/";
      
         //starting the loop
         data = this.fetchData(data,hostName);
@@ -147,11 +161,11 @@ public class StudentGUI extends JPanel {
             table.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    HTTPLib httpLib = new HTTPLib("http://localhost:8000/verify/",privateKey);
+                    HTTPLib httpLib = new HTTPLib("http://localhost:8000/",privateKey);
                     //FIXME deleted for checking httplib
                     //printDebugData(table);
                     try {
-                        String response = httpLib.postData("hello");
+                        String response = httpLib.postData("verify","");
                         System.out.println("||| GrayDeer POST response: " + response);
                     } catch (Exception er) {
                     }

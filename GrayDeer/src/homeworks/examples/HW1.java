@@ -35,7 +35,9 @@ public class HW1 extends Homework {
 
 	public HW1(String source) throws FileNotFoundException {
 		super("Echo",source,new JavaConfig());
-               
+                this.status = "Deadline: 14/04/13";
+                this.actions = "You missed it!";
+                this.grade = "0.0";
 		//setResults();
 	}
 	/*

@@ -55,9 +55,9 @@ public final class Server {
         public void handle(HttpExchange t) throws IOException {
             
             //this will be gathered from the studentDB
-            
+            System.out.println("YES");
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
-            String privateKey = t.getRequestHeaders().get("key").toString();
+            String privateKey = t.getRequestHeaders().get("privatekey").toString();
             
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
@@ -89,9 +89,9 @@ public final class Server {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().get("key").toString());
+            System.out.println("Request Header:\n" + t.getRequestHeaders().get("privatekey").toString());
             
-            String privateKey = t.getRequestHeaders().get("key").toString();
+            String privateKey = t.getRequestHeaders().get("privatekey").toString();
             //this key is special for every student, should be mailed all of them
            
              //// FIXME *******************

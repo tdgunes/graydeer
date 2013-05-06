@@ -58,11 +58,17 @@ public class HTTPLib {
     
     
     // returns the response
-    public String postData(String homework) throws MalformedURLException, IOException {
-        String urlParameters = homework;
-        String request = requestURL;
+    public String postData(String path,String sourceData) throws MalformedURLException, IOException {
+        String urlParameters = sourceData;
+        
+        String request;
+        request = requestURL+path;
+        
+        //*** Requests
         URL url = new URL(request);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //connection.addRequestProperty("key", this.privateKey);
+        System.out.println("Sending a post with this key: "+this.privateKey);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setInstanceFollowRedirects(false);
@@ -70,6 +76,8 @@ public class HTTPLib {
         connection.setRequestProperty("Content-Type", "text/xml");
         connection.setRequestProperty("charset", "utf-8");
         connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+        
+        connection.setRequestProperty("privatekey", this.privateKey);
         connection.setUseCaches(false);
 
         DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
