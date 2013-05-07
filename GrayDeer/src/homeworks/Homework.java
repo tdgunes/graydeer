@@ -13,7 +13,7 @@ import server.Utils;
 import server.student.Student;
 
 // a homework!
-public class Homework {
+public abstract class Homework {
 
     protected double maxGrade = 5.0;
     protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
@@ -66,8 +66,7 @@ public class Homework {
     }
     //must be called in the constructor
 
-    public void setResults() {
-    }
+    public abstract void setResults();
 
     // Constructors
     public Homework(String homeworkName, String homeworkSource, Config homeworkConfig) throws FileNotFoundException {
