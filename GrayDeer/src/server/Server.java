@@ -11,31 +11,14 @@ import com.sun.net.httpserver.HttpServer;
 import homeworks.Homework;
 import homeworks.configs.JavaConfig;
 import homeworks.examples.HW1;
+import homeworks.examples.HW2;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.student.StudentDB;
 
 
-/*
-        TEST CASE HERE PLEASE DON'T DELETE
 
-/* can eren sezener s003777 department of conputer science */
-/*
-import java.util.Scanner;
-
-class Echo{  
-public static void main (String[] args)
-   {   
- String inData;    
-Scanner scan = new Scanner( System.in ); 
-   System.out.println("Enter a text here: ");    
-inData = scan.nextLine();   
- System.out.println("Lenght: " + inData.length()  + 99999); 
- }}
-
-
-*/
 public final class Server {
 
     //this is scary by the way, since if there is no database there, some requests may kill the server :)
@@ -97,7 +80,7 @@ public final class Server {
              //// FIXME *******************
             /// Automatic homework selection part here!
             System.out.println("Submitting!");
-            Homework homework = new HW1(requestBody);
+            Homework homework = new HW2(requestBody);
             //////////
             
             

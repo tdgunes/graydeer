@@ -14,7 +14,7 @@ public class HW1 extends Homework {
 	 * Second parameter is the grade as a double.
 	 */
 	
-	/*
+	/* FIXME!
 	 * If students program output is '6 8 10', he/she gets 5.0 points
 	 * If students program output is '6 8', he/she gets 4.0 points
 	 */

@@ -18,7 +18,7 @@ import java.util.Map;
  * Directory setting will also be set here.
  * 
  */
-public class Config {
+public abstract class Config {
     //after cs102 lecture this week 15 April 2013 :) 
     
 	public Map<String, String> conf = new HashMap<String, String>();

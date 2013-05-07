@@ -16,10 +16,10 @@ public class Square {
         Scanner myScanner = new Scanner(System.in);
         double myNumber = 0;
              
-        System.out.print("Enter a number: ");
+        //System.out.print("Enter a number: ");
         myNumber = myScanner.nextDouble();
 
         
-        System.out.println("Output: "+myNumber*myNumber);
+        System.out.println(myNumber*myNumber);
     }
 }
