@@ -12,7 +12,6 @@ import server.InformationParser;
 import server.Utils;
 import server.student.Student;
 
-// a homework!
 public abstract class Homework {
 
     protected double maxGrade = 5.0;
@@ -78,29 +77,6 @@ public abstract class Homework {
         this.homeworkConfig.setArgs(this.fileStorage.writtenHomeworkFile, this.fileStorage.studentFolder, this.homeworkName);
         this.setResults();
     }
-    /*
-     public Homework(String homeworkName, int maxGrade) throws FileNotFoundException {
-     this.maxGrade = maxGrade;
-     this.homeworkName = homeworkName;
-     this.fileStorage = new FileStorage(this, homeworkName);
-     }
-
-     public Homework(String homeworkName, int maxGrade, boolean capsSensitive) throws FileNotFoundException {
-     this.maxGrade = maxGrade;
-     this.caseSensitive = capsSensitive;
-     this.homeworkName = homeworkName;
-     this.fileStorage = new FileStorage(this, homeworkName);
-     }
-
-     public Homework(String homeworkName, int maxGrade, boolean capsSensitive, boolean whitespaceSensitive) throws FileNotFoundException {
-     this.maxGrade = maxGrade;
-     this.caseSensitive = capsSensitive;
-     this.whitespaceSensitive = whitespaceSensitive;
-     this.homeworkName = homeworkName;
-     this.fileStorage = new FileStorage(this, homeworkName);
-     }
-
-     */
 
     public void finalizeHomework() {
         try {
@@ -108,6 +84,7 @@ public abstract class Homework {
             this.fileStorage.buildFile();
 
             double totalGrade = 0;
+            // Loop tests the homeworks for all potential inputs
             for (String key : this.inputToOutputMap.keySet()) {
                 System.out.println("Trying this case: " + key);
                 ArrayList<String> inputs = new ArrayList<String>();
@@ -117,24 +94,21 @@ public abstract class Homework {
                 //for this input get the gradeMap
                 GradeMap draft = this.inputToOutputMap.get(key);
                 try {
-                      
+                		
+                	// If students output is matching results, student gets full or partial credit
                       if (draft!=null){
                           //draft.outputToGrade.
                           //regex for whitspaces
                           totalGrade += draft.getGrade(output.replaceAll("\\s",""));
                           System.out.println("Good Job!");
                       }
-                      
                 } 
                 catch (NullPointerException e) {
-                    //this means that your output is completely wrong and not in 
-                    // the gradeMap
-                    
+
+                    // If students output is not matching any result, student gets no credit
                     System.out.println("Bad Output! It must be "+ draft.outputToGrade.keySet().toArray()[0]);
                     //this text requires a method 
                 }
-              
-
                 System.out.println("");
             }
 
@@ -260,17 +234,10 @@ public abstract class Homework {
                 System.out.println("OUTPUT:****\n" + output);
 
                 return output;
-
-
-
             } catch (Exception e) {
                 throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
                         + "\n" + e.getMessage());
-
             }
-
-
-
         }
 
         public Student getStudent() {
