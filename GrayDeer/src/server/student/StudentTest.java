@@ -4,7 +4,13 @@
  */
 package server.student;
 
-import java.util.Scanner;
+import homeworks.Homework;
+import homeworks.examples.HW1;
+import homeworks.examples.HW2;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -12,25 +18,25 @@ import java.util.Scanner;
  */
 public class StudentTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        
+        System.out.println("StudentTest.java");
+        
         StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
-        System.out.println(studentDB.getStudents().toString());
-        while (true) {
-            Scanner input = new Scanner(System.in);
-            //FIXME ****
-            Student student = new Student();
-            System.out.println("Enter a key, name, surname and schoolNumber");
-            System.out.print(": ");
-            while (input.hasNext()) {
-                String key = input.next();
-                String name = input.next();
-                String surname = input.next();
-                String schoolNumber = input.next();
-                
-            }
-            //****
-            
-        }
+        //adding a student to DB;
+        Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");
+        
+        ArrayList<Student> students = new ArrayList<Student> ();
+        students.add(student);
+        
+        HW2 homework2 = new HW2("");
+        HW1 homework1 = new HW1("");
 
+        student.homeworks.add(homework2);
+        student.homeworks.add(homework1);
+        
+        studentDB.setStudents(students);
+        System.out.println("Number of students: "+studentDB.getStudents().size());
+        
     }
 }

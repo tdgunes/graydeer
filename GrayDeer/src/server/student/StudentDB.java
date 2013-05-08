@@ -21,7 +21,7 @@ import server.Utils;
  *
  * @author tdgunes
  */
-public class StudentDB {
+public final class StudentDB {
     public String workDir = "";
     
     // constant studentDB name which will be placed inside
@@ -31,13 +31,13 @@ public class StudentDB {
     //this will be initialized
     
     
-    private static ObjectInputStream input;
-    private static ObjectOutputStream output;
+    private ObjectInputStream input;
+    private  ObjectOutputStream output;
     
     public StudentDB(String workdir){
         this.workDir = workdir;
         this.dbFilePath = Utils.combine(workdir, this.dbName);
-        
+        //System.out.println("Students: "+this.getStudents().size());  
     }
     
     public Student getStudentWithKey(String key){
@@ -45,6 +45,8 @@ public class StudentDB {
         Student searchedOne = null;
         for(Student student: this.getStudents()){
             if (student.privateKey.equals(key)){
+                System.out.println("Key matches: "+ key);
+                System.out.println("Student Name: "+student.getName());
                 searchedOne = student;
                 break;
             }
@@ -52,29 +54,12 @@ public class StudentDB {
         return searchedOne;
     }
     public ArrayList<Homework> getHomeworksOfAStudentByKey(String key) throws FileNotFoundException{
-        //HIGH LEVEL :)
-        Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");
-        
-        ArrayList<Homework> myHomeworks = new ArrayList<Homework>();
-        HW2 homework2 = new HW2("");
-        myHomeworks.add(homework2);
-        HW1 homework1 = new HW1("");
-        myHomeworks.add(homework1);
-        student.homeworks.add(homework2);
-        student.homeworks.add(homework1);
+
+        //High level
+        Student student = this.getStudentWithKey(key);
         return student.homeworks;
     } 
     
-    public ArrayList<Homework> getCurrentHomeworksOfAStudent(Student student) throws FileNotFoundException{
-        //
-        //
-        //  FIXME ************************************
-        // This is for /fetch
-        ArrayList<Homework> myHomeworks = new ArrayList<Homework>();
-        HW2 homework2 = new HW2("");
-        myHomeworks.add(homework2);
-        return myHomeworks;
-    }
     
     public ArrayList<Student> getStudents() {
         this.openFileReadMode();
@@ -86,15 +71,18 @@ public class StudentDB {
                 students.add((Student) input.readObject());
             }
         } catch (EOFException endOfFileException) {
-            System.err.println(""); //reading is finished
+            return students; //reading is finished
         } catch (ClassNotFoundException classNotFoundException) {
             System.err.println("Unable to create object.");
         } catch (IOException ioException) {
             System.err.println("Error during reading from file.");
+        } catch (NullPointerException e){
+            System.err.println("DB is empty! or not exists");
         }
         this.closeFileReadMode();
-        
-        return students;
+    
+        return null;
+
 
     }
 
@@ -105,6 +93,7 @@ public class StudentDB {
             output.writeObject(student);
         }
         this.closeFileWriteMode();
+        System.out.println("Number of students are set: "+students.size());
     }
     
     //adding to the end of the file
@@ -155,8 +144,13 @@ public class StudentDB {
         try {
             input = new ObjectInputStream(new FileInputStream(
                     this.dbFilePath));
-        } catch (IOException ioException) {
+        } catch(FileNotFoundException fileNotException){
             System.err.println("Error opening file. READMODE");
+            fileNotException.printStackTrace();
+        }
+        catch (IOException ioException) {
+            System.err.println("Error opening file. READMODE");
+            ioException.printStackTrace();
         }
     }
 }

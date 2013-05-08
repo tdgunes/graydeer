@@ -4,6 +4,7 @@
  */
 package homeworks.configs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +19,10 @@ import java.util.Map;
  * Directory setting will also be set here.
  * 
  */
-public abstract class Config {
+public abstract class Config implements Serializable{
     //after cs102 lecture this week 15 April 2013 :) 
     
-	public Map<String, String> conf = new HashMap<String, String>();
+	public HashMap<String, String> conf = new HashMap<String, String>();
 	private String storagePath = "/Users/tdgunes" + "/homeworks/";
 	//private String storagePath = "/Users/erensezener" + "/homeworks/";
         
@@ -37,7 +38,7 @@ public abstract class Config {
                 //conf.put("Extension", ".java");
 	}
 
-	public Config(Map<String, String> conf) {
+	public Config(HashMap<String, String> conf) {
 		this.conf = conf;
 		//TODO Create keys and values for configuration
 		

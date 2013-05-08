@@ -3,16 +3,18 @@ package homeworks;
 import homeworks.configs.Config;
 import homeworks.configs.JavaConfig;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.Executer;
-import server.InformationParser;
 import server.Utils;
 import server.student.Student;
 
-public abstract class Homework {
+public abstract class Homework implements Serializable {
 
     protected double maxGrade = 5.0;
     protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
@@ -42,7 +44,7 @@ public abstract class Homework {
      * 
      * i.e. Key: "14", Value: "5.0"
      */
-    protected class GradeMap {
+    protected class GradeMap implements Serializable {
 
         protected Map<String, Double> outputToGrade = new HashMap<String, Double>();
 
@@ -63,8 +65,19 @@ public abstract class Homework {
             return outputToGrade.keySet();
         }
     }
-    //must be called in the constructor
 
+    public final void setBuildReady(){
+        try {
+            this.fileStorage = new FileStorage(this, this.homeworkSource);
+            this.homeworkConfig.setArgs(this.fileStorage.writtenHomeworkFile, this.fileStorage.studentFolder, this.homeworkName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(Homework.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    //must be called in the constructor
     public abstract void setResults();
 
     // Constructors
@@ -72,9 +85,10 @@ public abstract class Homework {
         this.homeworkName = homeworkName;
         this.homeworkSource = homeworkSource;
         this.homeworkConfig = homeworkConfig;
-        this.fileStorage = new FileStorage(this, this.homeworkSource);
+        if (!homeworkSource.equals("")){
+            this.setBuildReady();
+        }
 
-        this.homeworkConfig.setArgs(this.fileStorage.writtenHomeworkFile, this.fileStorage.studentFolder, this.homeworkName);
         this.setResults();
     }
 
@@ -113,6 +127,7 @@ public abstract class Homework {
             }
 
             //setting the final grade
+            this.grade = ""+ totalGrade;
             System.out.println("TotalGrade: " + totalGrade);
             //this.grade = (int) totalGrade;
             //if it is not catched
@@ -160,10 +175,10 @@ public abstract class Homework {
 
     }
 
-    public final class FileStorage {
+    public final class FileStorage implements Serializable {
         //homeworkName
 
-        public String homeworkName;
+        public String homeworkName; //Homework name: ie "Square", "Echo"
         public String homeworkFileString; //This is not a path, it is the source
         public Student student;
         public String homeworkStoragePath; //Let's say in /Users/tdgunes/homeworks/
@@ -177,7 +192,7 @@ public abstract class Homework {
         public FileStorage(Homework homework, String homeworkFileString) throws FileNotFoundException {
 
             this.homeworkFileString = homeworkFileString;
-            this.student = InformationParser.parse(homeworkFileString);
+            //this.student = InformationParser.parse(homeworkFileString);
             this.homeworkName = homework.homeworkName;
             this.config = (JavaConfig) homework.homeworkConfig;
 
@@ -187,8 +202,8 @@ public abstract class Homework {
             //Users/tdgunes/homeworks/MonteCarlo/
             Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
 
-
-            this.studentFolder = Utils.combine(this.homeworkStoragePath, this.student.getSchoolNumber());
+            //FIXME SEVERE PROBLEM HERE
+            this.studentFolder = Utils.combine(this.homeworkStoragePath, "S002456");
             Utils.createTheDir(this.studentFolder);
             //Users/tdgunes/homeworks/MonteCarlo/S002423
 
@@ -209,7 +224,7 @@ public abstract class Homework {
 
             //FIXME we can change it
             //FIXME we can put them into Config.java
-            System.out.println("Building... \"javac " + config.buildArgs.toString() + "\"");
+            System.out.println("Building... " + config.buildArgs.toString() + "\"");
             try {
                 Executer executer = new Executer(config.buildArgs);
                 executer.executeWithoutInputs();
@@ -225,7 +240,7 @@ public abstract class Homework {
         public String runFile(ArrayList<String> inputs) {
 
 
-            System.out.println("Running... \"java " + config.runArgs.toString() + "\"");
+            System.out.println("Running... " + config.runArgs.toString() + "\"");
 
             Executer executer = new Executer(config.runArgs);
             try {

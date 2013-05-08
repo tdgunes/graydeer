@@ -15,6 +15,7 @@ import homeworks.examples.HW2;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.student.Student;
 import server.student.StudentDB;
 
 
@@ -69,35 +70,69 @@ public final class Server {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String requestBody = Utils.convertStreamToString(t.getRequestBody());
-            System.out.println("IP:" + t.getLocalAddress());
-            System.out.println("Request Body:\n" + requestBody);
-            System.out.println("Request Header:\n" + t.getRequestHeaders().get("privatekey").toString());
             
-            String privateKey = t.getRequestHeaders().get("privatekey").toString();
+            System.out.println("IP:" + t.getLocalAddress());
+           // System.out.println("Request Body:\n" + requestBody);
+           // System.out.println("Request Header:\n" + t.getRequestHeaders().get("privatekey").toString());
+            
+            
+            String fileSource = Utils.convertStreamToString(t.getRequestBody());
+            String privateKey = t.getRequestHeaders().get("privatekey").toString().replace('[', ' ');
+            privateKey = privateKey.replace(']', ' ');
+            privateKey = privateKey.replaceAll("\\s","");
+            String homeworkName = t.getRequestHeaders().get("homeworkName").toString().replace('[', ' ');
+            homeworkName = homeworkName.replace(']', ' ');
+            homeworkName = homeworkName.replaceAll("\\s","");
+            
             //this key is special for every student, should be mailed all of them
            
              //// FIXME *******************
             /// Automatic homework selection part here!
             System.out.println("Submitting!");
-            Homework homework = new HW2(requestBody);
+            Student student = null;
+            Homework studentHomework = null;
+            try {
+                student = studentDB.getStudentWithKey(privateKey);
+                if (student != null) {
+                    System.out.println("Searching homework: "+homeworkName);
+                    for (Homework homework : student.homeworks) {
+                        if (homework.homeworkName.equals(homeworkName)) {
+                            System.out.println("Homework is found! :)");
+                            studentHomework = homework;
+                            break;
+                        }
+                    }
+                }
+                else {
+                    System.out.println("Student not found! with key: "+ privateKey);
+                }
+           
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
             //////////
             
             
             //directly sending homework to fileStorage
+            String response;
+            if (studentHomework!=null){
+                System.out.println("Configuring the homework object!");
+                System.out.println("FileSource: " + fileSource);
+                studentHomework.homeworkSource = fileSource;
+                System.out.println(".setBuildRead() starts!");
+                studentHomework.setBuildReady();
+                System.out.println("Building the homework!");
+                studentHomework.finalizeHomework();
+                response = "Your grade: "+studentHomework.grade;
+                
+                //this grade should be written to the DB
+                
+            }
+            else {
+                response = "Something went terribly wrong!";
+            }
 
-    
-
-            //build and run simple :)
-            homework.finalizeHomework();
-            
-            //"FIXME - Not implemented yet!"- UGLY UGLY
-            String response ="Done?";
-           //homework.fileStorage.student.getHwNo("HW1").getHwInfo("Output");
-           
-            //= fileStorage.getStudent().getHomeworkOutput();
-            
- 
             
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
