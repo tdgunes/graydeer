@@ -50,7 +50,7 @@ public final class Server {
             
             //NOT TEST since, we don't have a database yet! (physically no, programmatically yes) 
             ArrayList<Homework> homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
-            String response = "aaaa";
+//            String response = "aaaa";
             for (Homework homework: homeworks) {
                 response = response + "**"+homework.homeworkName+"**"+
                         homework.status+"**"+homework.actions+"**"+homework.grade+"+=+";

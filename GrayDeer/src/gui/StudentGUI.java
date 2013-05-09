@@ -32,6 +32,7 @@ public class StudentGUI extends JPanel {
     private String privateKey = "";
     private String preDefinedPathOfPrivateKey = "/Users/tdgunes/privatekey.txt";
 
+    // Private Key is used to authenticate Students
     private String getPrivateKey() {
         String readFile = Utils.readFromFile(this.preDefinedPathOfPrivateKey);
         String reply = "";
@@ -80,6 +81,8 @@ public class StudentGUI extends JPanel {
                 String string = lines[i];
                 System.out.println(string);
                 String[] parsedItems = HTTPLib.splitItWithString(string, "**");
+//                if(((String[][]) data).equals("upload"))
+//                	 System.arraycopy(parsedItems, 0, data[i], 0, 4);
                 System.arraycopy(parsedItems, 0, data[i], 0, 4);
                 /*       for (int j = 0; j < 4; j++) {
                  data[i][j] = parsedItems[j];
@@ -161,6 +164,7 @@ public class StudentGUI extends JPanel {
             table.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                	System.out.println(e.getSource().getClass().getSimpleName());
                     HTTPLib httpLib = new HTTPLib("http://localhost:8000/",privateKey);
                     //FIXME deleted for checking httplib
                     //printDebugData(table);
@@ -172,6 +176,17 @@ public class StudentGUI extends JPanel {
                 }
             });
         }
+        
+        if(!DEBUG) {
+        	table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                	e.getComponent().setName("eren");
+                }
+            });
+        }
+        
+        
 
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
