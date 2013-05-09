@@ -23,7 +23,7 @@ import server.student.StudentDB;
 public final class Server {
 
     //this is scary by the way, since if there is no database there, some requests may kill the server :)
-    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+    private static StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
     public static void start(int port) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/fetch", new fetchHandler());
@@ -50,10 +50,10 @@ public final class Server {
             
             //NOT TEST since, we don't have a database yet! (physically no, programmatically yes) 
             ArrayList<Homework> homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
-            String response = "Response begins";
+            String response = "+=+";
             for (Homework homework: homeworks) {
                 response = response + "**"+homework.homeworkName+"**"+
-                        homework.status+"**"+homework.actions+"**"+homework.grade+"+=+";
+                        homework.status+"**"+homework.grade+"**"+homework.actions+"+=+";
                 
             }
     
@@ -83,7 +83,12 @@ public final class Server {
             String homeworkName = t.getRequestHeaders().get("homeworkName").toString().replace('[', ' ');
             homeworkName = homeworkName.replace(']', ' ');
             homeworkName = homeworkName.replaceAll("\\s","");
-            
+                        String privateKey = t.getRequestHeaders().get("privatekey").toString().replace('[', ' ');
+                        privateKey = privateKey.replace(']', ' ');
+                        privateKey = privateKey.replaceAll("\\s","");
+                        String homeworkName = t.getRequestHeaders().get("homeworkName").toString().replace('[', ' ');
+                        homeworkName = homeworkName.replace(']', ' ');
+                        homeworkName = homeworkName.replaceAll("\\s","");
             //this key is special for every student, should be mailed all of them
            
              //// FIXME *******************

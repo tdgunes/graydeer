@@ -22,7 +22,7 @@ public class StudentTest {
         
         System.out.println("StudentTest.java");
         
-        StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+        StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
         //adding a student to DB;
         Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");
         
