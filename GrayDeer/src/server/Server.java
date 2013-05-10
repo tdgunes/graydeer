@@ -39,9 +39,11 @@ public final class Server {
         public void handle(HttpExchange t) throws IOException {
             
             //this will be gathered from the studentDB
-            System.out.println("YES");
+            //System.out.println("YES");
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
-            String privateKey = t.getRequestHeaders().get("privatekey").toString();
+            
+            String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
+            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
             
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
@@ -77,18 +79,11 @@ public final class Server {
             
             
             String fileSource = Utils.convertStreamToString(t.getRequestBody());
-            String privateKey = t.getRequestHeaders().get("privatekey").toString().replace('[', ' ');
-            privateKey = privateKey.replace(']', ' ');
-            privateKey = privateKey.replaceAll("\\s","");
-            String homeworkName = t.getRequestHeaders().get("homeworkName").toString().replace('[', ' ');
-            homeworkName = homeworkName.replace(']', ' ');
-            homeworkName = homeworkName.replaceAll("\\s","");
-                        String privateKey = t.getRequestHeaders().get("privatekey").toString().replace('[', ' ');
-                        privateKey = privateKey.replace(']', ' ');
-                        privateKey = privateKey.replaceAll("\\s","");
-                        String homeworkName = t.getRequestHeaders().get("homeworkName").toString().replace('[', ' ');
-                        homeworkName = homeworkName.replace(']', ' ');
-                        homeworkName = homeworkName.replaceAll("\\s","");
+
+            
+            String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
+            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
+          
             //this key is special for every student, should be mailed all of them
            
              //// FIXME *******************
@@ -152,6 +147,9 @@ public final class Server {
         public void handle(HttpExchange t) throws IOException {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
+            
+            String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
+            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
             //System.out.println("Request Body:\n" + requestBody);
             //System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
             System.out.println("||| GrayDeer(verifyHandler) - "+ requestBody);

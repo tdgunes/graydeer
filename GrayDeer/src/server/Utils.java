@@ -66,6 +66,12 @@ public class Utils {
         File file2 = new File(file1, path2);
         return file2.getPath();
     }
+    public static String correctHeader(String headerString){
+        headerString = headerString.replace(']', ' ');
+        headerString = headerString.replace('[', ' ');
+        headerString = headerString.replaceAll("\\s", "");
+        return headerString;
+    }
 
     public static void createTheDir(String dirPath) {
 

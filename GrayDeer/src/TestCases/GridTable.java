@@ -31,7 +31,7 @@ public class GridTable {
 	private int rows = 3;
 
 	private String privateKey = "";
-	private String preDefinedPathOfPrivateKey = "/Users/erensezener/privatekey.txt";
+	private String preDefinedPathOfPrivateKey = "/Users/tdgunes/homeworks/privatekey.txt";
 
 
 
@@ -129,7 +129,7 @@ public class GridTable {
 		String readFile = Utils.readFromFile(this.preDefinedPathOfPrivateKey);
 		String reply = "";
 		if (readFile.equals("FNF") ||
-				readFile.equals("")){
+				readFile.equals("") || readFile.equals("null")){
 
 			reply = JOptionPane.showInputDialog(null,"Welcome to GrayDeer,"
 					+ "as for first start, you need to enter your private-key,"
@@ -168,14 +168,12 @@ public class GridTable {
 			data = new Object[listNum][4];
 
 			for (int i = 0; i < lines.length; i++) {
-				//aaa**aaa**aaaa**aaa
+				
 				String string = lines[i];
 				System.out.println(string);
 				String[] parsedItems = HTTPLib.splitItWithString(string, "**");
 				System.arraycopy(parsedItems, 0, data[i], 0, 4);
-				/*       for (int j = 0; j < 4; j++) {
-                 data[i][j] = parsedItems[j];
-                 }*/
+		
 			}
 			return data;
 		} catch (ConnectException er) {
