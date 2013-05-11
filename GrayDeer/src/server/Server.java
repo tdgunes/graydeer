@@ -113,7 +113,7 @@ public final class Server {
             }
             //////////
             
-            
+
             //directly sending homework to fileStorage
             String response;
             if (studentHomework!=null){
@@ -126,6 +126,8 @@ public final class Server {
                 studentHomework.finalizeHomework();
                 response = "Your grade: "+studentHomework.grade;
                 
+                //DB saves
+                studentDB.saveStudent(student);
                 //this grade should be written to the DB
                 
             }

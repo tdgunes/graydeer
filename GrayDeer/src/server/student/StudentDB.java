@@ -22,6 +22,9 @@ import server.Utils;
  * @author tdgunes
  */
 public final class StudentDB {
+    /**
+     *
+     */
     public String workDir = "";
     
     // constant studentDB name which will be placed inside
@@ -34,12 +37,21 @@ public final class StudentDB {
     private ObjectInputStream input;
     private  ObjectOutputStream output;
     
+    /**
+     *
+     * @param workdir
+     */
     public StudentDB(String workdir){
         this.workDir = workdir;
         this.dbFilePath = Utils.combine(workdir, this.dbName);
         //System.out.println("Students: "+this.getStudents().size());  
     }
     
+    /**
+     *
+     * @param key
+     * @return
+     */
     public Student getStudentWithKey(String key){
         // NOT TESTED
         Student searchedOne = null;
@@ -53,6 +65,12 @@ public final class StudentDB {
         }
         return searchedOne;
     }
+    /**
+     *
+     * @param key
+     * @return
+     * @throws FileNotFoundException
+     */
     public ArrayList<Homework> getHomeworksOfAStudentByKey(String key) throws FileNotFoundException{
 
         //High level
@@ -61,6 +79,10 @@ public final class StudentDB {
     } 
     
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Student> getStudents() {
         this.openFileReadMode();
         ArrayList<Student> students = new ArrayList<Student>();
@@ -85,8 +107,24 @@ public final class StudentDB {
 
 
     }
-
-    //directly overwritting the file
+    /**
+     *
+     * @param student
+     */
+    public void saveStudent(Student student) throws IOException {
+       ArrayList <Student> students = new ArrayList<Student>();
+       for(Student stu: students){
+           if (stu.privateKey.equals(student.privateKey)){
+               stu = student;
+           }
+       }
+       this.setStudents(students);
+    }
+    /**
+     *
+     * @param students
+     * @throws IOException
+     */
     public void setStudents(ArrayList<Student> students) throws IOException{
         this.openFileWriteMode();
         for (Student student : students) {
@@ -97,6 +135,11 @@ public final class StudentDB {
     }
     
     //adding to the end of the file
+    /**
+     *
+     * @param student
+     * @throws IOException
+     */
     public void addStudent(Student student) throws IOException{
        ArrayList <Student> currentStudents = this.getStudents();
        currentStudents.add(student);
@@ -106,6 +149,9 @@ public final class StudentDB {
 
     
     //WRITEMODE
+    /**
+     *
+     */
     public void openFileWriteMode() {
         try {
             output = new ObjectOutputStream(new FileOutputStream(
@@ -115,6 +161,9 @@ public final class StudentDB {
         }
     }
 
+    /**
+     *
+     */
     public void closeFileWriteMode() {
         try {
             if (output != null) {
@@ -127,6 +176,9 @@ public final class StudentDB {
     }
 
     //READMODE
+    /**
+     *
+     */
     public void closeFileReadMode() {
         try {
             if (input != null) {
@@ -140,6 +192,9 @@ public final class StudentDB {
     }
 
     
+    /**
+     *
+     */
     public void openFileReadMode() {
         try {
             input = new ObjectInputStream(new FileInputStream(
