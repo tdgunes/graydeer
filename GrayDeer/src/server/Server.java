@@ -23,7 +23,7 @@ import server.student.StudentDB;
 public final class Server {
 
     //this is scary by the way, since if there is no database there, some requests may kill the server :)
-    private static StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
+    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
     public static void start(int port) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/fetch", new fetchHandler());
@@ -43,7 +43,7 @@ public final class Server {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             
             String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
-            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
+           // String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
             
             System.out.println("IP:" + t.getLocalAddress());
             System.out.println("Request Body:\n" + requestBody);
