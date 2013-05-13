@@ -67,7 +67,7 @@ public class StudentGUI extends JPanel {
             
             HTTPLib httpLib = new HTTPLib(hostName, privateKey);
             int listNum = 0;
-            String response = httpLib.postData("fetch","");
+            String response = httpLib.postData("fetch","","");
             System.out.println("||| GrayDeer POST response: " + response);
             String[] lines = HTTPLib.splitItWithString(response, "+=+");
             //fetched data
@@ -169,7 +169,7 @@ public class StudentGUI extends JPanel {
                     //FIXME deleted for checking httplib
                     //printDebugData(table);
                     try {
-                        String response = httpLib.postData("verify","");
+                        String response = httpLib.postData("verify","","");
                         System.out.println("||| GrayDeer POST response: " + response);
                     } catch (Exception er) {
                     }

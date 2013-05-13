@@ -38,15 +38,16 @@ public final class Server {
         @Override
         public void handle(HttpExchange t) throws IOException {
             
+            System.out.println("fetch!");
             //this will be gathered from the studentDB
             //System.out.println("YES");
-            String requestBody = Utils.convertStreamToString(t.getRequestBody());
+           // String requestBody = Utils.convertStreamToString(t.getRequestBody());
             
             String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
-           // String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
+            //String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
             
             System.out.println("IP:" + t.getLocalAddress());
-            System.out.println("Request Body:\n" + requestBody);
+           // System.out.println("Request Body:\n" + requestBody);
             System.out.println("Student Key:\n" + privateKey);
              
             
@@ -126,8 +127,8 @@ public final class Server {
                 studentHomework.finalizeHomework();
                 response = "Your grade: "+studentHomework.grade;
                 
-                //DB saves
-                studentDB.saveStudent(student);
+                //DB saves FIXME!
+                //studentDB.saveStudent(student);
                 //this grade should be written to the DB
                 
             }
@@ -150,8 +151,7 @@ public final class Server {
             String requestBody = Utils.convertStreamToString(t.getRequestBody());
             System.out.println("IP:" + t.getLocalAddress());
             
-            String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
-            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
+       
             //System.out.println("Request Body:\n" + requestBody);
             //System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
             System.out.println("||| GrayDeer(verifyHandler) - "+ requestBody);

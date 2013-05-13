@@ -15,7 +15,7 @@ public class FileChooser extends JComponent implements Accessible {
 		fc.showFileChooser();
 	}
 
-	public void showFileChooser(){
+	public String showFileChooser(){
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				"Java Files", "java");
@@ -23,8 +23,9 @@ public class FileChooser extends JComponent implements Accessible {
 		int returnVal = chooser.showOpenDialog(null);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
 			System.out.println("You chose to open this file: " +
-					chooser.getSelectedFile().getName());
-
+                    		chooser.getSelectedFile().getName());
+                
 		}
+                return chooser.getSelectedFile().getPath();
 	}
 }

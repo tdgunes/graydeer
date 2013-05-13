@@ -158,7 +158,7 @@ public class GridTable {
 
 			HTTPLib httpLib = new HTTPLib(hostName, privateKey);
 			int listNum = 0;
-			String response = httpLib.postData("fetch","");
+			String response = httpLib.postData("fetch","","");
 			System.out.println("||| GrayDeer POST response: " + response);
 			String[] lines = HTTPLib.splitItWithString(response, "+=+");
 			//fetched data
@@ -195,15 +195,32 @@ public class GridTable {
 		return null;
 
 	}
+
+            class ButtonHandler implements ActionListener {
+
+        public ButtonHandler() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            //submit the homework
+
+            FileChooser fc = new FileChooser();
+            String homeworkPath = fc.showFileChooser();
+            String source = Utils.readFromFile(homeworkPath);
+            System.out.println("Source\n"+source);
+            HTTPLib myLib = new HTTPLib("http://localhost:8000/", privateKey);
+            String response = null;
+            try {
+                response = myLib.postData("submit", source,"Square");
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null,response);
+        }
+    }
+
+
 }
 
-class ButtonHandler implements ActionListener {
-	public ButtonHandler(){
-	}
-
-	public void actionPerformed(ActionEvent e){
-		FileChooser fc = new FileChooser();
-		fc.showFileChooser();
-	}
-
-}
