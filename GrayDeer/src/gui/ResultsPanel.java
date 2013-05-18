@@ -35,6 +35,9 @@ public class ResultsPanel {
 		newFrame.setLocation(200,100);
 		newFrame.setLayout(new BorderLayout());
 		newFrame.setBackground(Color.WHITE);
+		
+		JLabel margin = new JLabel("    ");
+		newFrame.add(margin, BorderLayout.WEST);
 
 		base = new JPanel();
 		base.setLayout(new GridLayout(rows,COLUMNS));
