@@ -98,6 +98,7 @@ public final class StudentDB {
             System.err.println("Unable to create object.");
         } catch (IOException ioException) {
             System.err.println("Error during reading from file.");
+            ioException.printStackTrace();
         } catch (NullPointerException e){
             System.err.println("DB is empty! or not exists");
         }
