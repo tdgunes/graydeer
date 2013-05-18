@@ -20,16 +20,16 @@ public abstract class Homework implements Serializable {
     protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
     protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
     //All of the build rules will be here
-    public Config homeworkConfig = null;
+    private Config homeworkConfig = null;
     private String homeworkName = "";
     private String status = "";
     private String actions = "";
     private String grade = ""; 
 
-	public FileStorage fileStorage;
-    public String homeworkSource = "";//string of the file
+	private FileStorage fileStorage;
+    private String homeworkSource = "";//string of the file
     //may be it can be deleted
-    public boolean graded = false;
+    private boolean graded = false;
 
     /* inputToOutput Hashmap
      * Key: Inputs of a homework
@@ -294,6 +294,15 @@ public abstract class Homework implements Serializable {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+
+	public String getHomeworkSource() {
+		return homeworkSource;
+	}
+
+	public void setHomeworkSource(String homeworkSource) {
+		this.homeworkSource = homeworkSource;
+	}
     
+	
     
 }

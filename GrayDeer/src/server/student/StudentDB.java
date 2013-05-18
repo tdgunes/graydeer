@@ -56,7 +56,7 @@ public final class StudentDB {
         // NOT TESTED
         Student searchedOne = null;
         for(Student student: this.getStudents()){
-            if (student.privateKey.equals(key)){
+            if (student.getPrivateKey().equals(key)){
                 System.out.println("Key matches: "+ key);
                 System.out.println("Student Name: "+student.getName());
                 searchedOne = student;
@@ -75,7 +75,7 @@ public final class StudentDB {
 
         //High level
         Student student = this.getStudentWithKey(key);
-        return student.homeworks;
+        return student.getHomeworks();
     } 
     
     
@@ -114,7 +114,7 @@ public final class StudentDB {
     public void saveStudent(Student student) throws IOException {
        ArrayList <Student> students = new ArrayList<Student>();
        for(Student stu: students){
-           if (stu.privateKey.equals(student.privateKey)){
+           if (stu.getPrivateKey().equals(student.getPrivateKey())){
                stu = student;
            }
        }

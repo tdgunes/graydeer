@@ -22,7 +22,9 @@ public class StudentTest {
         
         System.out.println("StudentTest.java");
         
-        StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+//        StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+        StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
+
         //adding a student to DB;
         Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");
         Student astudent = new Student("Jamie", "Lanister", "S003424", "34563456345");
@@ -42,19 +44,19 @@ public class StudentTest {
         HW2 homework2 = new HW2("");
         HW1 homework1 = new HW1("");
 
-        student.homeworks.add(homework2);
-        student.homeworks.add(homework1);
+        student.getHomeworks().add(homework2);
+        student.getHomeworks().add(homework1);
         
-        astudent.homeworks.add(homework2);
-        astudent.homeworks.add(homework1);
-        bstudent.homeworks.add(homework2);
-        bstudent.homeworks.add(homework1);
-        cstudent.homeworks.add(homework2);
-        cstudent.homeworks.add(homework1);
-        dstudent.homeworks.add(homework2);
-        dstudent.homeworks.add(homework1);
-        estudent.homeworks.add(homework2);
-        estudent.homeworks.add(homework1);
+        astudent.getHomeworks().add(homework2);
+        astudent.getHomeworks().add(homework1);
+        bstudent.getHomeworks().add(homework2);
+        bstudent.getHomeworks().add(homework1);
+        cstudent.getHomeworks().add(homework2);
+        cstudent.getHomeworks().add(homework1);
+        dstudent.getHomeworks().add(homework2);
+        dstudent.getHomeworks().add(homework1);
+        estudent.getHomeworks().add(homework2);
+        estudent.getHomeworks().add(homework1);
         
         
         studentDB.setStudents(students);

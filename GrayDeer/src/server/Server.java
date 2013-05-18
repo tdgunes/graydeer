@@ -23,7 +23,9 @@ import server.student.StudentDB;
 public final class Server {
 
     //this is scary by the way, since if there is no database there, some requests may kill the server :)
-    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+//    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+    private static StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
+
     public static void start(int port) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/fetch", new fetchHandler());
@@ -96,7 +98,7 @@ public final class Server {
                 student = studentDB.getStudentWithKey(privateKey);
                 if (student != null) {
                     System.out.println("Searching homework: "+homeworkName);
-                    for (Homework homework : student.homeworks) {
+                    for (Homework homework : student.getHomeworks()) {
                         if (homework.getHomeworkName().equals(homeworkName)) {
                             System.out.println("Homework is found! :)");
                             studentHomework = homework;
@@ -120,7 +122,7 @@ public final class Server {
             if (studentHomework!=null){
                 System.out.println("Configuring the homework object!");
                 System.out.println("FileSource: " + fileSource);
-                studentHomework.homeworkSource = fileSource;
+                studentHomework.setHomeworkSource(fileSource);
                 System.out.println(".setBuildRead() starts!");
                 studentHomework.setBuildReady();
                 System.out.println("Building the homework!");

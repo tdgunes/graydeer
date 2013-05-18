@@ -39,7 +39,7 @@ public class InstructorGUI {
         ArrayList<Student> students = studentDB.getStudents();
         for (Student student : students) {
             JButton button = new JButton(student.getName() + " " + student.getSurname()+" "+student.getSchoolNumber());
-            button.addActionListener(new HomeworkListener(student.privateKey));
+            button.addActionListener(new HomeworkListener(student.getPrivateKey()));
             frame.add(button);
         }
         frame.setSize(200, 200);

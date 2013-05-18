@@ -21,15 +21,15 @@ public class Student implements Serializable {
 	private String surname;
 	private String schoolNumber;
         
-        public String privateKey; //a 16 digit random key per student
+    private String privateKey; //a 16 digit random key per student
 
  
         
 	//FIXME ****************** 
-	public ArrayList<Homework> homeworks = new ArrayList<Homework>();
+	private ArrayList<Homework> homeworks = new ArrayList<Homework>();
 	//FIXME ******************
         
-        //FIXME ****************** We don't need a HASHMAP ?
+    //FIXME ****************** We don't need a HASHMAP ?
 	// hwMap -> key: Homework Name, value: HashMap of a Homework
 	private Map<String, HomeworkInfo> hwMap =  new HashMap<String, HomeworkInfo>();
 	//FIXME ******************
@@ -120,4 +120,28 @@ public class Student implements Serializable {
 		this.schoolNumber = schoolNumber;
 	}
 
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
+	}
+
+	public ArrayList<Homework> getHomeworks() {
+		return homeworks;
+	}
+
+	public void setHomeworks(ArrayList<Homework> homeworks) {
+		this.homeworks = homeworks;
+	}
+
+	public Map<String, HomeworkInfo> getHwMap() {
+		return hwMap;
+	}
+
+	public void setHwMap(Map<String, HomeworkInfo> hwMap) {
+		this.hwMap = hwMap;
+	}
+	
 }
