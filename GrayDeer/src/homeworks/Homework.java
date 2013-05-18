@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -16,254 +17,261 @@ import server.student.Student;
 
 public abstract class Homework implements Serializable {
 
-    protected double maxGrade = 5.0;
-    protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
-    protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
-    //All of the build rules will be here
-    private Config homeworkConfig = null;
-    private String homeworkName = "";
-    private String status = "";
-    private String actions = "";
-    private String grade = ""; 
+	protected double maxGrade = 5.0;
+	protected boolean caseSensitive = false; // If capsSensitive is false, Eren and eren is the same.
+	protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
+	//All of the build rules will be here
+	private Config homeworkConfig = null;
+	private String homeworkName = "";
+	private String status = "";
+	private String actions = "";
+	private String grade = ""; 
+	private HashSet<String> inputHashSet = new HashSet<String>();
 
 	private FileStorage fileStorage;
-    private String homeworkSource = "";//string of the file
-    //may be it can be deleted
-    private boolean graded = false;
+	private String homeworkSource = "";//string of the file
+	//may be it can be deleted
+	private boolean graded = false;
 
-    /* inputToOutput Hashmap
-     * Key: Inputs of a homework
-     * Value: A class which maps outputs to grades
-     * 
-     * i.e Key: "10 4", Value gradeMap for input "10 4"
-     */
-    protected Map<String, GradeMap> inputToOutputMap = new HashMap<String, GradeMap>();
+	/* inputToOutput Hashmap
+	 * Key: Inputs of a homework
+	 * Value: A class which maps outputs to grades
+	 * 
+	 * i.e Key: "10 4", Value gradeMap for input "10 4"
+	 */
+	protected Map<String, GradeMap> inputToOutputMap = new HashMap<String, GradeMap>();
 
-    /* gradeMap Class
-     * Key: Outputs of a student for a specific homework
-     * Value: Grade of the student
-     * 
-     * i.e. Key: "14", Value: "5.0"
-     */
-    protected class GradeMap implements Serializable {
+	/* gradeMap Class
+	 * Key: Outputs of a student for a specific homework
+	 * Value: Grade of the student
+	 * 
+	 * i.e. Key: "14", Value: "5.0"
+	 */
+	protected class GradeMap implements Serializable {
 
-        protected Map<String, Double> outputToGrade = new HashMap<String, Double>();
+		protected Map<String, Double> outputToGrade = new HashMap<String, Double>();
 
-        public GradeMap() {
-            // TODO Auto-generated constructor stub
-        }
+		public GradeMap() {
+			// TODO Auto-generated constructor stub
+		}
 
-        public void setOutputGradePair(String key, Double value) {
-            outputToGrade.put(key, value);
-        }
+		public void setOutputGradePair(String key, Double value) {
+			outputToGrade.put(key, value);
+		}
 
-        public Double getGrade(String key) {
-            Double value = outputToGrade.get(key);
-            return value;
-        }
+		public Double getGrade(String key) {
+			Double value = outputToGrade.get(key);
+			return value;
+		}
 
-        public Set<String> getKeySet() {
-            return outputToGrade.keySet();
-        }
-    }
+		public Set<String> getKeySet() {
+			return outputToGrade.keySet();
+		}
+	}
 
-    public final void setBuildReady(){
-        try {
-            this.fileStorage = new FileStorage(this, this.homeworkSource);
-            this.homeworkConfig.setArgs(this.fileStorage.writtenHomeworkFile, this.fileStorage.studentFolder, this.homeworkName);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Logger.getLogger(Homework.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
-    //must be called in the constructor
-    public abstract void setResults();
+	public final void setBuildReady(){
+		try {
+			this.fileStorage = new FileStorage(this, this.homeworkSource);
+			this.homeworkConfig.setArgs(this.fileStorage.writtenHomeworkFile, this.fileStorage.studentFolder, this.homeworkName);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Logger.getLogger(Homework.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
-    // Constructors
-    public Homework(String homeworkName, String homeworkSource, Config homeworkConfig) throws FileNotFoundException {
-        this.homeworkName = homeworkName;
-        this.homeworkSource = homeworkSource;
-        this.homeworkConfig = homeworkConfig;
-        if (!homeworkSource.equals("")){
-            this.setBuildReady();
-        }
+	}
 
-        this.setResults();
-    }
+	//must be called in the constructor
+	public abstract void setResults();
 
-    public void finalizeHomework() {
-        try {
-            System.out.println("Finalizing...");
-            this.fileStorage.buildFile();
+	// Constructors
+	public Homework(String homeworkName, String homeworkSource, Config homeworkConfig) throws FileNotFoundException {
+		this.homeworkName = homeworkName;
+		this.homeworkSource = homeworkSource;
+		this.homeworkConfig = homeworkConfig;
+		if (!homeworkSource.equals("")){
+			this.setBuildReady();
+		}
 
-            double totalGrade = 0;
-            // Loop tests the homeworks for all potential inputs
-            for (String key : this.inputToOutputMap.keySet()) {
-                System.out.println("Trying this case: " + key);
-                ArrayList<String> inputs = new ArrayList<String>();
-                inputs.add(key);
-                String output = this.fileStorage.runFile(inputs);
-                System.out.println("Got this output: " + output);
-                //for this input get the gradeMap
-                GradeMap draft = this.inputToOutputMap.get(key);
-                try {
-                		
-                	// If students output is matching results, student gets full or partial credit
-                      if (draft!=null){
-                          //draft.outputToGrade.
-                          //regex for whitspaces
-                          totalGrade += draft.getGrade(output.replaceAll("\\s",""));
-                          System.out.println("Good Job!");
-                      }
-                } 
-                catch (NullPointerException e) {
+		this.setResults();
 
-                    // If students output is not matching any result, student gets no credit
-                    System.out.println("Bad Output! It must be "+ draft.outputToGrade.keySet().toArray()[0]);
-                    //this text requires a method 
-                }
-                System.out.println("");
-            }
+		// Transfer set contents to hashset
+		Set<String> inputSet = this.getInputToOutputMap().keySet();
+		for(String input: inputSet){
+			inputHashSet.add(input);
+		}
+	}
 
-            //setting the final grade
-            this.grade = ""+ totalGrade;
-            System.out.println("TotalGrade: " + totalGrade);
-            //this.grade = (int) totalGrade;
-            //if it is not catched
-            this.graded = true;
+	public void finalizeHomework() {
+		try {
+			System.out.println("Finalizing...");
+			this.fileStorage.buildFile();
 
-        } catch (NullPointerException e) {
-            //this means that your output is completely wrong and not in 
-            // the gradeMap
-            System.out.println("Bad Output!");
-        } catch (Exception e) {
-            System.out.println("Unable to finalize homework!:");
-            e.printStackTrace();
-        }
+			double totalGrade = 0;
+			// Loop tests the homeworks for all potential inputs
+			for (String key : this.inputToOutputMap.keySet()) {
+				System.out.println("Trying this case: " + key);
+				ArrayList<String> inputs = new ArrayList<String>();
+				inputs.add(key);
+				String output = this.fileStorage.runFile(inputs);
+				System.out.println("Got this output: " + output);
+				//for this input get the gradeMap
+				GradeMap draft = this.inputToOutputMap.get(key);
+				try {
 
-    }
+					// If students output is matching results, student gets full or partial credit
+					if (draft!=null){
+						//draft.outputToGrade.
+						//regex for whitspaces
+						totalGrade += draft.getGrade(output.replaceAll("\\s",""));
+						System.out.println("Good Job!");
+					}
+				} 
+				catch (NullPointerException e) {
 
-    // Getters and Setters
-    public double getMaxGrade() {
-        if (graded) {
-            return maxGrade;
-        } else {
-            return -1;
-        }
-    }
+					// If students output is not matching any result, student gets no credit
+					System.out.println("Bad Output! It must be "+ draft.outputToGrade.keySet().toArray()[0]);
+					//this text requires a method 
+				}
+				System.out.println("");
+			}
 
-    public void setMaxGrade(double max) {
-        maxGrade = max;
-    }
+			//setting the final grade
+			this.grade = ""+ totalGrade;
+			System.out.println("TotalGrade: " + totalGrade);
+			//this.grade = (int) totalGrade;
+			//if it is not catched
+			this.graded = true;
 
-    public void transformResults() { //TODO To be tested.
+		} catch (NullPointerException e) {
+			//this means that your output is completely wrong and not in 
+			// the gradeMap
+			System.out.println("Bad Output!");
+		} catch (Exception e) {
+			System.out.println("Unable to finalize homework!:");
+			e.printStackTrace();
+		}
 
-        // If caseSensitive is false, creates lower case copies of all gradeMap elements
-        if (!caseSensitive) {
-            Homework.GradeMap gm = this.new GradeMap();
-            Set<String> keys = gm.getKeySet();
-            for (String key : keys) {
-                String newKey = key.toLowerCase();
-                double newValue = gm.getGrade(key);
-                gm.setOutputGradePair(newKey, newValue);
-            }
-        }
-        if (!whitespaceSensitive) {
-            //TODO 
-        }
+	}
 
-    }
+	// Getters and Setters
+	public double getMaxGrade() {
+		if (graded) {
+			return maxGrade;
+		} else {
+			return -1;
+		}
+	}
 
-    public final class FileStorage implements Serializable {
-        //homeworkName
+	public void setMaxGrade(double max) {
+		maxGrade = max;
+	}
 
-        public String homeworkName; //Homework name: ie "Square", "Echo"
-        public String homeworkFileString; //This is not a path, it is the source
-        public Student student;
-        public String homeworkStoragePath; //Let's say in /Users/tdgunes/homeworks/
-        public String studentFolder;
-        public String writtenHomeworkFile;
-        //this will be created in constructor
-        //the last path of students homework and it is the path
-        public Config config;
-        public boolean isBuild = false;
+	public void transformResults() { //TODO To be tested.
 
-        public FileStorage(Homework homework, String homeworkFileString) throws FileNotFoundException {
+		// If caseSensitive is false, creates lower case copies of all gradeMap elements
+		if (!caseSensitive) {
+			Homework.GradeMap gm = this.new GradeMap();
+			Set<String> keys = gm.getKeySet();
+			for (String key : keys) {
+				String newKey = key.toLowerCase();
+				double newValue = gm.getGrade(key);
+				gm.setOutputGradePair(newKey, newValue);
+			}
+		}
+		if (!whitespaceSensitive) {
+			//TODO 
+		}
 
-            this.homeworkFileString = homeworkFileString;
-            //this.student = InformationParser.parse(homeworkFileString);
-            this.homeworkName = homework.homeworkName;
-            this.config = (JavaConfig) homework.homeworkConfig;
+	}
 
-            // homeworksStoragePath -> /Users/tdgunes/homeworks/
+	public final class FileStorage implements Serializable {
+		//homeworkName
 
-            this.homeworkStoragePath = Utils.combine(homework.homeworkConfig.getStoragePath(), this.homeworkName);
-            //Users/tdgunes/homeworks/MonteCarlo/
-            Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
+		public String homeworkName; //Homework name: ie "Square", "Echo"
+		public String homeworkFileString; //This is not a path, it is the source
+		public Student student;
+		public String homeworkStoragePath; //Let's say in /Users/tdgunes/homeworks/
+		public String studentFolder;
+		public String writtenHomeworkFile;
+		//this will be created in constructor
+		//the last path of students homework and it is the path
+		public Config config;
+		public boolean isBuild = false;
 
-            //FIXME SEVERE PROBLEM HERE
-            this.studentFolder = Utils.combine(this.homeworkStoragePath, "S002456");
-            Utils.createTheDir(this.studentFolder);
-            //Users/tdgunes/homeworks/MonteCarlo/S002423
+		public FileStorage(Homework homework, String homeworkFileString) throws FileNotFoundException {
 
-            this.writtenHomeworkFile = Utils.combine(this.studentFolder, homeworkName + homework.homeworkConfig.conf.get("Extension"));
-            //Users/tdgunes/homework/MonteCarlo/s002423/MonteCarlo.java
-            Utils.writeAFile(this.writtenHomeworkFile, homeworkFileString); //writing source to the file
+			this.homeworkFileString = homeworkFileString;
+			//this.student = InformationParser.parse(homeworkFileString);
+			this.homeworkName = homework.homeworkName;
+			this.config = (JavaConfig) homework.homeworkConfig;
 
+			// homeworksStoragePath -> /Users/tdgunes/homeworks/
 
-            //initiation is completed :)
+			this.homeworkStoragePath = Utils.combine(homework.homeworkConfig.getStoragePath(), this.homeworkName);
+			//Users/tdgunes/homeworks/MonteCarlo/
+			Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
 
+			//FIXME SEVERE PROBLEM HERE
+			this.studentFolder = Utils.combine(this.homeworkStoragePath, "S002456");
+			Utils.createTheDir(this.studentFolder);
+			//Users/tdgunes/homeworks/MonteCarlo/S002423
 
-
-        }
-
-        public void buildFile() {//FIXME make this work with a config class
-            //javac ./Homework1.java -d ./build/
+			this.writtenHomeworkFile = Utils.combine(this.studentFolder, homeworkName + homework.homeworkConfig.conf.get("Extension"));
+			//Users/tdgunes/homework/MonteCarlo/s002423/MonteCarlo.java
+			Utils.writeAFile(this.writtenHomeworkFile, homeworkFileString); //writing source to the file
 
 
-            //FIXME we can change it
-            //FIXME we can put them into Config.java
-            System.out.println("Building... " + config.buildArgs.toString() + "\"");
-            try {
-                Executer executer = new Executer(config.buildArgs);
-                executer.executeWithoutInputs();
-                this.isBuild = true;
-            } catch (Exception e) {
-                //build problem
-                throw new UnsupportedOperationException("BUILD FAILED:" + this.writtenHomeworkFile
-                        + "\n" + e.getMessage());
-            }
-
-        }
-
-        public String runFile(ArrayList<String> inputs) {
+			//initiation is completed :)
 
 
-            System.out.println("Running... " + config.runArgs.toString() + "\"");
 
-            Executer executer = new Executer(config.runArgs);
-            try {
+		}
 
-                String output = executer.execute(inputs); //FIXME inputs must be corrected
-                System.out.println("OUTPUT:****\n" + output);
+		public void buildFile() {//FIXME make this work with a config class
+			//javac ./Homework1.java -d ./build/
 
-                return output;
-            } catch (Exception e) {
-                throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
-                        + "\n" + e.getMessage());
-            }
-        }
 
-        public Student getStudent() {
-            return student;
-        }
-    }
-    
-    
-    // Getter and Setters are here
-    public String getHomeworkName() {
+			//FIXME we can change it
+			//FIXME we can put them into Config.java
+			System.out.println("Building... " + config.buildArgs.toString() + "\"");
+			try {
+				Executer executer = new Executer(config.buildArgs);
+				executer.executeWithoutInputs();
+				this.isBuild = true;
+			} catch (Exception e) {
+				//build problem
+				throw new UnsupportedOperationException("BUILD FAILED:" + this.writtenHomeworkFile
+						+ "\n" + e.getMessage());
+			}
+
+		}
+
+		public String runFile(ArrayList<String> inputs) {
+
+
+			System.out.println("Running... " + config.runArgs.toString() + "\"");
+
+			Executer executer = new Executer(config.runArgs);
+			try {
+
+				String output = executer.execute(inputs); //FIXME inputs must be corrected
+				System.out.println("OUTPUT:****\n" + output);
+
+				return output;
+			} catch (Exception e) {
+				throw new UnsupportedOperationException("BUILD FAILED FOR:" + this.writtenHomeworkFile
+						+ "\n" + e.getMessage());
+			}
+		}
+
+		public Student getStudent() {
+			return student;
+		}
+	}
+
+
+	// Getter and Setters are here
+	public String getHomeworkName() {
 		return homeworkName;
 	}
 
@@ -302,9 +310,25 @@ public abstract class Homework implements Serializable {
 	public void setHomeworkSource(String homeworkSource) {
 		this.homeworkSource = homeworkSource;
 	}
-    
-	
-    
+
+	public Map<String, GradeMap> getInputToOutputMap() {
+		return inputToOutputMap;
+	}
+
+	public void setInputToOutputMap(Map<String, GradeMap> inputToOutputMap) {
+		this.inputToOutputMap = inputToOutputMap;
+	}
+
+	//	public Set<String> getInputSet() {
+	//		return inputSet;
+	//	}
+	//
+	//	public void setInputSet(Set<String> inputSet) {
+	//		this.inputSet = inputSet;
+	//	}
+
+
+
 
 
 

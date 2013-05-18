@@ -1,11 +1,24 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import server.Constants;
+import server.Utils;
 
 public class ResultsPanel {
 
@@ -14,19 +27,31 @@ public class ResultsPanel {
 	private static final int COLUMNS = 4;
 	private int rows = 4;
 	private JPanel base;
+	private JFrame newFrame;
 
 	protected void initializePanel(){
-		JFrame newFrame = new JFrame();
+		newFrame = new JFrame();
 		newFrame.setSize(600,rows*50);
-		newFrame.setLocation(300,100);
+		newFrame.setLocation(200,100);
+		newFrame.setLayout(new BorderLayout());
+		newFrame.setBackground(Color.WHITE);
 
 		base = new JPanel();
 		base.setLayout(new GridLayout(rows,COLUMNS));
-		newFrame.add(base);
+		newFrame.add(base, BorderLayout.CENTER);
 
 		addTable();
+		addObjectionButon();
 		newFrame.setVisible(true);
 
+	}
+
+	private void addObjectionButon() {
+		JPanel buttonPanel = new JPanel();
+		JButton objectionButton = new JButton("Object Your Grades");
+		objectionButton.addActionListener(new ButtonHandler(objectionButton));
+		buttonPanel.add(objectionButton);
+		newFrame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
 	// Adds homework results to the pane
@@ -73,4 +98,16 @@ public class ResultsPanel {
 		rp.initializePanel();
 	}
 
+}
+class ButtonHandler implements ActionListener {
+	JButton button;
+
+	public ButtonHandler(JButton button) {
+		this.button = button;
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		ObjectionPanel op = new ObjectionPanel(button);
+		op.initializeObjectionPanel();
+	}
 }

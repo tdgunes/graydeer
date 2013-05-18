@@ -136,7 +136,7 @@ public class GridTable {
 				//writing the given reply to the predefined path     
 				Utils.writeAFile(this.preDefinedPathOfPrivateKey, reply);
 			} catch (FileNotFoundException ex) {
-				Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		else {
@@ -186,9 +186,9 @@ public class GridTable {
 				System.exit(0);
 			}
 		} catch (MalformedURLException ex) {
-			Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-			Logger.getLogger(StudentGUI.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 
