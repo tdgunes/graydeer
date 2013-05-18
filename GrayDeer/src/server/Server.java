@@ -55,8 +55,8 @@ public final class Server {
             ArrayList<Homework> homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
             String response = "+=+";
             for (Homework homework: homeworks) {
-                response = response + "**"+homework.homeworkName+"**"+
-                        homework.status+"**"+homework.grade+"**"+homework.actions+"+=+";
+                response = response + "**"+homework.getHomeworkName()+"**"+
+                        homework.getStatus()+"**"+homework.getGrade()+"**"+homework.getActions()+"+=+";
                 
             }
     
@@ -97,7 +97,7 @@ public final class Server {
                 if (student != null) {
                     System.out.println("Searching homework: "+homeworkName);
                     for (Homework homework : student.homeworks) {
-                        if (homework.homeworkName.equals(homeworkName)) {
+                        if (homework.getHomeworkName().equals(homeworkName)) {
                             System.out.println("Homework is found! :)");
                             studentHomework = homework;
                             break;
@@ -125,7 +125,7 @@ public final class Server {
                 studentHomework.setBuildReady();
                 System.out.println("Building the homework!");
                 studentHomework.finalizeHomework();
-                response = "Your grade: "+studentHomework.grade;
+                response = "Your grade: "+studentHomework.getGrade();
                 
                 //DB saves FIXME!
                 //studentDB.saveStudent(student);

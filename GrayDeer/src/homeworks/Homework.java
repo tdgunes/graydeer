@@ -21,11 +21,12 @@ public abstract class Homework implements Serializable {
     protected boolean whitespaceSensitive = false; // If whitespaceSensitive is false, Eren Sezener and Eren   Sezener is the same.
     //All of the build rules will be here
     public Config homeworkConfig = null;
-    public String homeworkName = "";
-    public String status = "";
-    public String actions = "";
-    public String grade = "";
-    public FileStorage fileStorage;
+    private String homeworkName = "";
+    private String status = "";
+    private String actions = "";
+    private String grade = ""; 
+
+	public FileStorage fileStorage;
     public String homeworkSource = "";//string of the file
     //may be it can be deleted
     public boolean graded = false;
@@ -259,4 +260,40 @@ public abstract class Homework implements Serializable {
             return student;
         }
     }
+    
+    
+    // Getter and Setters are here
+    public String getHomeworkName() {
+		return homeworkName;
+	}
+
+	public void setHomeworkName(String homeworkName) {
+		this.homeworkName = homeworkName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getActions() {
+		return actions;
+	}
+
+	public void setActions(String actions) {
+		this.actions = actions;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+    
+    
 }

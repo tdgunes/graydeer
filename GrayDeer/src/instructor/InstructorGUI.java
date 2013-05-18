@@ -66,7 +66,7 @@ public class InstructorGUI {
             String homeworkCount = privatekey+" "+homeworks.size();
             String homeworkList = homeworkCount + " \n";
             for(Homework homework: homeworks) {
-                homeworkList = homeworkList + " "+ homework.homeworkName;
+                homeworkList = homeworkList + " "+ homework.getHomeworkName();
             }
             JOptionPane.showMessageDialog(frame, homeworkList);
         }
