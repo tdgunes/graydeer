@@ -30,6 +30,7 @@ public class GridTable {
 
 	private String privateKey = "";
 	private String preDefinedPathOfPrivateKey = "/Users/erensezener/privatekey.txt";
+//	private String preDefinedPathOfPrivateKey = "/Users/tdgunes/homeworks/privatekey.txt";
 
 
 
