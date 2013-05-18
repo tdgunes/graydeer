@@ -1,7 +1,5 @@
-package TestCases;
+package gui;
 
-import gui.HTTPLib;
-import gui.StudentGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,7 +29,7 @@ public class GridTable {
 	private int rows = 3;
 
 	private String privateKey = "";
-	private String preDefinedPathOfPrivateKey = "/Users/tdgunes/homeworks/privatekey.txt";
+	private String preDefinedPathOfPrivateKey = "/Users/erensezener/privatekey.txt";
 
 
 
@@ -70,7 +68,7 @@ public class GridTable {
 
 		JPanel panel = new JPanel(new GridLayout(rows, columns));
 
-		
+
 		addTitles(panel);
 
 		for(Object[] o: data)
@@ -97,7 +95,7 @@ public class GridTable {
 		frame.setVisible(true);
 	}
 
-	
+
 	/*
 	 * Adds titles of the GUI
 	 */
@@ -168,12 +166,12 @@ public class GridTable {
 			data = new Object[listNum][4];
 
 			for (int i = 0; i < lines.length; i++) {
-				
+
 				String string = lines[i];
 				System.out.println(string);
 				String[] parsedItems = HTTPLib.splitItWithString(string, "**");
 				System.arraycopy(parsedItems, 0, data[i], 0, 4);
-		
+
 			}
 			return data;
 		} catch (ConnectException er) {
@@ -196,31 +194,40 @@ public class GridTable {
 
 	}
 
-            class ButtonHandler implements ActionListener {
+	class ButtonHandler implements ActionListener {
 
-        public ButtonHandler() {
-        }
+		public ButtonHandler() {
+		}
 
-        public void actionPerformed(ActionEvent e) {
-            //submit the homework
+		public void actionPerformed(ActionEvent e) {
+			//submit the homework
 
-            FileChooser fc = new FileChooser();
-            String homeworkPath = fc.showFileChooser();
-            String source = Utils.readFromFile(homeworkPath);
-            System.out.println("Source\n"+source);
-            HTTPLib myLib = new HTTPLib("http://localhost:8000/", privateKey);
-            String response = null;
-            try {
-                response = myLib.postData("submit", source,"Square");
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(null,response);
-        }
-    }
+			JButton jb = (JButton) e.getSource();
+			
+			// If student clicks on See Notes button
+			if(jb.getText().equals("See Notes")){
+				ResultsPanel rp = new ResultsPanel();
+				rp.initializePanel();
 
-
+			}
+			
+			// If student clicks on Upload button
+			else{
+				FileChooser fc = new FileChooser();
+				String homeworkPath = fc.showFileChooser();
+				String source = Utils.readFromFile(homeworkPath);
+				System.out.println("Source\n"+source);
+				HTTPLib myLib = new HTTPLib("http://localhost:8000/", privateKey);
+				String response = null;
+				try {
+					response = myLib.postData("submit", source,"Square");
+				} catch (MalformedURLException ex) {
+					Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (IOException ex) {
+					Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				JOptionPane.showMessageDialog(null,response);
+			}
+		}
+	}
 }
-

@@ -1,4 +1,4 @@
-package TestCases;
+package gui;
 
 import javax.accessibility.Accessible;
 import javax.swing.JComponent;
