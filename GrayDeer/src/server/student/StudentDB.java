@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import server.Constants;
 import server.Utils;
 
 /**
@@ -29,7 +30,7 @@ public final class StudentDB {
     
     // constant studentDB name which will be placed inside
     //workdir
-    private String dbName = "students.db";
+    private String dbName = Constants.dbName;
     private String dbFilePath = "";
     //this will be initialized
     

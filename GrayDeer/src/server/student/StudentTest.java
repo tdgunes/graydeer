@@ -10,6 +10,7 @@ import homeworks.examples.HW2;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import server.Constants;
 
 
 /**
@@ -23,7 +24,7 @@ public class StudentTest {
         System.out.println("StudentTest.java");
         
 //        StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
-        StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
+        StudentDB studentDB = new StudentDB(Constants.dbPath);
 
         //adding a student to DB;
         Student student = new Student("Luke", "Skywalker", "S003423", "!4612612315123");

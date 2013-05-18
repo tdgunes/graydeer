@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import server.Constants;
 
 
 /**
@@ -23,8 +24,8 @@ public abstract class Config implements Serializable{
     //after cs102 lecture this week 15 April 2013 :) 
     
 	public HashMap<String, String> conf = new HashMap<String, String>();
-	private String storagePath = "/Users/tdgunes" + "/homeworks/";
-	//private String storagePath = "/Users/erensezener" + "/homeworks/";
+	private String storagePath = Constants.storagePath;
+	
         
         public ArrayList<String> buildArgs = new ArrayList<String>();
         public ArrayList<String> runArgs = new ArrayList<String>();

@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import server.Constants;
 
 import server.Utils;
 
@@ -29,9 +30,7 @@ public class GridTable {
 	private int rows = 3;
 
 	private String privateKey = "";
-	private String preDefinedPathOfPrivateKey = "/Users/erensezener/privatekey.txt";
-//	private String preDefinedPathOfPrivateKey = "/Users/tdgunes/homeworks/privatekey.txt";
-
+	private String preDefinedPathOfPrivateKey = Constants.privateKeyPreDef;
 
 
 	public static void main(String[] args) {
@@ -48,7 +47,7 @@ public class GridTable {
 
 
 		Object[][] data = {};
-		String hostName = "http://localhost:8000/";
+		String hostName = Constants.hostName;
 
 
 		//starting the loop
@@ -218,7 +217,7 @@ public class GridTable {
 				String homeworkPath = fc.showFileChooser();
 				String source = Utils.readFromFile(homeworkPath);
 				System.out.println("Source\n"+source);
-				HTTPLib myLib = new HTTPLib("http://localhost:8000/", privateKey);
+				HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
 				String response = null;
 				try {
 					response = myLib.postData("submit", source,"Square");

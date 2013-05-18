@@ -305,8 +305,8 @@ public abstract class Homework implements Serializable {
     
 	
     
-<<<<<<< HEAD
+
+
+
 }
-=======
-}
->>>>>>> add InstructorGUI
+
