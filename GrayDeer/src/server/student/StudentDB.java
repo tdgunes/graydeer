@@ -115,10 +115,14 @@ public final class StudentDB {
      */
     public void saveStudent(Student student) throws IOException {
        ArrayList <Student> students = new ArrayList<Student>();
-       for(Student stu: students){
+       ArrayList <Student> currentStudents = this.getStudents();
+       for(Student stu: currentStudents){
+           
            if (stu.getPrivateKey().equals(student.getPrivateKey())){
                stu = student;
            }
+
+           students.add(stu);
        }
        this.setStudents(students);
     }
