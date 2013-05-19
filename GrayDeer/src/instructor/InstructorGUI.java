@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import server.Constants;
 import server.student.Student;
 import server.student.StudentDB;
@@ -94,8 +95,17 @@ public class InstructorGUI {
         JButton addNew = new JButton("Add New Student");
         addNew.addActionListener(new ButtonListener(this,frame));
         
-        controlPanel.add(removeAll);
+        //this button required for the cases, if the db file is edited by server
+        JButton refresh = new JButton("Refresh"); 
+        refresh.addActionListener(new ButtonListener(this,frame));
+        
+        JButton about = new JButton("About"); 
+        about.addActionListener(new ButtonListener(this,frame));
+        
         controlPanel.add(addNew);
+        controlPanel.add(refresh);
+        controlPanel.add(removeAll);        
+        controlPanel.add(about);
         
         return(controlPanel);
         
@@ -203,7 +213,17 @@ public class InstructorGUI {
                 AddStudentWindow myWindow = new AddStudentWindow(rootView);
                 myWindow.showWindow();
             }
-        }
+            
+            else if (source.getText().equals("Refresh")) {
+                frame.dispose();
+                rootView.refreshFrame();
+           } else if (source.getText().equals("About")) {
+               frame.dispose();
+               JOptionPane.showMessageDialog(null,"Copyright (c) 2013 by Taha Doğan Güneş and Eren Sezener.\n"
+                       + " All rights reserved.", "GrayDeer - Instructor GUI", JOptionPane.INFORMATION_MESSAGE);
+               rootView.refreshFrame();
+           }
+       }
        
        
    }

@@ -40,16 +40,18 @@ import server.student.StudentDB;
 public class AddHomeworkWindow implements ItemListener {
     private HomeworkWindow rootView = null;
     private String privateKey = null;
+    private AvailableHomeworks availableHomeworks = new AvailableHomeworks();
     public AddHomeworkWindow(HomeworkWindow rootView, String privateKey) {
         this.rootView = rootView;
         this.privateKey = privateKey;
     }
 
     public void showWindow(){
-        AvailableHomeworks availableHomeworks = new AvailableHomeworks();
+        
+        Object[] currentHomeworks = availableHomeworks.availableHomeworks.keySet().toArray();
         
         JFrame window = new JFrame();
-        window.setLayout(new GridLayout(6,1));
+        window.setLayout(new GridLayout(2,1));
         window.setTitle("Add a Homework");
         
        
@@ -61,46 +63,16 @@ public class AddHomeworkWindow implements ItemListener {
         JPanel namePane = new JPanel(new GridLayout(1,2));
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        JTextField nameField = new JTextField();
+        JComboBox nameField = new JComboBox(currentHomeworks);
         namePane.add(nameLabel);
         namePane.add(nameField);
         window.add(namePane);
    
-        JPanel statusPane = new JPanel(new GridLayout(1, 2));
-        JLabel statusLabel = new JLabel("Status: ");
-        statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextField statusField = new JTextField();
-        statusPane.add(statusLabel);
-        statusPane.add(statusField);
-        window.add(statusPane);
-
-        JPanel actionsPane = new JPanel(new GridLayout(1, 2));
-        JLabel actionsLabel = new JLabel("Actions: ");
-        actionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextField actionsField = new JTextField();
-        actionsPane.add(actionsLabel);
-        actionsPane.add(actionsField);
-        window.add(actionsPane);
         
-        
-        
-
-        JPanel gradePane = new JPanel(new GridLayout(1, 3));
-        JLabel gradeLabel = new JLabel("Grade:(N/A");
-        gradeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JTextField gradeField = new JTextField();
-        gradePane.add(gradeLabel);
-        gradePane.add(gradeField);
-        window.add(gradePane);
-        
-   
-        
-        submitButton.addActionListener(new ButtonListener(nameField, statusField, 
-                actionsField, gradeField, window));
+        submitButton.addActionListener(new ButtonListener(nameField, window));
         window.add(submitButton);
         window.setLocationRelativeTo(null);
-        window.setSize(200,240);
+        window.setSize(240,100);
         window.setVisible(true);
         
     }
@@ -112,18 +84,12 @@ public class AddHomeworkWindow implements ItemListener {
     
     class ButtonListener implements ActionListener {
 
-        private JTextField name;
-        private JTextField status;
-        private JTextField actions;
-        private JTextField grade;
+        private JComboBox name;
+
         private JFrame frame;
         
-        public ButtonListener(JTextField name, JTextField status, 
-                JTextField actions, JTextField grade, JFrame frame) {
+        public ButtonListener(JComboBox name, JFrame frame) {
                 this.name = name;
-                this.status = status;
-                this.actions = actions;
-                this.grade = grade;
                 this.frame = frame;
         }
 
@@ -134,12 +100,9 @@ public class AddHomeworkWindow implements ItemListener {
             System.out.println("Surname: " + this.surname);
             System.out.println("SchoolNum: "+ this.schoolNum);
             System.out.println("PrivateKey: " + this.privateKey);*/
-            String aName = (String) this.name.getText();
-            String aSurName = this.status.getText();
-            String aSchoolNum = this.actions.getText();
-            String aPrivateKey = this.grade.getText();
-            if (aName.trim().equals("") || aSurName.trim().equals("") 
-                    || aSchoolNum.trim().equals("") || aPrivateKey.trim().equals("") ) {
+            String aName = (String) this.name.getSelectedItem();
+
+            if (aName.trim().equals("") ) {
                 JOptionPane.showMessageDialog(null,"You need to fill all of the fields!");
             }
             else {
@@ -148,13 +111,13 @@ public class AddHomeworkWindow implements ItemListener {
                 
                 try {
                     Homework homework = null;
-                    if (AvailableHomeworks.availableHomeworks.get(aName).equals("HW1")){
+                    if (availableHomeworks.availableHomeworks.get(aName).equals("HW1")){
                         homework = new HW1("");
                     }
-                    else if (AvailableHomeworks.availableHomeworks.get(aName).equals("HW2")){
+                    else if (availableHomeworks.availableHomeworks.get(aName).equals("HW2")){
                         homework = new HW2("");
                     }
-                    else if (AvailableHomeworks.availableHomeworks.get(aName).equals("HW3")){
+                    else if (availableHomeworks.availableHomeworks.get(aName).equals("HW3")){
                         homework = new HW3("");
                     }
                     

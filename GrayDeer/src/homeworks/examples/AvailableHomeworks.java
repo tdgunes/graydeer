@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public  class AvailableHomeworks {
     
-    public static HashMap<String,String> availableHomeworks = new HashMap<String,String>();
+    public HashMap<String,String> availableHomeworks = new HashMap<String,String>();
     
     public AvailableHomeworks(){
         availableHomeworks.put("Echo", "HW1");

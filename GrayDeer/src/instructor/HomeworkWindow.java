@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import server.Constants;
 import server.student.Student;
 import server.student.StudentDB;
@@ -39,6 +41,7 @@ public class HomeworkWindow {
     private int rows = 1; //this can be changed by the data rows-1 total data without tile
     private String privateKey = "";
     private InstructorGUI rootView = null;
+    private Student student = null;
 
     public HomeworkWindow(InstructorGUI rootView, String privateKey) throws FileNotFoundException {
         this.privateKey = privateKey;
@@ -53,13 +56,10 @@ public class HomeworkWindow {
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
 
-        Student student = studentDB.getStudentWithKey(privateKey);
+        this.student = studentDB.getStudentWithKey(privateKey);
         ArrayList<Homework> homeworks = student.getHomeworks();
-        /*   for (Student student : students) {
-         JButton button = new JButton(student.getName() + " " + student.getSurname()+" "+student.getSchoolNumber());
-         button.addActionListener(new HomeworkListener(student.getPrivateKey()));
-         frame.add(button);
-         }*/
+        
+       
 
         frame.setBackground(Color.WHITE);
 
@@ -70,6 +70,12 @@ public class HomeworkWindow {
         JLabel margin = new JLabel("    ");
         frame.add(margin, BorderLayout.WEST);
         frame.add(this.getControlPanel(frame), BorderLayout.NORTH);
+        
+        JLabel message = new JLabel("To go to main page, please close the window.");
+        Font newLabelFont = new Font(message.getFont().getName(), Font.ITALIC, message.getFont().getSize());
+        message.setFont(newLabelFont);
+        message.setAlignmentX(SwingConstants.CENTER);
+        frame.add(message,BorderLayout.SOUTH);
 
         frame.setTitle("GrayDeer Instructor - "+student.getName()+" "+student.getSurname());
 
@@ -103,9 +109,12 @@ public class HomeworkWindow {
         removeAll.addActionListener(new ButtonListener(this,frame));
         JButton addNew = new JButton("Add New Homework");
         addNew.addActionListener(new ButtonListener(this,frame));
+        JButton refresh = new JButton("Refresh");
+        refresh.addActionListener(new ButtonListener(this,frame));
 
         controlPanel.add(removeAll);
         controlPanel.add(addNew);
+        controlPanel.add(refresh);
 
         return (controlPanel);
 
@@ -189,13 +198,33 @@ public class HomeworkWindow {
         public void actionPerformed(ActionEvent ae) {
             JButton source = (JButton) ae.getSource();
             if (source.getText().equals("Remove All")) {
-                System.out.println("Remove All");
+                
+                ArrayList<Homework> homeworks = new ArrayList<Homework>();
+                student.setHomeworks(homeworks);
+                try {
+                    frame.dispose();
+                    studentDB.saveStudent(student);
+                    rootView.refreshFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(InstructorGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             } else if (source.getText().equals("Add New Homework")) {
                 System.out.println("Add New Homework");
                 this.frame.dispose();
                 AddHomeworkWindow myWindow = new AddHomeworkWindow(rootView,privateKey);
                 myWindow.showWindow();
             }
+            else if (source.getText().equals("Refresh")){
+                try {
+                    frame.dispose();
+                    rootView.refreshFrame();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(HomeworkWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
     }
 }

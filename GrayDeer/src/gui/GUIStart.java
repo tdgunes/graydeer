@@ -24,7 +24,7 @@ public class GUIStart {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                StudentGUI.createAndShowGUI();
+              //  StudentGUI.createAndShowGUI();
             }
         });
     }
