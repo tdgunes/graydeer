@@ -6,12 +6,29 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import server.Constants;
+
 public class ResultsPanel {
+	String hwName;
+	String privateKey;
+
+
+	public ResultsPanel(String hwName, String privateKey) {
+		super();
+		this.hwName = hwName;
+		this.privateKey = privateKey;
+	}
 
 	// There are four columns namely Inputs, Outputs, Answers, Grades
 	// Number of rows is equal to the number of homeworks
@@ -21,12 +38,14 @@ public class ResultsPanel {
 	private JFrame newFrame;
 
 	protected void initializePanel(){
+		getData();
+
 		newFrame = new JFrame();
 		newFrame.setSize(600,rows*50);
 		newFrame.setLocation(200,100);
 		newFrame.setLayout(new BorderLayout());
 		newFrame.setBackground(Color.WHITE);
-		
+
 		JLabel margin = new JLabel("    ");
 		newFrame.add(margin, BorderLayout.WEST);
 
@@ -39,6 +58,21 @@ public class ResultsPanel {
 		newFrame.setVisible(true);
 
 	}
+
+	private void getData() {
+		HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
+		String response = null;
+		try {
+			response = myLib.postData("getCases","", hwName);
+		} catch (MalformedURLException ex) {
+			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		JOptionPane.showMessageDialog(null,response);
+		System.out.println(response);
+	}		
+
 
 	private void addObjectionButon() {
 		JPanel buttonPanel = new JPanel();
@@ -87,10 +121,10 @@ public class ResultsPanel {
 	}
 
 	// For testing purposes
-	public static void main(String args[]){
-		ResultsPanel rp = new ResultsPanel();
-		rp.initializePanel();
-	}
+	//	public static void main(String args[]){
+	//		ResultsPanel rp = new ResultsPanel();
+	//		rp.initializePanel();
+	//	}
 
 }
 class ButtonHandler implements ActionListener {

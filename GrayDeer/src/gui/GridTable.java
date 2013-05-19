@@ -209,7 +209,7 @@ public class GridTable {
 			
 			// If student clicks on See Notes button
 			if(jb.getText().equals("See Notes")){
-				ResultsPanel rp = new ResultsPanel();
+				ResultsPanel rp = new ResultsPanel(hwName, privateKey);
 				rp.initializePanel();
 
 			}
