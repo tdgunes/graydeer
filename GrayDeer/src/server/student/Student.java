@@ -10,138 +10,88 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 /**
  *
  * @author tdgunes
  */
 public class Student implements Serializable {
-	private String name;
-	private String surname;
-	private String schoolNumber;
+
+    //Student object consists of four important values
+    private String name;
+    private String surname;
+    private String schoolNumber;
+    private String privateKey;
+
+    
+    private ArrayList<Homework> homeworks = new ArrayList<Homework>();
+
+
+    public Student() {
+        //this is for testing purposes
+        this.name = "Unknown";
+        this.surname = "Unknown";
+        this.schoolNumber = "Unknown";
+    }
+    //constructor for student object
+    public Student(String name, String surname, String schoolNumber, String privateNumber) {
+        this.name = name;
+        this.surname = surname;
+        this.schoolNumber = schoolNumber;
+        this.privateKey = privateNumber;
+    }
+
+    public void grade(int HW) {
         
-    private String privateKey; //a 16 digit random key per student
+    }
 
- 
-        
-	//FIXME ****************** 
-	private ArrayList<Homework> homeworks = new ArrayList<Homework>();
-	//FIXME ******************
-        
-    //FIXME ****************** We don't need a HASHMAP ?
-	// hwMap -> key: Homework Name, value: HashMap of a Homework
-	private Map<String, HomeworkInfo> hwMap =  new HashMap<String, HomeworkInfo>();
-	//FIXME ******************
-        
-	// HomeworkInfo contains a HashMap of homework information related to a 
-	public class HomeworkInfo{
-		
-		public HomeworkInfo(){
-		}
-		
-		public HomeworkInfo(String key, String value){
-			hwInfo.put(key, value);
-		}
-		
-		private Map<String, String> hwInfo =  new HashMap<String, String>();
+    @Override
+    //this is again for debugging
+    public String toString() {
+        String str;
+        str = "\n" + "Student Name: " + this.name + "\n";
 
-		public void setHwInfo(String key, String value) {
-			hwInfo.put(key, value);
-		}
+        return str;
+    }
 
-		public String getHwInfo(String key){
-			String value = hwInfo.get(key);
-			return value;
-		}
-	}// end of HomeworkInfo class
+    //auto generated getter and setters
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setHwNo(String key, HomeworkInfo value) {
-		hwMap.put(key, value);
-	}
+    public String getSurname() {
+        return surname;
+    }
 
-	public HomeworkInfo getHwNo(String key){
-		HomeworkInfo value = hwMap.get(key);
-		return value;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	/*
-	 * Trivial methods
-	 */
-	public Student(){
-		this.name = "Unknown";
-		this.surname = "Unknown";
-		this.schoolNumber = "Unknown";
-	}
+    public String getSchoolNumber() {
+        return schoolNumber;
+    }
 
+    public void setSchoolNumber(String schoolNumber) {
+        this.schoolNumber = schoolNumber;
+    }
 
-	public Student(String name, String surname, String schoolNumber,String privateNumber) {
-		this.name = name;
-		this.surname = surname;
-		this.schoolNumber = schoolNumber;
-                this.privateKey = privateNumber;
-	}
-        
-	public void grade(int HW){
-                //***** FIXME
+    public String getPrivateKey() {
+        return privateKey;
+    }
 
-	}
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
 
-        @Override
-	public String toString(){
-		String str;
-		str = "\n" + "Student Name: "+ this.name + "\n";
+    public ArrayList<Homework> getHomeworks() {
+        return homeworks;
+    }
 
-		return str;
-	}
+    public void setHomeworks(ArrayList<Homework> homeworks) {
+        this.homeworks = homeworks;
+    }
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getSchoolNumber() {
-		return schoolNumber;
-	}
-
-	public void setSchoolNumber(String schoolNumber) {
-		this.schoolNumber = schoolNumber;
-	}
-
-	public String getPrivateKey() {
-		return privateKey;
-	}
-
-	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
-	}
-
-	public ArrayList<Homework> getHomeworks() {
-		return homeworks;
-	}
-
-	public void setHomeworks(ArrayList<Homework> homeworks) {
-		this.homeworks = homeworks;
-	}
-
-	public Map<String, HomeworkInfo> getHwMap() {
-		return hwMap;
-	}
-
-	public void setHwMap(Map<String, HomeworkInfo> hwMap) {
-		this.hwMap = hwMap;
-	}
-	
 }

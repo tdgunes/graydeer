@@ -41,9 +41,11 @@ public final class StudentDB {
      * @param workdir
      */
     public StudentDB(String workdir){
+        //Constructor for StudentDB
+        //It defines workdir and combines workdir and database name(aka dbName)
+        
         this.workDir = workdir;
         this.dbFilePath = Utils.combine(workdir, this.dbName);
-        //System.out.println("Students: "+this.getStudents().size());  
     }
     
     /**
@@ -52,7 +54,9 @@ public final class StudentDB {
      * @return
      */
     public Student getStudentWithKey(String key){
-        // NOT TESTED
+        //Searches database for finding a student with its own private key
+        //If student is not found, function returns null
+        //It is required to check whether it is null or not in the usage
         Student searchedOne = null;
         for(Student student: this.getStudents()){
             if (student.getPrivateKey().equals(key)){
@@ -71,8 +75,8 @@ public final class StudentDB {
      * @throws FileNotFoundException
      */
     public ArrayList<Homework> getHomeworksOfAStudentByKey(String key) throws FileNotFoundException{
-
-        //High level
+        //This is just for simply getting homeworks of a student with giving
+        //with using other functions.
         Student student = this.getStudentWithKey(key);
         return student.getHomeworks();
     } 
@@ -82,13 +86,22 @@ public final class StudentDB {
      *
      * @return
      */
-    public ArrayList<Student> getStudents() {
+    public ArrayList<Student> getStudents() 
+    {
+        //Gets all of the students that are inside the database
+        
+        //Opens DB in read mode
         this.openFileReadMode();
+        
+        //Creates an empty arraylist
         ArrayList<Student> students = new ArrayList<Student>();
 
 
+        
         try {
+            //tries to add all of them until EOF is thrown
             while (true) {
+                
                 students.add((Student) input.readObject());
             }
         } catch (EOFException endOfFileException) {
@@ -101,6 +114,7 @@ public final class StudentDB {
         } catch (NullPointerException e){
             System.err.println("DB is empty! or not exists");
         }
+        //closes the database file
         this.closeFileReadMode();
     
         return null;
@@ -112,42 +126,69 @@ public final class StudentDB {
      * @param student
      */
     public void saveStudent(Student student) throws IOException {
+      
+       //final student objects that will be saved in the DB
        ArrayList <Student> students = new ArrayList<Student>();
+       
+       //current students that are in the database will be gathered
        ArrayList <Student> currentStudents = this.getStudents();
+       
+       //searching the student in currentStudents
        for(Student stu: currentStudents){
            
+           //if that student is found looking by all students private key
            if (stu.getPrivateKey().equals(student.getPrivateKey())){
+               //if that is found, stu will be student so it will be saved in the database
                stu = student;
+               
            }
-
+           //stu is added for all of students that are inside currentStudents
+           //however stu is changed if given student object is found inside the database
            students.add(stu);
        }
+       //and this final list will be saved in to the database
        this.setStudents(students);
     }
+    
     /**
      *
      * @param students
      * @throws IOException
      */
+    
+    //this method writes given students list to the database
+    //clears all of the old records
     public void setStudents(ArrayList<Student> students) throws IOException{
+        //opens the database for write mode
         this.openFileWriteMode();
+        //for every student object
         for (Student student : students) {
+            //student will be written to the database
             output.writeObject(student);
         }
+        //closes the database for write mode
         this.closeFileWriteMode();
+        //prints for test purposes
         System.out.println("Number of students are set: "+students.size());
     }
     
-    //adding to the end of the file
+  
     /**
      *
      * @param student
      * @throws IOException
      */
+    
+    //this methods adds a new single student to the database
+    //does not clear old records
     public void addStudent(Student student) throws IOException{
+       
+        //current students that are written in the database 
        ArrayList <Student> currentStudents = this.getStudents();
+       //adds given student to the current student list
        currentStudents.add(student);
        
+       //overwrites all of the databases with old records + a new record
        this.setStudents(currentStudents);
     }
 
@@ -156,6 +197,7 @@ public final class StudentDB {
     /**
      *
      */
+    //opens database for writing
     public void openFileWriteMode() {
         try {
             output = new ObjectOutputStream(new FileOutputStream(
@@ -168,6 +210,7 @@ public final class StudentDB {
     /**
      *
      */
+    //closes database for writing
     public void closeFileWriteMode() {
         try {
             if (output != null) {
@@ -183,6 +226,7 @@ public final class StudentDB {
     /**
      *
      */
+    //closes database for reading
     public void closeFileReadMode() {
         try {
             if (input != null) {
@@ -199,6 +243,7 @@ public final class StudentDB {
     /**
      *
      */
+    //opens database for reading
     public void openFileReadMode() {
         try {
             input = new ObjectInputStream(new FileInputStream(

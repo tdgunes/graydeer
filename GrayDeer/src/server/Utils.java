@@ -17,10 +17,11 @@ import server.student.Student;
  *
  * @author tdgunes
  */
-//this file is for global functions that all of the
-//files accesses
+//this class is for global functions that all of the
+//java classes
 public class Utils {
 
+    //high level reading from file
     public static String readFromFile(String path) {
 
         // Location of file to read
@@ -42,7 +43,7 @@ public class Utils {
 
     }
 
-
+    //high level saving an string to with a name of student school number
     public static void save(String output, Student std) throws IOException {
         String filename = std.getSchoolNumber().toString();
         try {
@@ -55,35 +56,37 @@ public class Utils {
             e.printStackTrace();
         }
     }
-
+    //this is from stackoverflow, it makes easier for converting Inputstreams to
+    //string
     public static String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
 
+    //this method combines a path with a path for instance
+    // /home/tdgunes/   .../homeworks/
+    // generates /home/tdgunes/homeworks
     public static String combine(String path1, String path2) {
         File file1 = new File(path1);
         File file2 = new File(file1, path2);
         return file2.getPath();
     }
+    //an ugly way to getting rid of [,] and whitespaces
     public static String correctHeader(String headerString){
         headerString = headerString.replace(']', ' ');
         headerString = headerString.replace('[', ' ');
         headerString = headerString.replaceAll("\\s", "");
         return headerString;
     }
-
+    //just creates a folder with given dirPath
+    //dirPath example: /Users/tdgunes/homeworks/MonteCarlo/S002222/
     public static void createTheDir(String dirPath) {
-
-        // Example of the studentFolder /Users/tdgunes/homeworks/MonteCarlo/S002222/
         File dir = new File(dirPath);
         dir.mkdir();
     }
 
+    //writes a string to the given path
     public static void writeAFile(String aFile, String source) throws FileNotFoundException {
-        //Users/tdgunes/homeworks/
-
-        // Example of the studentFile /Users/tdgunes/homeworks/MonteCarlo/S002222/MonteCarlo.java
         try {
             PrintWriter out = new PrintWriter(aFile);
             out.println(source);

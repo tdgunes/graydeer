@@ -8,7 +8,7 @@
 
 package server;
 
-
+//this class is highly used for gaining time while debugging in different comps
 public final class  Constants {
     public static String dbPath = "/Users/tdgunes/homeworks/";
     public static String workDir = "/Users/tdgunes/homeworks/";
