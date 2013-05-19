@@ -22,9 +22,9 @@ import server.student.StudentDB;
 
 public final class Server {
 
-    //this is scary by the way, since if there is no database there, some requests may kill the server :)
-//    private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
-    private static StudentDB studentDB = new StudentDB("/Users/erensezener/homeworks/");
+ //this is scary by the way, since if there is no database there, some requests may kill the server :)
+//private static StudentDB studentDB = new StudentDB("/Users/tdgunes/homeworks/");
+    private static StudentDB studentDB = new StudentDB(Constants.dbPath);
 
     public static void start(int port) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -129,10 +129,19 @@ public final class Server {
                 studentHomework.finalizeHomework();
                 response = "Your grade: "+studentHomework.getGrade();
                 
-                //DB saves FIXME!
-                //studentDB.saveStudent(student);
-                //this grade should be written to the DB
                 
+                ArrayList<Homework> currentHomeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
+                ArrayList<Homework> finalHomeworks = new ArrayList<Homework>();
+                
+                //Searching homework
+                for (Homework homework : currentHomeworks) {
+                    if (homework.getHomeworkName().equals(homeworkName)){
+                        homework = studentHomework;
+                    }
+                    finalHomeworks.add(homework);
+                }
+                student.setHomeworks(finalHomeworks);
+                studentDB.saveStudent(student);
             }
             else {
                 response = "Something went terribly wrong!";
@@ -154,8 +163,6 @@ public final class Server {
             System.out.println("IP:" + t.getLocalAddress());
             
        
-            //System.out.println("Request Body:\n" + requestBody);
-            //System.out.println("Request Header:\n" + t.getRequestHeaders().toString());
             System.out.println("||| GrayDeer(verifyHandler) - "+ requestBody);
             String response = "GrayDeer VerifyHandler echoes you: " +requestBody;
             t.sendResponseHeaders(200, response.length());
