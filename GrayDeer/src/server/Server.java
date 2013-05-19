@@ -25,10 +25,74 @@ public final class Server {
         server.createContext("/fetch", new fetchHandler());
         server.createContext("/submit", new submitHandler());
         server.createContext("/verify", new verifyHandler());
+        server.createContext("/getcases", new caseHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
     }
+    static class caseHandler implements HttpHandler {
+        
+         @Override
+        public void handle(HttpExchange t) throws IOException {
+            
+            System.out.println("IP:" + t.getLocalAddress());
 
+            
+            String privateKey = Utils.correctHeader(t.getRequestHeaders().get("privatekey").toString());
+            String homeworkName = Utils.correctHeader( t.getRequestHeaders().get("homeworkName").toString());
+          
+            //this key is special for every student, should be mailed all of them
+           
+             //// FIXME *******************
+            /// Automatic homework selection part here!
+            System.out.println("Submitting!");
+            Student student = null;
+            Homework studentHomework = null;
+            try {
+                student = studentDB.getStudentWithKey(privateKey);
+                if (student != null) {
+                    System.out.println("Searching homework: "+homeworkName);
+                    for (Homework homework : student.getHomeworks()) {
+                        if (homework.getHomeworkName().equals(homeworkName)) {
+                            System.out.println("Homework is found! :)");
+                            studentHomework = homework;
+                            break;
+                        }
+                    }
+                }
+                else {
+                    System.out.println("Student not found! with key: "+ privateKey);
+                }
+           
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            //////////
+            
+            
+            
+            //directly sending homework to fileStorage
+            String response = "+=+";
+             if (studentHomework != null) {
+                 ArrayList<Homework.Case> cases = studentHomework.getCases();
+                 for (Homework.Case case1 : cases) {
+                       response = response + "**" + case1.getInput() + "**"
+                             + case1.getOutput() + "**" + case1.getAnswer() + "**" + case1.getGrade() + "+=+";
+                 }
+             }
+              else {
+                 response = "Something went terribly wrong!";
+             }
+
+            
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    
+        
+    }
     static class fetchHandler implements HttpHandler {
 
         @Override

@@ -26,7 +26,7 @@ public abstract class Homework implements Serializable {
 	private String actions = "";
 	private String grade = ""; 
 	private HashSet<String> inputHashSet = new HashSet<String>();
-	public ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
+	private ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
 
 	private FileStorage fileStorage;
 	private String homeworkSource = "";//string of the file
@@ -70,7 +70,7 @@ public abstract class Homework implements Serializable {
 	}
 
 
-	protected class Case implements Serializable {
+	public class Case implements Serializable {
 
 		protected String input = null;
 		protected String output = null;

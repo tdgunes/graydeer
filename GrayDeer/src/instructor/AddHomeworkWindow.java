@@ -68,7 +68,7 @@ public class AddHomeworkWindow implements ItemListener {
         namePane.add(nameField);
         window.add(namePane);
    
-        
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         submitButton.addActionListener(new ButtonListener(nameField, window));
         window.add(submitButton);
         window.setLocationRelativeTo(null);

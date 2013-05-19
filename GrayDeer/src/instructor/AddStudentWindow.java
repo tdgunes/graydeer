@@ -79,6 +79,7 @@ public class AddStudentWindow {
         
         window.setLocationRelativeTo(null);
         window.setSize(200,300);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setVisible(true);
         
     }
