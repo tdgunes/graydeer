@@ -4,6 +4,7 @@
  */
 package server.student;
 
+import homeworks.Homework;
 import homeworks.examples.HW1;
 import homeworks.examples.HW2;
 import java.io.FileNotFoundException;
@@ -43,7 +44,11 @@ public class StudentTest {
 
         HW2 homework2 = new HW2("");
         HW1 homework1 = new HW1("");
-
+        
+        ArrayList<Homework.Case> cases = new ArrayList<Homework.Case>();
+        cases.add(homework1.new Case("abc", "cba", "cba", 1.0) );
+        homework1.setCases(cases);
+        
         student.getHomeworks().add(homework2);
         student.getHomeworks().add(homework1);
         

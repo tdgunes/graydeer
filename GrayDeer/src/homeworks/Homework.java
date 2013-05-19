@@ -28,6 +28,14 @@ public abstract class Homework implements Serializable {
 	private HashSet<String> inputHashSet = new HashSet<String>();
 	private ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
 
+    public ArrayList<Case> getCases() {
+        return cases;
+    }
+
+    public void setCases(ArrayList<Case> cases) {
+        this.cases = cases;
+    }
+
 	private FileStorage fileStorage;
 	private String homeworkSource = "";//string of the file
 	//may be it can be deleted
