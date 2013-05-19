@@ -36,9 +36,12 @@ public class ResultsPanel {
 	private int rows = 4;
 	private JPanel base;
 	private JFrame newFrame;
+	private Object[][] data;
 
 	protected void initializePanel(){
-		getData();
+		data = getData();
+		rows = data.length;
+
 
 		newFrame = new JFrame();
 		newFrame.setSize(600,rows*50);
@@ -59,7 +62,7 @@ public class ResultsPanel {
 
 	}
 
-	private void getData() {
+	private Object[][] getData() {
 		HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
 		String response = null;
 		try {
@@ -71,6 +74,9 @@ public class ResultsPanel {
 		}
 		JOptionPane.showMessageDialog(null,response);
 		System.out.println(response);
+
+
+		return null;
 	}		
 
 
@@ -88,13 +94,13 @@ public class ResultsPanel {
 		addTitles();
 
 
-		//		for(int i=0; i< (rows-1)*COLUMNS; i++){
-		//				base.add(new JLabel( (String) data[i/COLUMNS][i%COLUMNS]));
-		//		}
-
-		for(int i=0; i< (rows-1)*COLUMNS; i++){
-			base.add(new JLabel("hi"));
+		for(int i=0; i< (rows)*COLUMNS; i++){
+			base.add(new JLabel( (String) data[i/COLUMNS][i%COLUMNS]));
 		}
+
+		//		for(int i=0; i< (rows-1)*COLUMNS; i++){
+		//			base.add(new JLabel("hi"));
+		//		}
 	}
 
 	// Adds first row of the table
