@@ -16,7 +16,8 @@ import java.io.FileNotFoundException;
 public class HW3 extends Homework{
 
     
-    public void setResults() {
+    @Override
+	public void setResults() {
         System.out.println("Setting the results");
         
         GradeMap gm = new GradeMap();

@@ -19,7 +19,8 @@ public class HW2 extends Homework {
      * @param source
      * @throws FileNotFoundException
      */
-    public void setResults() {
+    @Override
+	public void setResults() {
         System.out.println("Setting the results");
         GradeMap gm = new GradeMap();
         

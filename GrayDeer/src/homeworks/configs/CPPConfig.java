@@ -20,7 +20,8 @@ public class CPPConfig extends Config {
 
     }
   
-    public void setArgs(String writtenHomeworkFile, String studentFolder, String homeworkName){
+    @Override
+	public void setArgs(String writtenHomeworkFile, String studentFolder, String homeworkName){
         //writtenHomeworkFile is a PATH not SOURCE!
         super.setArgs(writtenHomeworkFile,studentFolder, homeworkName);
         //--- G++ GNU Build ---

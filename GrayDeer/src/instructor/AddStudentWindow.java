@@ -8,7 +8,6 @@
 
 package instructor;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -102,7 +101,8 @@ public class AddStudentWindow {
 
 
 
-        public void actionPerformed(ActionEvent ae) {
+        @Override
+		public void actionPerformed(ActionEvent ae) {
            /* System.out.println("Name: " + this.name);
             System.out.println("Surname: " + this.surname);
             System.out.println("SchoolNum: "+ this.schoolNum);

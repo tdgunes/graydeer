@@ -1,7 +1,6 @@
 package homeworks;
 
 import homeworks.configs.Config;
-import homeworks.configs.JavaConfig;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ public abstract class Homework implements Serializable {
 	private String actions = "";
 	private String grade = ""; 
 	private HashSet<String> inputHashSet = new HashSet<String>();
+	public ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
 
 	private FileStorage fileStorage;
 	private String homeworkSource = "";//string of the file
@@ -41,7 +41,7 @@ public abstract class Homework implements Serializable {
 	 */
 	protected Map<String, GradeMap> inputToOutputMap = new HashMap<String, GradeMap>();
 
-	/* gradeMap Class
+	/* gradeMap Clas, Inner Class of Homework
 	 * Key: Outputs of a student for a specific homework
 	 * Value: Grade of the student
 	 * 
@@ -68,6 +68,53 @@ public abstract class Homework implements Serializable {
 			return outputToGrade.keySet();
 		}
 	}
+
+
+	protected class Case implements Serializable {
+
+		protected String input = null;
+		protected String output = null;
+		protected String answer = null;
+		protected double grade = 0.0;
+
+
+		public Case(String input, String output, String answer, double grade) {
+			super();
+			this.input = input;
+			this.output = output;
+			this.answer = answer;
+			this.grade = grade;
+			System.out.println("Created a case with input: "+input+" output: "+output+"answer: "+answer+"grade: "+grade);
+		}
+
+		// Getters and Setters
+
+		public String getInput() {
+			return input;
+		}
+		public void setInput(String input) {
+			this.input = input;
+		}
+		public String getOutput() {
+			return output;
+		}
+		public void setOutput(String output) {
+			this.output = output;
+		}
+		public String getAnswer() {
+			return answer;
+		}
+		public void setAnswer(String answer) {
+			this.answer = answer;
+		}
+		public double getGrade() {
+			return grade;
+		}
+		public void setGrade(double grade) {
+			this.grade = grade;
+		}
+	}
+
 
 	public final void setBuildReady(){
 		try {
@@ -118,19 +165,42 @@ public abstract class Homework implements Serializable {
 				GradeMap draft = this.inputToOutputMap.get(key);
 				try {
 
+
 					// If students output is matching results, student gets full or partial credit
 					if (draft!=null){
 						//draft.outputToGrade.
 						//regex for whitspaces
-						totalGrade += draft.getGrade(output.replaceAll("\\s",""));
+						double grade = draft.getGrade(output.replaceAll("\\s",""));
+						totalGrade += grade;
 						System.out.println("Good Job!");
+						
+						//Same with 1
+						Set<String> keySet = inputToOutputMap.get(key).getKeySet();
+						System.out.println("Key is " + key);
+						for(String k: keySet){
+							System.out.println("AAA: " + k);
+							Case c = new Case(key, output, k, grade);
+							cases.add(c);
+						}
 					}
 				} 
 				catch (NullPointerException e) {
-
+					e.printStackTrace();
 					// If students output is not matching any result, student gets no credit
 					System.out.println("Bad Output! It must be "+ draft.outputToGrade.keySet().toArray()[0]);
 					//this text requires a method 
+					
+					//1
+//					double grade = draft.getGrade(output.replaceAll("\\s",""));
+					double grade = 0.0;
+					System.out.println(grade);
+					Set<String> keySet = inputToOutputMap.get(key).getKeySet();
+					System.out.println(keySet.size());
+					for(String k: keySet){
+						System.out.println("AAA: " + k);
+						Case c = new Case(key, output, k, grade);
+						cases.add(c);
+					}
 				}
 				System.out.println("");
 			}
@@ -203,7 +273,7 @@ public abstract class Homework implements Serializable {
 			this.homeworkFileString = homeworkFileString;
 			//this.student = InformationParser.parse(homeworkFileString);
 			this.homeworkName = homework.homeworkName;
-			this.config = (JavaConfig) homework.homeworkConfig;
+			this.config = homework.homeworkConfig;
 
 			// homeworksStoragePath -> /Users/tdgunes/homeworks/
 

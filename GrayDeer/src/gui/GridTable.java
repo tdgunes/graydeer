@@ -87,7 +87,7 @@ public class GridTable {
 				panel.add(new JLabel( (String) data[i/columns][i%columns]));
 			else{
 				JButton b = new JButton((String) data[i/columns][i%columns]);
-				b.addActionListener(new ButtonHandler());
+				b.addActionListener(new ButtonHandler((String) data[i/columns][i%columns-3]));
 				panel.add(b);
 			}
 		}
@@ -195,10 +195,13 @@ public class GridTable {
 	}
 
 	class ButtonHandler implements ActionListener {
+		String hwName;
 
-		public ButtonHandler() {
+		public ButtonHandler(String hwName) {
+			this.hwName = hwName;
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			//submit the homework
 
@@ -220,7 +223,7 @@ public class GridTable {
 				HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
 				String response = null;
 				try {
-					response = myLib.postData("submit", source,"Square");
+					response = myLib.postData("submit", source, hwName);
 				} catch (MalformedURLException ex) {
 					Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 				} catch (IOException ex) {

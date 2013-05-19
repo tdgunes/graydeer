@@ -4,7 +4,6 @@
  */
 package homeworks.configs;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +20,8 @@ public class JavaConfig extends Config  {
 
     }
 
-    public void setArgs(String writtenHomeworkFile, String studentFolder, String homeworkName){
+    @Override
+	public void setArgs(String writtenHomeworkFile, String studentFolder, String homeworkName){
         
         super.setArgs(writtenHomeworkFile,studentFolder, homeworkName);
         //--- Java Build ---

@@ -19,15 +19,16 @@ public class HW1 extends Homework {
 	 * If students program output is '6 8', he/she gets 4.0 points
 	 */
 	
+	@Override
 	public void setResults(){
 		GradeMap gm = new GradeMap();
-		gm.setOutputGradePair("9", 2.0);
-		gm.setOutputGradePair("-9", 1.0);
-		inputToOutputMap.put("-3", gm);
+		gm.setOutputGradePair("HELLO", 2.0);
+		gm.setOutputGradePair("Hello", 1.0);
+		inputToOutputMap.put("hello", gm);
 		
 		GradeMap gm2 = new GradeMap();
-		gm2.setOutputGradePair("16", 3.0);
-		inputToOutputMap.put("4", gm2);
+		gm2.setOutputGradePair("THIS IS GRAYDEER", 3.0);
+		inputToOutputMap.put("this is graydeer", gm2);
 		
 		transformResults();
 	}

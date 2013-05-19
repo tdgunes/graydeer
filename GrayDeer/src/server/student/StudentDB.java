@@ -5,8 +5,6 @@
 package server.student;
 
 import homeworks.Homework;
-import homeworks.examples.HW1;
-import homeworks.examples.HW2;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

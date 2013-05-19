@@ -1,6 +1,5 @@
 package server;
 
-import homeworks.configs.Config;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -9,12 +8,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import homeworks.Homework;
-import homeworks.configs.JavaConfig;
-import homeworks.examples.HW1;
-import homeworks.examples.HW2;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import server.student.Student;
 import server.student.StudentDB;
 
