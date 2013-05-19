@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import server.Constants;
@@ -80,7 +79,8 @@ public class HomeworkWindow {
         frame.setTitle("GrayDeer Instructor - "+student.getName()+" "+student.getSurname());
 
         frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+            @Override
+			public void windowClosing(WindowEvent evt) {
                 onExit();
             }
         });
@@ -195,7 +195,8 @@ public class HomeworkWindow {
             this.frame = frame;
         }
 
-        public void actionPerformed(ActionEvent ae) {
+        @Override
+		public void actionPerformed(ActionEvent ae) {
             JButton source = (JButton) ae.getSource();
             if (source.getText().equals("Remove All")) {
                 

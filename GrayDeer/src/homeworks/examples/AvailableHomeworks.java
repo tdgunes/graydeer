@@ -7,7 +7,6 @@
  */
 package homeworks.examples;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public  class AvailableHomeworks {

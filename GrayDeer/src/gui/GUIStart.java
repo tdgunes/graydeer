@@ -23,7 +23,8 @@ public class GUIStart {
 
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
               //  StudentGUI.createAndShowGUI();
             }
         });

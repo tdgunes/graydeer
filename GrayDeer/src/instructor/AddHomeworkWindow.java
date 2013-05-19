@@ -13,7 +13,6 @@ import homeworks.examples.AvailableHomeworks;
 import homeworks.examples.HW1;
 import homeworks.examples.HW2;
 import homeworks.examples.HW3;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +29,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
 import server.Constants;
 import server.student.Student;
 import server.student.StudentDB;
@@ -68,7 +68,7 @@ public class AddHomeworkWindow implements ItemListener {
         namePane.add(nameField);
         window.add(namePane);
    
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        window.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         submitButton.addActionListener(new ButtonListener(nameField, window));
         window.add(submitButton);
         window.setLocationRelativeTo(null);
@@ -95,7 +95,8 @@ public class AddHomeworkWindow implements ItemListener {
 
 
 
-        public void actionPerformed(ActionEvent ae) {
+        @Override
+		public void actionPerformed(ActionEvent ae) {
            /* System.out.println("Name: " + this.name);
             System.out.println("Surname: " + this.surname);
             System.out.println("SchoolNum: "+ this.schoolNum);

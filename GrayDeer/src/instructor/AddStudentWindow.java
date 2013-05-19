@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
 import server.Constants;
 import server.student.Student;
 import server.student.StudentDB;
@@ -79,7 +81,7 @@ public class AddStudentWindow {
         
         window.setLocationRelativeTo(null);
         window.setSize(200,300);
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        window.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         window.setVisible(true);
         
     }

@@ -7,10 +7,8 @@
  */
 package instructor;
 
-import homeworks.Homework;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -26,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import server.Constants;
 import server.student.Student;
 import server.student.StudentDB;
@@ -193,7 +190,8 @@ public class InstructorGUI {
             this.frame = frame;
         }
         
-        public void actionPerformed(ActionEvent ae) {
+        @Override
+		public void actionPerformed(ActionEvent ae) {
             JButton source = (JButton) ae.getSource();
             if (source.getText().equals("Remove All")) {
                 System.out.println("Remove All");
