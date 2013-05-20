@@ -39,7 +39,7 @@ public class HW3 extends Homework{
         super("Reverse", source, new JavaConfig());
        // System.out.println("Source\n"+source+"\n--------");
         this.setStatus( "May 13, 2013");
-        this.setActions("See Notes");
+        this.setActions("Upload");
         this.setGrade("N/A");
 
     }

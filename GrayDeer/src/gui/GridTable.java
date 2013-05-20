@@ -32,10 +32,11 @@ public class GridTable {
 
 	private String privateKey = "";
 	private String preDefinedPathOfPrivateKey = Constants.privateKeyPreDef;
+	private String buttonText = "";
 
 
 	public static void main(String[] args) {
-                
+
 		GridTable gd = new GridTable();
 		gd.initializeTable();
 	}
@@ -89,8 +90,12 @@ public class GridTable {
 			if(i%columns != columns-1)
 				panel.add(new JLabel( (String) data[i/columns][i%columns]));
 			else{
-				JButton b = new JButton((String) data[i/columns][i%columns]);
-//				JButton b = new JButton("See Notes");
+				if(data[i/columns][i%columns-1].equals("N/A"))
+					buttonText = "Upload";
+				else
+					buttonText = "See Notes";
+//				JButton b = new JButton((String) data[i/columns][i%columns]);
+				JButton b = new JButton(buttonText);
 				b.addActionListener(new ButtonHandler((String) data[i/columns][i%columns-3]));
 				panel.add(b);
 			}
@@ -190,17 +195,17 @@ public class GridTable {
 				System.exit(0);
 			}
 		} catch (MalformedURLException ex) {
-                        
+
 			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-                        //if the key is not found in the server 
-                        
+			//if the key is not found in the server 
+
 			JOptionPane.showMessageDialog(null, "Your data is not found in the server, if you have written\n"
-                                + "wrongly you need to change it from "+Constants.privateKeyPreDef + "\nif not, "
-                                + "you need to contact to your instructor.", "GrayDeer - Error", JOptionPane.ERROR_MESSAGE);
-                        System.exit(0);
+					+ "wrongly you need to change it from "+Constants.privateKeyPreDef + "\nif not, "
+					+ "you need to contact to your instructor.", "GrayDeer - Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
-           
+
 		return null;
 
 	}
@@ -217,14 +222,14 @@ public class GridTable {
 			//submit the homework
 
 			JButton jb = (JButton) e.getSource();
-			
+
 			// If student clicks on See Notes button
 			if(jb.getText().equals("See Notes")){
 				ResultsPanel rp = new ResultsPanel(hwName, privateKey);
 				rp.initializePanel();
 
 			}
-			
+
 			// If student clicks on Upload button
 			else{
 				jb.setText("See Notes");
