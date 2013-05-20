@@ -7,6 +7,8 @@ package server.student;
 import homeworks.Homework;
 import homeworks.examples.HW1;
 import homeworks.examples.HW2;
+import homeworks.examples.HW3;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class StudentTest {
         //two different homewors are defined 
         HW2 homework2 = new HW2(""); //Homework 'Square'
         HW1 homework1 = new HW1(""); //Homework 'Echo'
+        HW3 homework3 = new HW3(""); //Homework reverse
         
         //one of the homeworks has a history of a case (a homeworks partial grade)
         //'cases' list is defined
@@ -69,6 +72,7 @@ public class StudentTest {
         //so student objects has their homeworks
         student.getHomeworks().add(homework2);
         student.getHomeworks().add(homework1);
+        student.getHomeworks().add(homework3);
         astudent.getHomeworks().add(homework2);
         astudent.getHomeworks().add(homework1);
         bstudent.getHomeworks().add(homework2);

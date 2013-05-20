@@ -68,7 +68,7 @@ public class GridTable {
 		JLabel margin = new JLabel("    ");
 		frame.add(margin, BorderLayout.WEST);
 
-		JPanel panel = new JPanel(new GridLayout(rows, columns));
+		JPanel panel = new JPanel(new GridLayout(rows+1, columns));
 
 
 		addTitles(panel);
@@ -83,7 +83,8 @@ public class GridTable {
 		System.out.println(data.length);
 		System.out.println(data[1].length);
 
-
+		System.out.println("Rows: "+rows);
+		System.out.println("Columns: "+columns);
 		for(int i=0; i< (rows-1)*columns; i++){
 			if(i%columns != columns-1)
 				panel.add(new JLabel( (String) data[i/columns][i%columns]));
