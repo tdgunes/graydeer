@@ -87,6 +87,7 @@ public class GridTable {
 				panel.add(new JLabel( (String) data[i/columns][i%columns]));
 			else{
 				JButton b = new JButton((String) data[i/columns][i%columns]);
+//				JButton b = new JButton("See Notes");
 				b.addActionListener(new ButtonHandler((String) data[i/columns][i%columns-3]));
 				panel.add(b);
 			}
@@ -216,6 +217,7 @@ public class GridTable {
 			
 			// If student clicks on Upload button
 			else{
+				jb.setText("See Notes");
 				FileChooser fc = new FileChooser();
 				String homeworkPath = fc.showFileChooser();
 				String source = Utils.readFromFile(homeworkPath);

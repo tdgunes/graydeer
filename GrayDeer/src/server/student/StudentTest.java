@@ -46,8 +46,12 @@ public class StudentTest {
         HW1 homework1 = new HW1("");
         
         ArrayList<Homework.Case> cases = new ArrayList<Homework.Case>();
-        cases.add(homework1.new Case("abc", "cba", "cba", 1.0) );
-        homework1.setCases(cases);
+        cases.add(homework1.new Case("30", "900", "900", 1.0) );
+        cases.add(homework1.new Case("2", "4", "4", 1.0) );
+        cases.add(homework1.new Case("-5", "25", "25", 1.0) );
+        cases.add(homework1.new Case("0.5", "0.25", "0.25", 1.0) );
+        cases.add(homework1.new Case("0", "0", "0", 1.0) );
+        homework2.setCases(cases);
         
         student.getHomeworks().add(homework2);
         student.getHomeworks().add(homework1);
