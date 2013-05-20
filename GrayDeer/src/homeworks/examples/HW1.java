@@ -37,7 +37,7 @@ public class HW1 extends Homework {
 		super("Echo",source,new JavaConfig());
                 this.setStatus("April 05, 2013");
                 this.setActions("Upload");
-                this.setGrade("0.0");
+                this.setGrade("N/A");
 		//setResults();
 	}
 	/*
