@@ -24,6 +24,10 @@ public class ResultsPanel {
 	String privateKey;
 
 
+	public ResultsPanel() {
+		super();
+	}
+
 	public ResultsPanel(String hwName, String privateKey) {
 		super();
 		this.hwName = hwName;
@@ -32,8 +36,8 @@ public class ResultsPanel {
 
 	// There are four columns namely Inputs, Outputs, Answers, Grades
 	// Number of rows is equal to the number of homeworks
-	private static final int COLUMNS = 4;
-	private int rows = 4;
+	private static final int COLUMNS = 3;
+	private int rows = 5;
 	private JPanel base;
 	private JFrame newFrame;
 	private Object[][] data;
@@ -53,7 +57,7 @@ public class ResultsPanel {
 		newFrame.add(margin, BorderLayout.WEST);
 
 		base = new JPanel();
-		base.setLayout(new GridLayout(rows,COLUMNS));
+		base.setLayout(new GridLayout(rows+1,COLUMNS));
 		newFrame.add(base, BorderLayout.CENTER);
 
 		addTable();
@@ -63,26 +67,42 @@ public class ResultsPanel {
 	}
 
 	private Object[][] getData() {
+
+		int listNum = 0;
 		HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
 		String response = null;
 		try {
-			response = myLib.postData("getCases","", hwName);
+			response = myLib.postData("getcases","", hwName);
 		} catch (MalformedURLException ex) {
 			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
 			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		JOptionPane.showMessageDialog(null,response);
 		System.out.println(response);
 
+		System.out.println("||| GrayDeer POST response: " + response);
+		String[] lines = HTTPLib.splitItWithString(response, "+=+");
+		//fetched data
 
-		return null;
+		listNum = lines.length;
+		System.out.println("ListNum: " + listNum);
+		data = new Object[listNum][4];
+
+		for (int i = 0; i < lines.length; i++) {
+
+			String string = lines[i];
+			System.out.println(string);
+			String[] parsedItems = HTTPLib.splitItWithString(string, "**");
+			System.arraycopy(parsedItems, 0, data[i], 0, 4);
+
+		}
+		return data;
 	}		
 
 
 	private void addObjectionButon() {
 		JPanel buttonPanel = new JPanel();
-		JButton objectionButton = new JButton("Object Your Grades");
+		JButton objectionButton = new JButton("Object Your Grade");
 		objectionButton.addActionListener(new ButtonHandler(objectionButton));
 		buttonPanel.add(objectionButton);
 		newFrame.add(buttonPanel, BorderLayout.SOUTH);
@@ -92,10 +112,10 @@ public class ResultsPanel {
 	private void addTable() {
 
 		addTitles();
-
-
-		for(int i=0; i< (rows)*COLUMNS; i++){
-			base.add(new JLabel( (String) data[i/COLUMNS][i%COLUMNS]));
+		
+		System.out.println("Rows: "+rows + "Columns: " + COLUMNS);
+		for(int i=0; i< (rows)*(COLUMNS+1); i++){
+			base.add(new JLabel( (String) data[i/(COLUMNS+1)][i%(COLUMNS+1)]));
 		}
 
 		//		for(int i=0; i< (rows-1)*COLUMNS; i++){
@@ -105,19 +125,19 @@ public class ResultsPanel {
 
 	// Adds first row of the table
 	private void addTitles() {
-		JLabel hwName = new JLabel("Input");
+		JLabel hwName = new JLabel("Test Input");
 
 		// Sets the font to bold
 		Font newLabelFont=new Font(hwName.getFont().getName(),Font.BOLD,hwName.getFont().getSize());
 		hwName.setFont(newLabelFont);
 
-		JLabel deadline = new JLabel("Output");
+		JLabel deadline = new JLabel("Your Output");
 		deadline.setFont(newLabelFont);
 
-		JLabel grade = new JLabel("Answer");
+		JLabel grade = new JLabel("Correct Answer");
 		grade.setFont(newLabelFont);
 
-		JLabel action = new JLabel("Grade");
+		JLabel action = new JLabel("Your Grade");
 		action.setFont(newLabelFont);
 
 		base.add(hwName);
@@ -126,11 +146,11 @@ public class ResultsPanel {
 		base.add(action);
 	}
 
-	// For testing purposes
-	//	public static void main(String args[]){
-	//		ResultsPanel rp = new ResultsPanel();
-	//		rp.initializePanel();
-	//	}
+	//	 For testing purposes
+	public static void main(String args[]){
+		ResultsPanel rp = new ResultsPanel();
+		rp.initializePanel();
+	}
 
 }
 class ButtonHandler implements ActionListener {

@@ -22,12 +22,11 @@ public class HW1 extends Homework {
 	@Override
 	public void setResults(){
 		GradeMap gm = new GradeMap();
-		gm.setOutputGradePair("HELLO", 2.0);
-		gm.setOutputGradePair("Hello", 1.0);
+		gm.setOutputGradePair("Hello", 2.0);
 		inputToOutputMap.put("hello", gm);
 		
 		GradeMap gm2 = new GradeMap();
-		gm2.setOutputGradePair("THIS IS GRAYDEER", 3.0);
+		gm2.setOutputGradePair("This is graydeer", 3.0);
 		inputToOutputMap.put("this is graydeer", gm2);
 		
 		transformResults();

@@ -44,9 +44,9 @@ public class HW2 extends Homework {
     
         super("Square", source, new JavaConfig());
        // System.out.println("Source\n"+source+"\n--------");
-        this.setStatus("May 13, 2013");
+        this.setStatus("January 13, 2013");
         this.setActions("See Notes");
-        this.setGrade("N/A");
+        this.setGrade("5.0");
 
     }
 }

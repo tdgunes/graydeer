@@ -49,10 +49,21 @@ public class StudentTest {
         //one of the homeworks has a history of a case (a homeworks partial grade)
         //'cases' list is defined
         ArrayList<Homework.Case> cases = new ArrayList<Homework.Case>();
+
+        
         //a new case is added to this list
         cases.add(homework1.new Case("abc", "cba", "cba", 1.0) );
         //these case(s) are set to the homework
         homework1.setCases(cases);
+
+        //sets other cases to homework 2
+        cases.add(homework1.new Case("30", "900", "900", 1.0) );
+        cases.add(homework1.new Case("2", "4", "4", 1.0) );
+        cases.add(homework1.new Case("-5", "25", "25", 1.0) );
+        cases.add(homework1.new Case("0.5", "0.25", "0.25", 1.0) );
+        cases.add(homework1.new Case("0", "0", "0", 1.0) );
+        homework2.setCases(cases);
+
         
         //these two homeworks are added to the students,
         //so student objects has their homeworks
