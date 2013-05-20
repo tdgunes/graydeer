@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +35,7 @@ public class GridTable {
 
 
 	public static void main(String[] args) {
+                
 		GridTable gd = new GridTable();
 		gd.initializeTable();
 	}
@@ -187,10 +189,17 @@ public class GridTable {
 				System.exit(0);
 			}
 		} catch (MalformedURLException ex) {
+                        
 			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-			Logger.getLogger(GridTable.class.getName()).log(Level.SEVERE, null, ex);
+                        //if the key is not found in the server 
+                        
+			JOptionPane.showMessageDialog(null, "Your data is not found in the server, if you have written\n"
+                                + "wrongly you need to change it from "+Constants.privateKeyPreDef + "\nif not, "
+                                + "you need to contact to your instructor.", "GrayDeer - Error", JOptionPane.ERROR_MESSAGE);
+                        System.exit(0);
 		}
+           
 		return null;
 
 	}
