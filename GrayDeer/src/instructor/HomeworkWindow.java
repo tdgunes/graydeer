@@ -158,7 +158,7 @@ public class HomeworkWindow {
             JLabel grade = new JLabel(homework.getGrade());
             
             JButton detail = new JButton("Click");
-            detail.addActionListener(new HomeworkListener(""));
+            detail.addActionListener(new HomeworkListener(name.getText(),grade.getText()));
             panel.add(name);
             panel.add(status);
             panel.add(actions);
@@ -171,17 +171,21 @@ public class HomeworkWindow {
     //Get test cases from here
     class HomeworkListener implements ActionListener {
 
-        private String privatekey = null;
+        private String homeworkName = null;
+        private String totalGrade = null;
+        public HomeworkListener(String homeworkName,String totalGrade) {
 
-        public HomeworkListener(String privatekey) {
-            this.privatekey = privatekey;
+            this.homeworkName = homeworkName;
+            this.totalGrade = totalGrade;
         }
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             //this will open a new frame with results of the test cases 
             //like a history
-            
+            InstructorResultsPanel op = new InstructorResultsPanel(this.homeworkName, privateKey, this.totalGrade);
+            op.initializePanel();
+
         }
     }
 

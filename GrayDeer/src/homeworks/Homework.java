@@ -25,6 +25,8 @@ public abstract class Homework implements Serializable {
     private String status = "";
     private String actions = "";
     private String grade = "";
+
+    private String objection = "";
     private HashSet<String> inputHashSet = new HashSet<String>();
     private ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
 
@@ -407,4 +409,13 @@ public abstract class Homework implements Serializable {
     //	public void setInputSet(Set<String> inputSet) {
     //		this.inputSet = inputSet;
     //	}
+    
+    
+    public String getObjection() {
+        return objection;
+    }
+
+    public void setObjection(String objection) {
+        this.objection = objection;
+    }
 }

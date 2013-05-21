@@ -1,25 +1,37 @@
-package gui;
+/**
+ * Copyright (c) 2013 by Taha Doğan Güneş and Eren Sezener. All rights reserved.
+ *
+ * Package: instructor
+ *
+ * @author tdgunes
+ */
+package instructor;
 
+import gui.GridTable;
+import gui.HTTPLib;
+import gui.ObjectionPanel;
+import homeworks.Homework;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import server.Constants;
+import server.student.StudentDB;
 
-public class ResultsPanel {
+public class InstructorResultsPanel {
 
     String hwName;
     String privateKey;
@@ -31,12 +43,11 @@ public class ResultsPanel {
     private JFrame newFrame;
     private String totalGrade;
 
-
-    public ResultsPanel() {
+    public InstructorResultsPanel() {
         super();
     }
 
-    public ResultsPanel(String hwName, String privateKey, String totalGrade) {
+    public InstructorResultsPanel(String hwName, String privateKey, String totalGrade) {
         super();
         this.hwName = hwName;
         this.privateKey = privateKey;
@@ -71,7 +82,7 @@ public class ResultsPanel {
 
     private Object[][] getData() {
         Object[][] data = null;
-        
+
         int listNum = 0;
         HTTPLib myLib = new HTTPLib(Constants.hostName, privateKey);
         String response = null;
@@ -105,13 +116,13 @@ public class ResultsPanel {
 
     private void addObjectionButon() {
         JPanel buttonPanel = new JPanel();
-        JButton objectionButton = new JButton("Object Your Grade");
+        JButton objectionButton = new JButton("Show Objection");
         objectionButton.addActionListener(new ButtonHandler(objectionButton));
         buttonPanel.add(objectionButton);
         newFrame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    private void addTotalGrade(){
+    private void addTotalGrade() {
         JLabel hwName = new JLabel("");
 
         // Sets the font to bold
@@ -133,6 +144,7 @@ public class ResultsPanel {
         base.add(action);
     }
     // Adds homework results to the pane
+
     private void addTable(Object[][] data) {
 
         addTitles();
@@ -152,20 +164,19 @@ public class ResultsPanel {
 
             JLabel grade = new JLabel((String) data[i][3]);
 
-            if (output.getText().equals(answer.getText())){ // make grade green
+            if (output.getText().equals(answer.getText())) { // make grade green
                 grade.setForeground(Color.GREEN);
-            }
-            else { // make grade red
+            } else { // make grade red
                 grade.setForeground(Color.RED);
             }
-            
+
             base.add(testInput);
             base.add(output);
             base.add(answer);
             base.add(grade);
 
 
-           
+
         }
 
 
@@ -194,19 +205,35 @@ public class ResultsPanel {
         base.add(action);
     }
 
+
+
     class ButtonHandler implements ActionListener {
 
-    JButton button;
+        JButton button;
 
-    public ButtonHandler(JButton button) {
-        this.button = button;
-    }
+        public ButtonHandler(JButton button) {
+            this.button = button;
+        }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        ObjectionPanel op = new ObjectionPanel(button,privateKey,hwName);
-        op.initializeObjectionPanel();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            StudentDB studentDB = new StudentDB(Constants.workDir);
+            ArrayList<Homework> homeworks = null;
+            try {
+                homeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(InstructorResultsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String objection = "";
+            for (Homework homework : homeworks) {
+                if (homework.getHomeworkName().equals(hwName)) {
+                    objection = homework.getObjection();
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, objection, "GrayDeer - Objection", JOptionPane.INFORMATION_MESSAGE);
+
+
+        }
     }
 }
-}
-
