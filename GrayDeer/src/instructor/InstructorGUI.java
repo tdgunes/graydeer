@@ -47,7 +47,7 @@ public class InstructorGUI {
     public void refreshFrame() {
         frame.removeAll();
         frame = new JFrame();
-        frame.setLayout(new BorderLayout());
+  
 
         ArrayList<Student> students = studentDB.getStudents();
         /*   for (Student student : students) {

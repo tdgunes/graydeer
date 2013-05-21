@@ -34,7 +34,7 @@ public class HW2 extends Homework {
 
         //wrong test case
         GradeMap gm3 = new GradeMap();
-        gm3.setOutputGradePair("16.0", 3.0);
+        gm3.setOutputGradePair("4.0", 3.0);
         inputToOutputMap.put("2.0", gm3);
         
         transformResults();
@@ -44,9 +44,9 @@ public class HW2 extends Homework {
     
         super("Square", source, new JavaConfig());
        // System.out.println("Source\n"+source+"\n--------");
-        this.setStatus("January 13, 2013");
-        this.setActions("See Notes");
-        this.setGrade("5.0");
+        this.setStatus("May 30, 2013");
+        this.setActions("Upload"); //Required Upload or See Notes
+        this.setGrade("N/A");
 
     }
 }

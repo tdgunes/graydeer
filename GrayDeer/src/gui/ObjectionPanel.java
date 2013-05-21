@@ -26,7 +26,7 @@ public class ObjectionPanel {
 	protected void initializeObjectionPanel(){
 		frame = new JFrame("Objection");
 		frame.setBackground(Color.WHITE);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setLocation(250,200);
 		frame.setSize(300, 200);	
 		frame.setLayout(new BorderLayout());

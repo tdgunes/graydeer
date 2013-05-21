@@ -59,9 +59,9 @@ public class StudentTest {
 
         
         //a new case is added to this list
-//        cases.add(homework1.new Case("abc", "cba", "cba", 1.0) );
+        //cases.add(homework1.new Case("abc", "cba", "cba", 1.0) );
         //these case(s) are set to the homework
-//        homework1.setCases(hw1cases);
+        //homework1.setCases(hw1cases);
 
         /*
          * hw1 = Square
@@ -70,15 +70,16 @@ public class StudentTest {
          */
         
         //sets other cases to homework 2
-        hw2cases.add(homework2.new Case("30", "900", "900", 1.0) );
-        hw2cases.add(homework2.new Case("2", "4", "4", 1.0) );
-        hw2cases.add(homework2.new Case("-5", "25", "25", 1.0) );
-        hw2cases.add(homework2.new Case("0.5", "0.25", "0.25", 1.0) );
-        hw2cases.add(homework2.new Case("0", "0", "0", 1.0) );
-        homework2.setCases(hw2cases);
-
-        homework1.setCases(hw1cases);
-        homework3.setCases(hw3cases);
+        
+//        hw2cases.add(homework2.new Case("30", "900", "900", 1.0) );
+//        hw2cases.add(homework2.new Case("2", "4", "4", 1.0) );
+//        hw2cases.add(homework2.new Case("-5", "25", "25", 1.0) );
+//        hw2cases.add(homework2.new Case("0.5", "0.25", "0.25", 1.0) );
+//        hw2cases.add(homework2.new Case("0", "0", "0", 1.0) );
+//        homework2.setCases(hw2cases);
+//
+//        homework1.setCases(hw1cases);
+//        homework3.setCases(hw3cases);
 
 
         

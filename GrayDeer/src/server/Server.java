@@ -31,6 +31,7 @@ public final class Server {
         server.setExecutor(null); // creates a default executor  
         server.start();
     }
+    
     //caseHandler returns a homework's history of completion, all of the partial
     //grades and failures can be get by this handler
     static class caseHandler implements HttpHandler {
@@ -238,7 +239,15 @@ public final class Server {
                 studentHomework.finalizeHomework();
                 
                 //the grade is got and stated as a response
-                response = "Your grade: "+studentHomework.getGrade();
+                response = "Your grade: " + studentHomework.getGrade();
+                
+                if (studentHomework.getGrade().equals("0.0")){
+                    response = "Your homework has got a problem, you need to"
+                            + " upload it again!";
+                }
+                else {
+                    studentHomework.setActions("See Notes");       
+                }
                 
                 //saving process - two temp lists
                 ArrayList<Homework> currentHomeworks = studentDB.getHomeworksOfAStudentByKey(privateKey);

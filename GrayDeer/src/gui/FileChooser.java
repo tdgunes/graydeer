@@ -25,7 +25,12 @@ public class FileChooser extends JComponent implements Accessible {
 			System.out.println("You chose to open this file: " +
                     		chooser.getSelectedFile().getName());
                 
-		}
-                return chooser.getSelectedFile().getPath();
+                        return chooser.getSelectedFile().getPath();
+                }
+                else {
+                    return "null";
+                }
+
+
 	}
 }

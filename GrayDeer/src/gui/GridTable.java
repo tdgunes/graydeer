@@ -96,7 +96,7 @@ public class GridTable {
 					buttonText = "See Notes";
 //				JButton b = new JButton((String) data[i/columns][i%columns]);
 				JButton b = new JButton(buttonText);
-				b.addActionListener(new ButtonHandler((String) data[i/columns][i%columns-3]));
+				//b.addActionListener(new ButtonHandler((String) data[i/columns][i%columns-3]));
 				panel.add(b);
 			}
 		}
@@ -212,9 +212,11 @@ public class GridTable {
 
 	class ButtonHandler implements ActionListener {
 		String hwName;
+                String totalGrade;
 
-		public ButtonHandler(String hwName) {
+		public ButtonHandler(String hwName, String totalGrade) {
 			this.hwName = hwName;
+                        this.totalGrade = totalGrade;
 		}
 
 		@Override
@@ -225,7 +227,7 @@ public class GridTable {
 
 			// If student clicks on See Notes button
 			if(jb.getText().equals("See Notes")){
-				ResultsPanel rp = new ResultsPanel(hwName, privateKey);
+				ResultsPanel rp = new ResultsPanel(hwName, privateKey, this.totalGrade);
 				rp.initializePanel();
 
 			}
