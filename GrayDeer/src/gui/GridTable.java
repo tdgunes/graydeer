@@ -69,17 +69,20 @@ public class GridTable {
 		JLabel margin = new JLabel("    ");
 		frame.add(margin, BorderLayout.WEST);
 
-		JPanel panel = new JPanel(new GridLayout(rows+1, columns));
 
 
-		addTitles(panel);
 
 		for(Object[] o: data)
 			for(Object a: o)
 				System.out.println((String) a);
 
-		// Set number of rows based on the data
 		rows = data.length + 1;
+
+		JPanel panel = new JPanel(new GridLayout(rows, columns));
+		addTitles(panel);
+
+		
+		// Set number of rows based on the data
 
 		System.out.println(data.length);
 		System.out.println(data[1].length);
