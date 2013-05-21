@@ -25,7 +25,8 @@ public abstract class Homework implements Serializable {
     private String status = "";
     private String actions = "";
     private String grade = "";
-
+    public String studentNumber = "";
+    
     private String objection = "";
     private HashSet<String> inputHashSet = new HashSet<String>();
     private ArrayList<Case> cases = new ArrayList<Case>(); // FIXME convert to private
@@ -297,7 +298,7 @@ public abstract class Homework implements Serializable {
             Utils.createTheDir(this.homeworkStoragePath); //homework dir is created
 
             //FIXME SEVERE PROBLEM HERE
-            this.studentFolder = Utils.combine(this.homeworkStoragePath, "S002456");
+            this.studentFolder = Utils.combine(this.homeworkStoragePath, studentNumber);
             Utils.createTheDir(this.studentFolder);
             //Users/tdgunes/homeworks/MonteCarlo/S002423
 

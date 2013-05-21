@@ -85,19 +85,19 @@ public class StudentTest {
         
         //these two homeworks are added to the students,
         //so student objects has their homeworks
-        student.getHomeworks().add(homework2);
-        student.getHomeworks().add(homework1);
-        student.getHomeworks().add(homework3);
-        astudent.getHomeworks().add(homework2);
-        astudent.getHomeworks().add(homework1);
-        bstudent.getHomeworks().add(homework2);
-        bstudent.getHomeworks().add(homework1);
-        cstudent.getHomeworks().add(homework2);
-        cstudent.getHomeworks().add(homework1);
-        dstudent.getHomeworks().add(homework2);
-        dstudent.getHomeworks().add(homework1);
-        estudent.getHomeworks().add(homework2);
-        estudent.getHomeworks().add(homework1);
+        student.addHomework(homework2);
+        student.addHomework(homework1);
+        student.addHomework(homework3);
+        astudent.addHomework(homework2);
+        astudent.addHomework(homework1);
+        bstudent.addHomework(homework2);
+        bstudent.addHomework(homework1);
+        cstudent.addHomework(homework2);
+        cstudent.addHomework(homework1);
+        dstudent.addHomework(homework2);
+        dstudent.addHomework(homework1);
+        estudent.addHomework(homework2);
+        estudent.addHomework(homework1);
         
         //all of these test values are set to the database
         studentDB.setStudents(students);

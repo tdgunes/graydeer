@@ -89,6 +89,10 @@ public class Student implements Serializable {
     public ArrayList<Homework> getHomeworks() {
         return homeworks;
     }
+    public void addHomework(Homework homework) {
+       homework.studentNumber = this.schoolNumber;
+       homeworks.add(homework);
+    }
 
     public void setHomeworks(ArrayList<Homework> homeworks) {
         this.homeworks = homeworks;

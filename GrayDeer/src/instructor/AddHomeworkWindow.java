@@ -122,9 +122,8 @@ public class AddHomeworkWindow implements ItemListener {
                         homework = new HW3("");
                     }
                     
-                    ArrayList<Homework> homeworkList = student.getHomeworks();
-                    homeworkList.add(homework);
-                    student.setHomeworks(homeworkList);
+
+                    student.addHomework(homework);
                     studentDB.saveStudent(student);
                 } catch (IOException ex) {
                     Logger.getLogger(AddStudentWindow.class.getName()).log(Level.SEVERE, null, ex);

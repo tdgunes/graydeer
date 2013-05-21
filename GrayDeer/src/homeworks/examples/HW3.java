@@ -25,8 +25,9 @@ public class HW3 extends Homework{
         inputToOutputMap.put("12345", gm);
 
         GradeMap gm2 = new GradeMap();
-        gm2.setOutputGradePair("GFEDCBA", 2.0);
-        inputToOutputMap.put("ABCDEFG", gm2);
+        gm2.setOutputGradePair("gfedcba", 2.0);
+        gm2.setOutputGradePair("GFEDCBA", 1.0);
+        inputToOutputMap.put("abcdefg", gm2);
 
 
         
@@ -38,7 +39,7 @@ public class HW3 extends Homework{
     
         super("Reverse", source, new JavaConfig());
        // System.out.println("Source\n"+source+"\n--------");
-        this.setStatus( "May 13, 2013");
+        this.setStatus( "June 5, 2013");
         this.setActions("Upload");
         this.setGrade("N/A");
 

@@ -342,6 +342,7 @@ public final class Server {
                 if (studentHomework.getGrade().equals("0.0")){
                     response = "Your homework has got a problem, you need to"
                             + " upload it again!";
+                    studentHomework.setGrade("N/A");
                 }
                 else {
                     studentHomework.setActions("See Notes");       
