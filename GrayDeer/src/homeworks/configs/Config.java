@@ -4,10 +4,12 @@
  */
 package homeworks.configs;
 
+import server.student.Constants;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import server.Constants;
+
 
 /**
  *

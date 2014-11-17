@@ -34,8 +34,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import server.Constants;
+
 import server.Utils;
+import server.student.Constants;
 import server.student.Student;
 import server.student.StudentDB;
 

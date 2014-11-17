@@ -63,7 +63,7 @@ public class HTTPLib {
         
         String request;
         request = requestURL+path;
-        
+        System.out.println(request);
         //*** Requests
         URL url = new URL(request);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

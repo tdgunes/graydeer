@@ -27,7 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import server.Constants;
+
 import server.student.Student;
 import server.student.StudentDB;
 

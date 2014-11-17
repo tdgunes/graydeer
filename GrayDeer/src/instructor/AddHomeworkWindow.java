@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import server.Constants;
+
 import server.student.Student;
 import server.student.StudentDB;
 

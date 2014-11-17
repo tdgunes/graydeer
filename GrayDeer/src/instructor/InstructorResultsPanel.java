@@ -28,7 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import server.Constants;
+
 import server.student.StudentDB;
 
 public class InstructorResultsPanel {
