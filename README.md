@@ -4,6 +4,8 @@
     
 This is a Java based autograder. For more information please check [here](http://tdgunes.org/2013/05/09/graydeer-an-auto-grading-solution-for-instructors-and-assistants/).
 
+![ScreenShot](https://raw.githubusercontent.com/tdgunes/graydeer/master/screenshot.png)
+
 ###License
 
 
